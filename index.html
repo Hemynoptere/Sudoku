@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -12,939 +11,933 @@
             box-sizing: border-box;
         }
 
-```
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-    }
-
-    .container {
-        background: white;
-        border-radius: 20px;
-        padding: 20px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        max-width: 650px;
-    }
-
-    h1 {
-        text-align: center;
-        color: #667eea;
-        margin-bottom: 10px;
-        font-size: 1.8em;
-    }
-
-    .controls {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 8px;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    button {
-        padding: 6px 12px;
-        border: none;
-        border-radius: 6px;
-        font-size: 12px;
-        cursor: pointer;
-        transition: all 0.3s;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.3px;
-    }
-
-    .difficulty-btn {
-        background: #667eea;
-        color: white;
-    }
-
-    .difficulty-btn:hover {
-        background: #5568d3;
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-    }
-
-    .difficulty-btn.active {
-        background: #764ba2;
-    }
-
-    .action-btn {
-        background: #48bb78;
-        color: white;
-    }
-
-    .action-btn:hover {
-        background: #38a169;
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(72, 187, 120, 0.4);
-    }
-
-    .solve-btn {
-        background: #ed8936;
-    }
-
-    .solve-btn:hover {
-        background: #dd6b20;
-        box-shadow: 0 5px 15px rgba(237, 137, 54, 0.4);
-    }
-
-    .verify-btn {
-        background: #3182ce;
-    }
-
-    .verify-btn:hover {
-        background: #2c5282;
-        box-shadow: 0 5px 15px rgba(49, 130, 206, 0.4);
-    }
-
-    button:disabled {
-        background: #cbd5e0;
-        color: #a0aec0;
-        cursor: not-allowed;
-        transform: none;
-        box-shadow: none;
-    }
-
-    button:disabled:hover {
-        background: #cbd5e0;
-        transform: none;
-        box-shadow: none;
-    }
-
-    .checkbox-label {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        font-size: 12px;
-        color: #2d3748;
-        cursor: pointer;
-        padding: 6px 12px;
-        background: #edf2f7;
-        border-radius: 6px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.3px;
-    }
-
-    .checkbox-label input[type="checkbox"] {
-        cursor: pointer;
-        width: 16px;
-        height: 16px;
-    }
-
-    .checkbox-label:hover {
-        background: #e2e8f0;
-    }
-
-    .pair-control {
-        margin-top: 8px;
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-    }
-
-    .sudoku-grid {
-        display: grid;
-        grid-template-columns: repeat(9, 1fr);
-        gap: 0;
-        border: 3px solid #2d3748;
-        border-radius: 8px;
-        overflow: hidden;
-        margin: 0 auto;
-        width: fit-content;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        padding: 12px;
-        background: white;
-    }
-
-    .cell {
-        width: 65px;
-        height: 65px;
-        border: 1px solid #cbd5e0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 26px;
-        font-weight: 600;
-        background: white;
-        transition: all 0.2s;
-        position: relative;
-    }
-
-    .cell input {
-        width: 100%;
-        height: 100%;
-        border: none;
-        text-align: center;
-        font-size: 26px;
-        font-weight: 600;
-        background: transparent;
-        position: relative;
-        z-index: 2;
-    }
-
-    .pair-hint-right {
-        position: absolute;
-        right: -8px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 10px;
-        color: #ed8936;
-        font-weight: 700;
-        background: white;
-        padding: 1px 2px;
-        z-index: 10;
-        white-space: nowrap;
-        display: none;
-    }
-
-    .pair-hint-bottom {
-        position: absolute;
-        bottom: -8px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 10px;
-        color: #ed8936;
-        font-weight: 700;
-        background: white;
-        padding: 1px 2px;
-        z-index: 10;
-        white-space: nowrap;
-        display: none;
-    }
-
-    .pair-hint-right.show,
-    .pair-hint-bottom.show {
-        display: block;
-    }
-
-    .simple-hint {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 10px;
-        color: #48bb78;
-        font-weight: 700;
-        z-index: 5;
-        display: none;
-    }
-
-    .simple-hint.show {
-        display: block;
-    }
-
-    .triple-hint-left {
-        position: absolute;
-        left: -8px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 10px;
-        color: #3182ce;
-        font-weight: 700;
-        background: white;
-        padding: 1px 2px;
-        z-index: 10;
-        white-space: nowrap;
-        display: none;
-    }
-
-    .triple-hint-top {
-        position: absolute;
-        top: -8px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 10px;
-        color: #3182ce;
-        font-weight: 700;
-        background: white;
-        padding: 1px 2px;
-        z-index: 10;
-        white-space: nowrap;
-        display: none;
-    }
-
-    .triple-hint-left.show,
-    .triple-hint-top.show {
-        display: block;
-    }
-
-    .cell input:focus {
-        outline: none;
-        background: #edf2f7;
-    }
-
-    .cell.given {
-        background: #e6fffa;
-        color: #2d3748;
-    }
-
-    .cell.given input {
-        color: #2d3748;
-        cursor: not-allowed;
-    }
-
-    .cell.solved {
-        background: #c6f6d5;
-        color: #22543d;
-    }
-
-    .cell.error {
-        background: #fed7d7;
-        color: #c53030;
-    }
-
-    .cell.error input {
-        color: #c53030;
-    }
-
-    .cell:nth-child(3n):not(:nth-child(9n)) {
-        border-right: 3px solid #2d3748;
-    }
-
-    .cell:nth-child(n+19):nth-child(-n+27),
-    .cell:nth-child(n+46):nth-child(-n+54) {
-        border-bottom: 3px solid #2d3748;
-    }
-
-    .difficulty-info {
-        text-align: center;
-        margin-bottom: 8px;
-        padding: 6px;
-        background: #edf2f7;
-        border-radius: 8px;
-        color: #2d3748;
-        font-size: 13px;
-    }
-
-    @media (max-width: 600px) {
-        .cell {
-            width: 35px;
-            height: 35px;
-            font-size: 16px;
-        }
-
-        .cell input {
-            font-size: 16px;
-        }
-
-        h1 {
-            font-size: 1.8em;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
 
         .container {
+            background: white;
+            border-radius: 20px;
             padding: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 650px;
         }
-    }
-</style>
-```
 
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.8em;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .difficulty-btn {
+            background: #667eea;
+            color: white;
+        }
+
+        .difficulty-btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .difficulty-btn.active {
+            background: #764ba2;
+        }
+
+        .action-btn {
+            background: #48bb78;
+            color: white;
+        }
+
+        .action-btn:hover {
+            background: #38a169;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(72, 187, 120, 0.4);
+        }
+
+        .solve-btn {
+            background: #ed8936;
+        }
+
+        .solve-btn:hover {
+            background: #dd6b20;
+            box-shadow: 0 5px 15px rgba(237, 137, 54, 0.4);
+        }
+
+        .verify-btn {
+            background: #3182ce;
+        }
+
+        .verify-btn:hover {
+            background: #2c5282;
+            box-shadow: 0 5px 15px rgba(49, 130, 206, 0.4);
+        }
+
+        button:disabled {
+            background: #cbd5e0;
+            color: #a0aec0;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        button:disabled:hover {
+            background: #cbd5e0;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            color: #2d3748;
+            cursor: pointer;
+            padding: 6px 12px;
+            background: #edf2f7;
+            border-radius: 6px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+        }
+
+        .checkbox-label:hover {
+            background: #e2e8f0;
+        }
+
+        .pair-control {
+            margin-top: 8px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .sudoku-grid {
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            gap: 0;
+            border: 3px solid #2d3748;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 0 auto;
+            width: fit-content;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 12px;
+            background: white;
+        }
+
+        .cell {
+            width: 65px;
+            height: 65px;
+            border: 1px solid #cbd5e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            font-weight: 600;
+            background: white;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .cell input {
+            width: 100%;
+            height: 100%;
+            border: none;
+            text-align: center;
+            font-size: 26px;
+            font-weight: 600;
+            background: transparent;
+            position: relative;
+            z-index: 2;
+        }
+
+        .pair-hint-right {
+            position: absolute;
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 13px;
+            color: #ed8936;
+            font-weight: 700;
+            background: white;
+            padding: 1px 2px;
+            z-index: 10;
+            white-space: nowrap;
+            display: none;
+        }
+
+        .pair-hint-bottom {
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 13px;
+            color: #ed8936;
+            font-weight: 700;
+            background: white;
+            padding: 1px 2px;
+            z-index: 10;
+            white-space: nowrap;
+            display: none;
+        }
+
+        .pair-hint-right.show,
+        .pair-hint-bottom.show {
+            display: block;
+        }
+
+        .simple-hint {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 13px;
+            color: #48bb78;
+            font-weight: 700;
+            z-index: 5;
+            display: none;
+        }
+
+        .simple-hint.show {
+            display: block;
+        }
+
+        .triple-hint-left {
+            position: absolute;
+            left: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 13px;
+            color: #3182ce;
+            font-weight: 700;
+            background: white;
+            padding: 1px 2px;
+            z-index: 10;
+            white-space: nowrap;
+            display: none;
+        }
+
+        .triple-hint-top {
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 13px;
+            color: #3182ce;
+            font-weight: 700;
+            background: white;
+            padding: 1px 2px;
+            z-index: 10;
+            white-space: nowrap;
+            display: none;
+        }
+
+        .triple-hint-left.show,
+        .triple-hint-top.show {
+            display: block;
+        }
+
+        .cell input:focus {
+            outline: none;
+            background: #edf2f7;
+        }
+
+        .cell.given {
+            background: #e6fffa;
+            color: #2d3748;
+        }
+
+        .cell.given input {
+            color: #2d3748;
+            cursor: not-allowed;
+        }
+
+        .cell.solved {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .cell.error {
+            background: #fed7d7;
+            color: #c53030;
+        }
+
+        .cell.error input {
+            color: #c53030;
+        }
+
+        .cell:nth-child(3n):not(:nth-child(9n)) {
+            border-right: 3px solid #2d3748;
+        }
+
+        .cell:nth-child(n+19):nth-child(-n+27),
+        .cell:nth-child(n+46):nth-child(-n+54) {
+            border-bottom: 3px solid #2d3748;
+        }
+
+        .difficulty-info {
+            text-align: center;
+            margin-bottom: 8px;
+            padding: 6px;
+            background: #edf2f7;
+            border-radius: 8px;
+            color: #2d3748;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            .cell {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+
+            .cell input {
+                font-size: 16px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>🎯 Sudoku</h1>
-
-```
-    <div class="difficulty-info" id="difficultyInfo">
-        Sélectionnez un niveau de difficulté
-    </div>
-
-    <div class="controls">
-        <button class="difficulty-btn" data-difficulty="facile">Facile</button>
-        <button class="difficulty-btn" data-difficulty="moyen">Moyen</button>
-        <button class="difficulty-btn" data-difficulty="difficile">Difficile</button>
-        <button class="difficulty-btn" data-difficulty="expert">Expert</button>
-    </div>
-
-    <div class="controls">
-        <button class="action-btn" onclick="generateNewSudoku()">Créer</button>
-        <button class="action-btn verify-btn" id="verifyBtn" onclick="verifySudoku()" disabled>Vérifier</button>
-        <button class="action-btn solve-btn" id="solveBtn" onclick="solveSudoku()" disabled>Résoudre</button>
-        <button class="action-btn" onclick="resetGrid()">Vider</button>
-    </div>
-
-    <div class="sudoku-grid" id="sudokuGrid"></div>
-
-    <div class="pair-control">
-        <label class="checkbox-label">
-            <input type="checkbox" id="showSimples" onchange="toggleSimples()">
-            <span>Simples</span>
-        </label>
-        <label class="checkbox-label">
-            <input type="checkbox" id="showCandidates" onchange="toggleCandidates()">
-            <span>Doubles</span>
-        </label>
-        <label class="checkbox-label">
-            <input type="checkbox" id="showTriples" onchange="toggleTriples()">
-            <span>Triples</span>
-        </label>
-    </div>
-</div>
-
-<script>
-    let currentDifficulty = 'moyen';
-    let currentPuzzle = [];
-    let solution = [];
-    let givenCells = [];
-
-    const difficultyLevels = {
-        facile: { clues: 45, description: '45 cases remplies' },
-        moyen: { clues: 35, description: '35 cases remplies' },
-        difficile: { clues: 27, description: '27 cases remplies' },
-        expert: { clues: 22, description: '22 cases remplies' }
-    };
-
-    // Initialisation
-    document.addEventListener('DOMContentLoaded', () => {
-        createGrid();
-        setupDifficultyButtons();
-        generateNewSudoku();
-    });
-
-    function createGrid() {
-        const grid = document.getElementById('sudokuGrid');
-        grid.innerHTML = '';
         
-        for (let i = 0; i < 81; i++) {
-            const cell = document.createElement('div');
-            cell.className = 'cell';
-            
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.maxLength = 1;
-            input.dataset.index = i;
-            
-            input.addEventListener('input', (e) => {
-                const value = e.target.value;
-                if (value && (!/^[1-9]$/.test(value))) {
-                    e.target.value = '';
-                }
-                checkGridCompletion();
-                updateAllHints();
-            });
-            
-            // Créer les divs pour afficher les différents types d'indices
-            const pairHintRight = document.createElement('div');
-            pairHintRight.className = 'pair-hint-right';
-            
-            const pairHintBottom = document.createElement('div');
-            pairHintBottom.className = 'pair-hint-bottom';
-            
-            const simpleHint = document.createElement('div');
-            simpleHint.className = 'simple-hint';
-            
-            const tripleHintLeft = document.createElement('div');
-            tripleHintLeft.className = 'triple-hint-left';
-            
-            const tripleHintTop = document.createElement('div');
-            tripleHintTop.className = 'triple-hint-top';
-            
-            cell.appendChild(pairHintRight);
-            cell.appendChild(pairHintBottom);
-            cell.appendChild(simpleHint);
-            cell.appendChild(tripleHintLeft);
-            cell.appendChild(tripleHintTop);
-            cell.appendChild(input);
-            grid.appendChild(cell);
-        }
-    }
+        <div class="difficulty-info" id="difficultyInfo">
+            Sélectionnez un niveau de difficulté
+        </div>
 
-    function setupDifficultyButtons() {
-        const buttons = document.querySelectorAll('.difficulty-btn');
-        buttons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                buttons.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentDifficulty = btn.dataset.difficulty;
-                updateDifficultyInfo();
-                generateNewSudoku();
-            });
+        <div class="controls">
+            <button class="difficulty-btn" data-difficulty="facile">Facile</button>
+            <button class="difficulty-btn" data-difficulty="moyen">Moyen</button>
+            <button class="difficulty-btn" data-difficulty="difficile">Difficile</button>
+            <button class="difficulty-btn" data-difficulty="expert">Expert</button>
+        </div>
+
+        <div class="controls">
+            <button class="action-btn" onclick="generateNewSudoku()">Créer</button>
+            <button class="action-btn verify-btn" id="verifyBtn" onclick="verifySudoku()" disabled>Vérifier</button>
+            <button class="action-btn solve-btn" id="solveBtn" onclick="solveSudoku()" disabled>Résoudre</button>
+            <button class="action-btn" onclick="resetGrid()">Vider</button>
+        </div>
+
+        <div class="sudoku-grid" id="sudokuGrid"></div>
+
+        <div class="pair-control">
+            <label class="checkbox-label">
+                <input type="checkbox" id="showSimples" onchange="toggleSimples()">
+                <span>Simples</span>
+            </label>
+            <label class="checkbox-label">
+                <input type="checkbox" id="showCandidates" onchange="toggleCandidates()">
+                <span>Doubles</span>
+            </label>
+            <label class="checkbox-label">
+                <input type="checkbox" id="showTriples" onchange="toggleTriples()">
+                <span>Triples</span>
+            </label>
+        </div>
+    </div>
+
+    <script>
+        let currentDifficulty = 'moyen';
+        let currentPuzzle = [];
+        let solution = [];
+        let givenCells = [];
+
+        const difficultyLevels = {
+            facile: { clues: 45, description: '45 cases remplies' },
+            moyen: { clues: 35, description: '35 cases remplies' },
+            difficile: { clues: 27, description: '27 cases remplies' },
+            expert: { clues: 22, description: '22 cases remplies' }
+        };
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            createGrid();
+            setupDifficultyButtons();
+            generateNewSudoku();
         });
-        
-        // Activer le niveau moyen par défaut
-        buttons[1].classList.add('active');
-        updateDifficultyInfo();
-    }
 
-    function updateDifficultyInfo() {
-        const info = document.getElementById('difficultyInfo');
-        const level = difficultyLevels[currentDifficulty];
-        info.textContent = `Niveau: ${currentDifficulty.charAt(0).toUpperCase() + currentDifficulty.slice(1)} - ${level.description}`;
-    }
-
-    function generateCompleteSudoku() {
-        const grid = Array(9).fill().map(() => Array(9).fill(0));
-        
-        function isValid(grid, row, col, num) {
-            // Vérifier la ligne
-            for (let x = 0; x < 9; x++) {
-                if (grid[row][x] === num) return false;
-            }
+        function createGrid() {
+            const grid = document.getElementById('sudokuGrid');
+            grid.innerHTML = '';
             
-            // Vérifier la colonne
-            for (let x = 0; x < 9; x++) {
-                if (grid[x][col] === num) return false;
+            for (let i = 0; i < 81; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'cell';
+                
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.maxLength = 1;
+                input.dataset.index = i;
+                
+                input.addEventListener('input', (e) => {
+                    const value = e.target.value;
+                    if (value && (!/^[1-9]$/.test(value))) {
+                        e.target.value = '';
+                    }
+                    checkGridCompletion();
+                    updateAllHints();
+                });
+                
+                // Créer les divs pour afficher les différents types d'indices
+                const pairHintRight = document.createElement('div');
+                pairHintRight.className = 'pair-hint-right';
+                
+                const pairHintBottom = document.createElement('div');
+                pairHintBottom.className = 'pair-hint-bottom';
+                
+                const simpleHint = document.createElement('div');
+                simpleHint.className = 'simple-hint';
+                
+                const tripleHintLeft = document.createElement('div');
+                tripleHintLeft.className = 'triple-hint-left';
+                
+                const tripleHintTop = document.createElement('div');
+                tripleHintTop.className = 'triple-hint-top';
+                
+                cell.appendChild(pairHintRight);
+                cell.appendChild(pairHintBottom);
+                cell.appendChild(simpleHint);
+                cell.appendChild(tripleHintLeft);
+                cell.appendChild(tripleHintTop);
+                cell.appendChild(input);
+                grid.appendChild(cell);
             }
-            
-            // Vérifier le carré 3x3
-            const startRow = row - row % 3;
-            const startCol = col - col % 3;
-            for (let i = 0; i < 3; i++) {
-                for (let j = 0; j < 3; j++) {
-                    if (grid[i + startRow][j + startCol] === num) return false;
-                }
-            }
-            
-            return true;
         }
-        
-        function fillGrid(grid) {
-            for (let row = 0; row < 9; row++) {
-                for (let col = 0; col < 9; col++) {
-                    if (grid[row][col] === 0) {
-                        const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-                        shuffleArray(numbers);
-                        
-                        for (let num of numbers) {
-                            if (isValid(grid, row, col, num)) {
-                                grid[row][col] = num;
-                                
-                                if (fillGrid(grid)) {
-                                    return true;
+
+        function setupDifficultyButtons() {
+            const buttons = document.querySelectorAll('.difficulty-btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    buttons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentDifficulty = btn.dataset.difficulty;
+                    updateDifficultyInfo();
+                    generateNewSudoku();
+                });
+            });
+            
+            // Activer le niveau moyen par défaut
+            buttons[1].classList.add('active');
+            updateDifficultyInfo();
+        }
+
+        function updateDifficultyInfo() {
+            const info = document.getElementById('difficultyInfo');
+            const level = difficultyLevels[currentDifficulty];
+            info.textContent = `Niveau: ${currentDifficulty.charAt(0).toUpperCase() + currentDifficulty.slice(1)} - ${level.description}`;
+        }
+
+        function generateCompleteSudoku() {
+            const grid = Array(9).fill().map(() => Array(9).fill(0));
+            
+            function isValid(grid, row, col, num) {
+                // Vérifier la ligne
+                for (let x = 0; x < 9; x++) {
+                    if (grid[row][x] === num) return false;
+                }
+                
+                // Vérifier la colonne
+                for (let x = 0; x < 9; x++) {
+                    if (grid[x][col] === num) return false;
+                }
+                
+                // Vérifier le carré 3x3
+                const startRow = row - row % 3;
+                const startCol = col - col % 3;
+                for (let i = 0; i < 3; i++) {
+                    for (let j = 0; j < 3; j++) {
+                        if (grid[i + startRow][j + startCol] === num) return false;
+                    }
+                }
+                
+                return true;
+            }
+            
+            function fillGrid(grid) {
+                for (let row = 0; row < 9; row++) {
+                    for (let col = 0; col < 9; col++) {
+                        if (grid[row][col] === 0) {
+                            const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+                            shuffleArray(numbers);
+                            
+                            for (let num of numbers) {
+                                if (isValid(grid, row, col, num)) {
+                                    grid[row][col] = num;
+                                    
+                                    if (fillGrid(grid)) {
+                                        return true;
+                                    }
+                                    
+                                    grid[row][col] = 0;
                                 }
-                                
-                                grid[row][col] = 0;
                             }
+                            return false;
                         }
-                        return false;
                     }
                 }
+                return true;
             }
-            return true;
-        }
-        
-        fillGrid(grid);
-        return grid;
-    }
-
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-    }
-
-    function generateNewSudoku() {
-        const completeGrid = generateCompleteSudoku();
-        solution = completeGrid.map(row => [...row]);
-        
-        const puzzle = completeGrid.map(row => [...row]);
-        const clues = difficultyLevels[currentDifficulty].clues;
-        const cellsToRemove = 81 - clues;
-        
-        let removed = 0;
-        while (removed < cellsToRemove) {
-            const row = Math.floor(Math.random() * 9);
-            const col = Math.floor(Math.random() * 9);
             
-            if (puzzle[row][col] !== 0) {
-                puzzle[row][col] = 0;
-                removed++;
+            fillGrid(grid);
+            return grid;
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
             }
         }
-        
-        currentPuzzle = puzzle;
-        displayPuzzle(puzzle);
-    }
 
-    function displayPuzzle(puzzle) {
-        const cells = document.querySelectorAll('.cell');
-        givenCells = [];
-        
-        cells.forEach((cell, index) => {
-            const row = Math.floor(index / 9);
-            const col = index % 9;
-            const input = cell.querySelector('input');
-            const value = puzzle[row][col];
+        function generateNewSudoku() {
+            const completeGrid = generateCompleteSudoku();
+            solution = completeGrid.map(row => [...row]);
             
-            cell.classList.remove('given', 'solved', 'error');
-            input.disabled = false;
+            const puzzle = completeGrid.map(row => [...row]);
+            const clues = difficultyLevels[currentDifficulty].clues;
+            const cellsToRemove = 81 - clues;
             
-            if (value !== 0) {
-                input.value = value;
-                cell.classList.add('given');
-                input.disabled = true;
-                givenCells.push(index);
-            } else {
-                input.value = '';
+            let removed = 0;
+            while (removed < cellsToRemove) {
+                const row = Math.floor(Math.random() * 9);
+                const col = Math.floor(Math.random() * 9);
+                
+                if (puzzle[row][col] !== 0) {
+                    puzzle[row][col] = 0;
+                    removed++;
+                }
             }
-        });
-        
-        checkGridCompletion();
-        updateAllHints();
-    }
-
-    function solveSudoku() {
-        const cells = document.querySelectorAll('.cell');
-        
-        cells.forEach((cell, index) => {
-            const row = Math.floor(index / 9);
-            const col = index % 9;
-            const input = cell.querySelector('input');
             
-            if (!givenCells.includes(index)) {
-                input.value = solution[row][col];
-                cell.classList.add('solved');
-            }
-        });
-    }
-
-    function resetGrid() {
-        displayPuzzle(currentPuzzle);
-    }
-
-    function checkGridCompletion() {
-        const cells = document.querySelectorAll('.cell input');
-        let allFilled = true;
-        
-        for (let cell of cells) {
-            if (!cell.value) {
-                allFilled = false;
-                break;
-            }
+            currentPuzzle = puzzle;
+            displayPuzzle(puzzle);
         }
-        
-        const verifyBtn = document.getElementById('verifyBtn');
-        const solveBtn = document.getElementById('solveBtn');
-        
-        verifyBtn.disabled = !allFilled;
-        solveBtn.disabled = !allFilled;
-    }
 
-    function verifySudoku() {
-        const cells = document.querySelectorAll('.cell');
-        let hasErrors = false;
-        
-        cells.forEach((cell, index) => {
-            const row = Math.floor(index / 9);
-            const col = index % 9;
-            const input = cell.querySelector('input');
-            const userValue = parseInt(input.value);
-            const correctValue = solution[row][col];
+        function displayPuzzle(puzzle) {
+            const cells = document.querySelectorAll('.cell');
+            givenCells = [];
             
-            cell.classList.remove('error');
+            cells.forEach((cell, index) => {
+                const row = Math.floor(index / 9);
+                const col = index % 9;
+                const input = cell.querySelector('input');
+                const value = puzzle[row][col];
+                
+                cell.classList.remove('given', 'solved', 'error');
+                input.disabled = false;
+                
+                if (value !== 0) {
+                    input.value = value;
+                    cell.classList.add('given');
+                    input.disabled = true;
+                    givenCells.push(index);
+                } else {
+                    input.value = '';
+                }
+            });
             
-            if (!givenCells.includes(index) && userValue !== correctValue) {
-                cell.classList.add('error');
-                hasErrors = true;
-            }
-        });
-        
-        if (!hasErrors) {
-            alert('🎉 Félicitations ! Tous les chiffres sont corrects !');
-        } else {
-            alert('❌ Il y a des erreurs. Les cases incorrectes sont en rouge.');
+            checkGridCompletion();
+            updateAllHints();
         }
-    }
 
-    function toggleCandidates() {
-        updateAllHints();
-    }
-
-    function toggleSimples() {
-        updateAllHints();
-    }
-
-    function toggleTriples() {
-        updateAllHints();
-    }
-
-    function updateAllHints() {
-        const showPairs = document.getElementById('showCandidates').checked;
-        const showSimples = document.getElementById('showSimples').checked;
-        const showTriples = document.getElementById('showTriples').checked;
-        
-        if (showPairs) {
-            updatePairHints();
-        } else {
-            document.querySelectorAll('.pair-hint-right, .pair-hint-bottom').forEach(hint => {
-                hint.classList.remove('show');
-                hint.textContent = '';
+        function solveSudoku() {
+            const cells = document.querySelectorAll('.cell');
+            
+            cells.forEach((cell, index) => {
+                const row = Math.floor(index / 9);
+                const col = index % 9;
+                const input = cell.querySelector('input');
+                
+                if (!givenCells.includes(index)) {
+                    input.value = solution[row][col];
+                    cell.classList.add('solved');
+                }
             });
         }
-        
-        if (showSimples) {
-            updateSimpleHints();
-        } else {
-            document.querySelectorAll('.simple-hint').forEach(hint => {
-                hint.classList.remove('show');
-                hint.textContent = '';
-            });
-        }
-        
-        if (showTriples) {
-            updateTripleHints();
-        } else {
-            document.querySelectorAll('.triple-hint-left, .triple-hint-top').forEach(hint => {
-                hint.classList.remove('show');
-                hint.textContent = '';
-            });
-        }
-    }
 
-    function updateSimpleHints() {
-        const cells = document.querySelectorAll('.cell');
-        
-        // Réinitialiser tous les indices simples
-        document.querySelectorAll('.simple-hint').forEach(hint => {
-            hint.classList.remove('show');
-            hint.textContent = '';
-        });
-        
-        cells.forEach((cell, index) => {
-            const row = Math.floor(index / 9);
-            const col = index % 9;
-            const input = cell.querySelector('input');
-            
-            // Ignorer les cases pré-remplies ou déjà remplies
-            if (givenCells.includes(index) || input.value) return;
-            
-            const candidates = getCandidates(row, col);
-            
-            // Si une seule possibilité existe
-            if (candidates.length === 1) {
-                const simpleHint = cell.querySelector('.simple-hint');
-                simpleHint.textContent = candidates[0];
-                simpleHint.classList.add('show');
-            }
-        });
-    }
-
-    function updateTripleHints() {
-        const cells = document.querySelectorAll('.cell');
-        
-        // Réinitialiser tous les indices triples
-        document.querySelectorAll('.triple-hint-left, .triple-hint-top').forEach(hint => {
-            hint.classList.remove('show');
-            hint.textContent = '';
-        });
-        
-        // Vérifier les triples horizontaux (par ligne)
-        for (let row = 0; row < 9; row++) {
-            for (let col = 0; col <= 6; col++) {
-                const indices = [row * 9 + col, row * 9 + col + 1, row * 9 + col + 2];
-                
-                // Vérifier que les 3 cases sont dans la même zone 3x3
-                const box1 = Math.floor(row / 3) * 3 + Math.floor(col / 3);
-                const box2 = Math.floor(row / 3) * 3 + Math.floor((col + 1) / 3);
-                const box3 = Math.floor(row / 3) * 3 + Math.floor((col + 2) / 3);
-                
-                if (box1 !== box2 || box2 !== box3) continue;
-                
-                const cellsGroup = indices.map(i => cells[i]);
-                const inputs = cellsGroup.map(c => c.querySelector('input'));
-                
-                // Vérifier que les 3 cases sont vides et non pré-remplies
-                if (indices.every((idx, i) => !givenCells.includes(idx) && !inputs[i].value)) {
-                    const candidateSets = indices.map(i => {
-                        const r = Math.floor(i / 9);
-                        const c = i % 9;
-                        return getCandidates(r, c);
-                    });
-                    
-                    // Union de tous les candidats des 3 cases
-                    const unionCandidates = [...new Set(candidateSets.flat())];
-                    
-                    // Vérifier si exactement 3 chiffres couvrent toutes les possibilités
-                    if (unionCandidates.length === 3) {
-                        // Vérifier que chaque case a au moins 2 candidats parmi ces 3
-                        const allValid = candidateSets.every(set => 
-                            set.length >= 2 && set.every(c => unionCandidates.includes(c))
-                        );
-                        
-                        if (allValid) {
-                            const tripleHint = cellsGroup[0].querySelector('.triple-hint-left');
-                            tripleHint.textContent = unionCandidates.sort().join('');
-                            tripleHint.classList.add('show');
-                        }
-                    }
-                }
-            }
+        function resetGrid() {
+            displayPuzzle(currentPuzzle);
         }
-        
-        // Vérifier les triples verticaux (par colonne)
-        for (let col = 0; col < 9; col++) {
-            for (let row = 0; row <= 6; row++) {
-                const indices = [row * 9 + col, (row + 1) * 9 + col, (row + 2) * 9 + col];
-                
-                // Vérifier que les 3 cases sont dans la même zone 3x3
-                const box1 = Math.floor(row / 3) * 3 + Math.floor(col / 3);
-                const box2 = Math.floor((row + 1) / 3) * 3 + Math.floor(col / 3);
-                const box3 = Math.floor((row + 2) / 3) * 3 + Math.floor(col / 3);
-                
-                if (box1 !== box2 || box2 !== box3) continue;
-                
-                const cellsGroup = indices.map(i => cells[i]);
-                const inputs = cellsGroup.map(c => c.querySelector('input'));
-                
-                // Vérifier que les 3 cases sont vides et non pré-remplies
-                if (indices.every((idx, i) => !givenCells.includes(idx) && !inputs[i].value)) {
-                    const candidateSets = indices.map(i => {
-                        const r = Math.floor(i / 9);
-                        const c = i % 9;
-                        return getCandidates(r, c);
-                    });
-                    
-                    // Union de tous les candidats des 3 cases
-                    const unionCandidates = [...new Set(candidateSets.flat())];
-                    
-                    // Vérifier si exactement 3 chiffres couvrent toutes les possibilités
-                    if (unionCandidates.length === 3) {
-                        // Vérifier que chaque case a au moins 2 candidats parmi ces 3
-                        const allValid = candidateSets.every(set => 
-                            set.length >= 2 && set.every(c => unionCandidates.includes(c))
-                        );
-                        
-                        if (allValid) {
-                            const tripleHint = cellsGroup[0].querySelector('.triple-hint-top');
-                            tripleHint.textContent = unionCandidates.sort().join('');
-                            tripleHint.classList.add('show');
-                        }
-                    }
-                }
-            }
-        }
-    }
 
-    function updatePairHints() {
-        const cells = document.querySelectorAll('.cell');
-        
-        // Réinitialiser tous les indices
-        document.querySelectorAll('.pair-hint-right, .pair-hint-bottom').forEach(hint => {
-            hint.classList.remove('show');
-            hint.textContent = '';
-        });
-        
-        // Parcourir chaque case
-        cells.forEach((cell, index) => {
-            const row = Math.floor(index / 9);
-            const col = index % 9;
-            const input = cell.querySelector('input');
+        function checkGridCompletion() {
+            const cells = document.querySelectorAll('.cell input');
+            let allFilled = true;
             
-            // Ignorer les cases pré-remplies ou déjà remplies
-            if (givenCells.includes(index) || input.value) return;
-            
-            const candidates = getCandidates(row, col);
-            
-            // Vérifier uniquement si cette case a exactement 2 candidats
-            if (candidates.length === 2) {
-                const box1 = Math.floor(row / 3) * 3 + Math.floor(col / 3);
-                
-                // Vérifier la case à droite (même ligne)
-                if (col < 8) {
-                    const rightIndex = index + 1;
-                    const rightInput = cells[rightIndex].querySelector('input');
-                    const box2 = Math.floor(row / 3) * 3 + Math.floor((col + 1) / 3);
-                    
-                    // Vérifier qu'elles sont dans la même zone 3x3
-                    if (box1 === box2 && !givenCells.includes(rightIndex) && !rightInput.value) {
-                        const rightCandidates = getCandidates(row, col + 1);
-                        
-                        // Si les deux cases ont exactement les mêmes 2 candidats
-                        if (rightCandidates.length === 2 && 
-                            candidates[0] === rightCandidates[0] && 
-                            candidates[1] === rightCandidates[1]) {
-                            const pairHint = cell.querySelector('.pair-hint-right');
-                            pairHint.textContent = candidates.join('');
-                            pairHint.classList.add('show');
-                        }
-                    }
-                }
-                
-                // Vérifier la case en bas (même colonne)
-                if (row < 8) {
-                    const bottomIndex = index + 9;
-                    const bottomInput = cells[bottomIndex].querySelector('input');
-                    const box2 = Math.floor((row + 1) / 3) * 3 + Math.floor(col / 3);
-                    
-                    // Vérifier qu'elles sont dans la même zone 3x3
-                    if (box1 === box2 && !givenCells.includes(bottomIndex) && !bottomInput.value) {
-                        const bottomCandidates = getCandidates(row + 1, col);
-                        
-                        // Si les deux cases ont exactement les mêmes 2 candidats
-                        if (bottomCandidates.length === 2 && 
-                            candidates[0] === bottomCandidates[0] && 
-                            candidates[1] === bottomCandidates[1]) {
-                            const pairHint = cell.querySelector('.pair-hint-bottom');
-                            pairHint.textContent = candidates.join('');
-                            pairHint.classList.add('show');
-                        }
-                    }
-                }
-            }
-        });
-    }
-
-    function getCandidates(row, col) {
-        const candidates = [];
-        const cells = document.querySelectorAll('.cell input');
-        
-        for (let num = 1; num <= 9; num++) {
-            let isValid = true;
-            
-            // Vérifier la ligne
-            for (let c = 0; c < 9; c++) {
-                const cellIndex = row * 9 + c;
-                const value = parseInt(cells[cellIndex].value);
-                if (value === num) {
-                    isValid = false;
+            for (let cell of cells) {
+                if (!cell.value) {
+                    allFilled = false;
                     break;
                 }
             }
             
-            // Vérifier la colonne
-            if (isValid) {
-                for (let r = 0; r < 9; r++) {
-                    const cellIndex = r * 9 + col;
+            const verifyBtn = document.getElementById('verifyBtn');
+            const solveBtn = document.getElementById('solveBtn');
+            
+            verifyBtn.disabled = !allFilled;
+            solveBtn.disabled = !allFilled;
+        }
+
+        function verifySudoku() {
+            const cells = document.querySelectorAll('.cell');
+            let hasErrors = false;
+            
+            cells.forEach((cell, index) => {
+                const row = Math.floor(index / 9);
+                const col = index % 9;
+                const input = cell.querySelector('input');
+                const userValue = parseInt(input.value);
+                const correctValue = solution[row][col];
+                
+                cell.classList.remove('error');
+                
+                if (!givenCells.includes(index) && userValue !== correctValue) {
+                    cell.classList.add('error');
+                    hasErrors = true;
+                }
+            });
+            
+            if (!hasErrors) {
+                alert('🎉 Félicitations ! Tous les chiffres sont corrects !');
+            } else {
+                alert('❌ Il y a des erreurs. Les cases incorrectes sont en rouge.');
+            }
+        }
+
+        function toggleCandidates() {
+            updateAllHints();
+        }
+
+        function toggleSimples() {
+            updateAllHints();
+        }
+
+        function toggleTriples() {
+            updateAllHints();
+        }
+
+        function updateAllHints() {
+            const showPairs = document.getElementById('showCandidates').checked;
+            const showSimples = document.getElementById('showSimples').checked;
+            const showTriples = document.getElementById('showTriples').checked;
+            
+            if (showPairs) {
+                updatePairHints();
+            } else {
+                document.querySelectorAll('.pair-hint-right, .pair-hint-bottom').forEach(hint => {
+                    hint.classList.remove('show');
+                    hint.textContent = '';
+                });
+            }
+            
+            if (showSimples) {
+                updateSimpleHints();
+            } else {
+                document.querySelectorAll('.simple-hint').forEach(hint => {
+                    hint.classList.remove('show');
+                    hint.textContent = '';
+                });
+            }
+            
+            if (showTriples) {
+                updateTripleHints();
+            } else {
+                document.querySelectorAll('.triple-hint-left, .triple-hint-top').forEach(hint => {
+                    hint.classList.remove('show');
+                    hint.textContent = '';
+                });
+            }
+        }
+
+        function updateSimpleHints() {
+            const cells = document.querySelectorAll('.cell');
+            
+            // Réinitialiser tous les indices simples
+            document.querySelectorAll('.simple-hint').forEach(hint => {
+                hint.classList.remove('show');
+                hint.textContent = '';
+            });
+            
+            cells.forEach((cell, index) => {
+                const row = Math.floor(index / 9);
+                const col = index % 9;
+                const input = cell.querySelector('input');
+                
+                // Ignorer les cases pré-remplies ou déjà remplies
+                if (givenCells.includes(index) || input.value) return;
+                
+                const candidates = getCandidates(row, col);
+                
+                // Si une seule possibilité existe
+                if (candidates.length === 1) {
+                    const simpleHint = cell.querySelector('.simple-hint');
+                    simpleHint.textContent = candidates[0];
+                    simpleHint.classList.add('show');
+                }
+            });
+        }
+
+        function updateTripleHints() {
+            const cells = document.querySelectorAll('.cell');
+            
+            // Réinitialiser tous les indices triples
+            document.querySelectorAll('.triple-hint-left, .triple-hint-top').forEach(hint => {
+                hint.classList.remove('show');
+                hint.textContent = '';
+            });
+            
+            // Vérifier les triples horizontaux (par ligne)
+            for (let row = 0; row < 9; row++) {
+                for (let col = 0; col <= 6; col++) {
+                    const indices = [row * 9 + col, row * 9 + col + 1, row * 9 + col + 2];
+                    
+                    // Vérifier que les 3 cases sont dans la même zone 3x3
+                    const box1 = Math.floor(row / 3) * 3 + Math.floor(col / 3);
+                    const box2 = Math.floor(row / 3) * 3 + Math.floor((col + 1) / 3);
+                    const box3 = Math.floor(row / 3) * 3 + Math.floor((col + 2) / 3);
+                    
+                    if (box1 !== box2 || box2 !== box3) continue;
+                    
+                    const cellsGroup = indices.map(i => cells[i]);
+                    const inputs = cellsGroup.map(c => c.querySelector('input'));
+                    
+                    // Vérifier que les 3 cases sont vides et non pré-remplies
+                    if (indices.every((idx, i) => !givenCells.includes(idx) && !inputs[i].value)) {
+                        const candidateSets = indices.map(i => {
+                            const r = Math.floor(i / 9);
+                            const c = i % 9;
+                            return getCandidates(r, c);
+                        });
+                        
+                        // Union de tous les candidats des 3 cases
+                        const unionCandidates = [...new Set(candidateSets.flat())];
+                        
+                        // Vérifier si exactement 3 chiffres couvrent toutes les possibilités
+                        if (unionCandidates.length === 3) {
+                            // Vérifier que chaque case a au moins 2 candidats parmi ces 3
+                            const allValid = candidateSets.every(set => 
+                                set.length >= 2 && set.every(c => unionCandidates.includes(c))
+                            );
+                            
+                            if (allValid) {
+                                const tripleHint = cellsGroup[0].querySelector('.triple-hint-left');
+                                tripleHint.textContent = unionCandidates.sort().join('');
+                                tripleHint.classList.add('show');
+                            }
+                        }
+                    }
+                }
+            }
+            
+            // Vérifier les triples verticaux (par colonne)
+            for (let col = 0; col < 9; col++) {
+                for (let row = 0; row <= 6; row++) {
+                    const indices = [row * 9 + col, (row + 1) * 9 + col, (row + 2) * 9 + col];
+                    
+                    // Vérifier que les 3 cases sont dans la même zone 3x3
+                    const box1 = Math.floor(row / 3) * 3 + Math.floor(col / 3);
+                    const box2 = Math.floor((row + 1) / 3) * 3 + Math.floor(col / 3);
+                    const box3 = Math.floor((row + 2) / 3) * 3 + Math.floor(col / 3);
+                    
+                    if (box1 !== box2 || box2 !== box3) continue;
+                    
+                    const cellsGroup = indices.map(i => cells[i]);
+                    const inputs = cellsGroup.map(c => c.querySelector('input'));
+                    
+                    // Vérifier que les 3 cases sont vides et non pré-remplies
+                    if (indices.every((idx, i) => !givenCells.includes(idx) && !inputs[i].value)) {
+                        const candidateSets = indices.map(i => {
+                            const r = Math.floor(i / 9);
+                            const c = i % 9;
+                            return getCandidates(r, c);
+                        });
+                        
+                        // Union de tous les candidats des 3 cases
+                        const unionCandidates = [...new Set(candidateSets.flat())];
+                        
+                        // Vérifier si exactement 3 chiffres couvrent toutes les possibilités
+                        if (unionCandidates.length === 3) {
+                            // Vérifier que chaque case a au moins 2 candidats parmi ces 3
+                            const allValid = candidateSets.every(set => 
+                                set.length >= 2 && set.every(c => unionCandidates.includes(c))
+                            );
+                            
+                            if (allValid) {
+                                const tripleHint = cellsGroup[0].querySelector('.triple-hint-top');
+                                tripleHint.textContent = unionCandidates.sort().join('');
+                                tripleHint.classList.add('show');
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        function updatePairHints() {
+            const cells = document.querySelectorAll('.cell');
+            
+            // Réinitialiser tous les indices
+            document.querySelectorAll('.pair-hint-right, .pair-hint-bottom').forEach(hint => {
+                hint.classList.remove('show');
+                hint.textContent = '';
+            });
+            
+            // Parcourir chaque case
+            cells.forEach((cell, index) => {
+                const row = Math.floor(index / 9);
+                const col = index % 9;
+                const input = cell.querySelector('input');
+                
+                // Ignorer les cases pré-remplies ou déjà remplies
+                if (givenCells.includes(index) || input.value) return;
+                
+                const candidates = getCandidates(row, col);
+                
+                // Vérifier uniquement si cette case a exactement 2 candidats
+                if (candidates.length === 2) {
+                    const box1 = Math.floor(row / 3) * 3 + Math.floor(col / 3);
+                    
+                    // Vérifier la case à droite (même ligne)
+                    if (col < 8) {
+                        const rightIndex = index + 1;
+                        const rightInput = cells[rightIndex].querySelector('input');
+                        const box2 = Math.floor(row / 3) * 3 + Math.floor((col + 1) / 3);
+                        
+                        // Vérifier qu'elles sont dans la même zone 3x3
+                        if (box1 === box2 && !givenCells.includes(rightIndex) && !rightInput.value) {
+                            const rightCandidates = getCandidates(row, col + 1);
+                            
+                            // Si les deux cases ont exactement les mêmes 2 candidats
+                            if (rightCandidates.length === 2 && 
+                                candidates[0] === rightCandidates[0] && 
+                                candidates[1] === rightCandidates[1]) {
+                                const pairHint = cell.querySelector('.pair-hint-right');
+                                pairHint.textContent = candidates.join('');
+                                pairHint.classList.add('show');
+                            }
+                        }
+                    }
+                    
+                    // Vérifier la case en bas (même colonne)
+                    if (row < 8) {
+                        const bottomIndex = index + 9;
+                        const bottomInput = cells[bottomIndex].querySelector('input');
+                        const box2 = Math.floor((row + 1) / 3) * 3 + Math.floor(col / 3);
+                        
+                        // Vérifier qu'elles sont dans la même zone 3x3
+                        if (box1 === box2 && !givenCells.includes(bottomIndex) && !bottomInput.value) {
+                            const bottomCandidates = getCandidates(row + 1, col);
+                            
+                            // Si les deux cases ont exactement les mêmes 2 candidats
+                            if (bottomCandidates.length === 2 && 
+                                candidates[0] === bottomCandidates[0] && 
+                                candidates[1] === bottomCandidates[1]) {
+                                const pairHint = cell.querySelector('.pair-hint-bottom');
+                                pairHint.textContent = candidates.join('');
+                                pairHint.classList.add('show');
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function getCandidates(row, col) {
+            const candidates = [];
+            const cells = document.querySelectorAll('.cell input');
+            
+            for (let num = 1; num <= 9; num++) {
+                let isValid = true;
+                
+                // Vérifier la ligne
+                for (let c = 0; c < 9; c++) {
+                    const cellIndex = row * 9 + c;
                     const value = parseInt(cells[cellIndex].value);
                     if (value === num) {
                         isValid = false;
                         break;
                     }
                 }
-            }
-            
-            // Vérifier le carré 3x3
-            if (isValid) {
-                const startRow = Math.floor(row / 3) * 3;
-                const startCol = Math.floor(col / 3) * 3;
-                for (let r = startRow; r < startRow + 3; r++) {
-                    for (let c = startCol; c < startCol + 3; c++) {
-                        const cellIndex = r * 9 + c;
+                
+                // Vérifier la colonne
+                if (isValid) {
+                    for (let r = 0; r < 9; r++) {
+                        const cellIndex = r * 9 + col;
                         const value = parseInt(cells[cellIndex].value);
                         if (value === num) {
                             isValid = false;
                             break;
                         }
                     }
-                    if (!isValid) break;
+                }
+                
+                // Vérifier le carré 3x3
+                if (isValid) {
+                    const startRow = Math.floor(row / 3) * 3;
+                    const startCol = Math.floor(col / 3) * 3;
+                    for (let r = startRow; r < startRow + 3; r++) {
+                        for (let c = startCol; c < startCol + 3; c++) {
+                            const cellIndex = r * 9 + c;
+                            const value = parseInt(cells[cellIndex].value);
+                            if (value === num) {
+                                isValid = false;
+                                break;
+                            }
+                        }
+                        if (!isValid) break;
+                    }
+                }
+                
+                if (isValid) {
+                    candidates.push(num);
                 }
             }
             
-            if (isValid) {
-                candidates.push(num);
-            }
+            return candidates;
         }
-        
-        return candidates;
-    }
-</script>
-```
-
+    </script>
 </body>
 </html>
