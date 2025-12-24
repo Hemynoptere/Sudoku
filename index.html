@@ -146,18 +146,24 @@
             gap: 10px;
         }
 
+        .sudoku-container {
+            position: relative;
+            margin: 0 auto;
+            width: fit-content;
+        }
+
         .sudoku-grid {
             display: grid;
             grid-template-columns: repeat(9, 1fr);
             gap: 0;
             border: 3px solid #2d3748;
             border-radius: 8px;
-            overflow: hidden;
-            margin: 0 auto;
+            overflow: visible;
             width: fit-content;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            padding: 12px;
+            padding: 30px;
             background: white;
+            position: relative;
         }
 
         .cell {
@@ -272,6 +278,69 @@
             display: block;
         }
 
+        .row-hints {
+            position: absolute;
+            left: 3px;
+            top: 30px;
+            width: 30px;
+            height: 585px;
+            pointer-events: none;
+        }
+
+        .row-hint {
+            position: absolute;
+            left: 0;
+            width: 30px;
+            height: 65px;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-end;
+            font-size: 10px;
+            color: #718096;
+            font-weight: 600;
+            padding-right: 4px;
+            line-height: 1.2;
+        }
+
+        .row-hint.show {
+            display: flex;
+        }
+
+        .column-hints {
+            position: absolute;
+            top: 3px;
+            left: 30px;
+            width: 585px;
+            height: 30px;
+            pointer-events: none;
+        }
+
+        .column-hint {
+            position: absolute;
+            top: 0;
+            width: 65px;
+            height: 30px;
+            display: none;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-end;
+            font-size: 10px;
+            color: #718096;
+            font-weight: 600;
+            padding-bottom: 4px;
+            line-height: 1.2;
+            flex-wrap: wrap;
+        }
+
+        .column-hint.show {
+            display: flex;
+        }
+
+        .hint-number {
+            margin: 0;
+        }
+
         .cell input:focus {
             outline: none;
             background: #edf2f7;
@@ -363,7 +432,9 @@
             <button class="action-btn" onclick="resetGrid()">Vider</button>
         </div>
 
-        <div class="sudoku-grid" id="sudokuGrid"></div>
+        <div class="sudoku-container">
+            <div class="sudoku-grid" id="sudokuGrid"></div>
+        </div>
 
         <div class="pair-control">
             <label class="checkbox-label">
@@ -377,6 +448,14 @@
             <label class="checkbox-label">
                 <input type="checkbox" id="showTriples" onchange="toggleTriples()">
                 <span>Triples</span>
+            </label>
+            <label class="checkbox-label">
+                <input type="checkbox" id="showRows" onchange="toggleRows()">
+                <span>Lignes</span>
+            </label>
+            <label class="checkbox-label">
+                <input type="checkbox" id="showColumns" onchange="toggleColumns()">
+                <span>Colonnes</span>
             </label>
         </div>
     </div>
@@ -403,7 +482,46 @@
 
         function createGrid() {
             const grid = document.getElementById('sudokuGrid');
+            const container = grid.parentElement;
+            
             grid.innerHTML = '';
+            
+            // Supprimer les anciens conteneurs d'indices s'ils existent
+            const oldRowHints = document.getElementById('rowHints');
+            const oldColumnHints = document.getElementById('columnHints');
+            if (oldRowHints) oldRowHints.remove();
+            if (oldColumnHints) oldColumnHints.remove();
+            
+            // Créer les conteneurs pour les indices de lignes et colonnes
+            const rowHintsContainer = document.createElement('div');
+            rowHintsContainer.className = 'row-hints';
+            rowHintsContainer.id = 'rowHints';
+            
+            const columnHintsContainer = document.createElement('div');
+            columnHintsContainer.className = 'column-hints';
+            columnHintsContainer.id = 'columnHints';
+            
+            // Créer les divs pour chaque ligne (9 lignes)
+            for (let row = 0; row < 9; row++) {
+                const rowHint = document.createElement('div');
+                rowHint.className = 'row-hint';
+                rowHint.style.top = (row * 65) + 'px';
+                rowHint.id = `row-hint-${row}`;
+                rowHintsContainer.appendChild(rowHint);
+            }
+            
+            // Créer les divs pour chaque colonne (9 colonnes)
+            for (let col = 0; col < 9; col++) {
+                const columnHint = document.createElement('div');
+                columnHint.className = 'column-hint';
+                columnHint.style.left = (col * 65) + 'px';
+                columnHint.id = `column-hint-${col}`;
+                columnHintsContainer.appendChild(columnHint);
+            }
+            
+            // Ajouter les conteneurs au container (pas à la grille)
+            container.appendChild(rowHintsContainer);
+            container.appendChild(columnHintsContainer);
             
             for (let i = 0; i < 81; i++) {
                 const cell = document.createElement('div');
@@ -659,10 +777,20 @@
             updateAllHints();
         }
 
+        function toggleRows() {
+            updateAllHints();
+        }
+
+        function toggleColumns() {
+            updateAllHints();
+        }
+
         function updateAllHints() {
             const showPairs = document.getElementById('showCandidates').checked;
             const showSimples = document.getElementById('showSimples').checked;
             const showTriples = document.getElementById('showTriples').checked;
+            const showRows = document.getElementById('showRows').checked;
+            const showColumns = document.getElementById('showColumns').checked;
             
             if (showPairs) {
                 updatePairHints();
@@ -688,6 +816,157 @@
                 document.querySelectorAll('.triple-hint-left, .triple-hint-top').forEach(hint => {
                     hint.classList.remove('show');
                     hint.textContent = '';
+                });
+            }
+            
+            if (showRows) {
+                updateRowHints();
+            } else {
+                document.querySelectorAll('.row-hint').forEach(hint => {
+                    hint.classList.remove('show');
+                    hint.innerHTML = '';
+                });
+            }
+            
+            if (showColumns) {
+                updateColumnHints();
+            } else {
+                document.querySelectorAll('.column-hint').forEach(hint => {
+                    hint.classList.remove('show');
+                    hint.innerHTML = '';
+                });
+            }
+        }
+
+        function updateRowHints() {
+            const cells = document.querySelectorAll('.cell input');
+            
+            for (let row = 0; row < 9; row++) {
+                const missing = [];
+                const present = new Set();
+                
+                // Trouver les chiffres présents dans la ligne
+                for (let col = 0; col < 9; col++) {
+                    const index = row * 9 + col;
+                    const value = parseInt(cells[index].value);
+                    if (value) {
+                        present.add(value);
+                    }
+                }
+                
+                // Trouver les chiffres manquants
+                for (let num = 1; num <= 9; num++) {
+                    if (!present.has(num)) {
+                        missing.push(num);
+                    }
+                }
+                
+                // Afficher les chiffres manquants sur 3 lignes maximum (3 chiffres par ligne)
+                const rowHint = document.getElementById(`row-hint-${row}`);
+                if (missing.length > 0) {
+                    const lines = [];
+                    // Grouper par 3
+                    for (let i = 0; i < missing.length; i += 3) {
+                        const group = missing.slice(i, i + 3);
+                        lines.push(group.join(' '));
+                    }
+                    rowHint.innerHTML = lines.join('<br>');
+                    rowHint.classList.add('show');
+                } else {
+                    rowHint.classList.remove('show');
+                    rowHint.innerHTML = '';
+                }
+            }
+        }
+
+        function updateColumnHints() {
+            const cells = document.querySelectorAll('.cell input');
+            
+            for (let col = 0; col < 9; col++) {
+                const missing = [];
+                const present = new Set();
+                
+                // Trouver les chiffres présents dans la colonne
+                for (let row = 0; row < 9; row++) {
+                    const index = row * 9 + col;
+                    const value = parseInt(cells[index].value);
+                    if (value) {
+                        present.add(value);
+                    }
+                }
+                
+                // Trouver les chiffres manquants
+                for (let num = 1; num <= 9; num++) {
+                    if (!present.has(num)) {
+                        missing.push(num);
+                    }
+                }
+                
+                // Afficher les chiffres manquants sur 3 lignes (max 3 chiffres par ligne)
+                const columnHint = document.getElementById(`column-hint-${col}`);
+                if (missing.length > 0) {
+                    const lines = [];
+                    for (let i = 0; i < missing.length; i += 3) {
+                        lines.push(missing.slice(i, i + 3).join(' '));
+                    }
+                    columnHint.innerHTML = lines.join('<br>');
+                    columnHint.classList.add('show');
+                } else {
+                    columnHint.classList.remove('show');
+                    columnHint.innerHTML = '';
+                }
+            }
+        }
+
+        function updateAllHints() {
+            const showPairs = document.getElementById('showCandidates').checked;
+            const showSimples = document.getElementById('showSimples').checked;
+            const showTriples = document.getElementById('showTriples').checked;
+            const showRows = document.getElementById('showRows').checked;
+            const showColumns = document.getElementById('showColumns').checked;
+            
+            if (showPairs) {
+                updatePairHints();
+            } else {
+                document.querySelectorAll('.pair-hint-right, .pair-hint-bottom').forEach(hint => {
+                    hint.classList.remove('show');
+                    hint.textContent = '';
+                });
+            }
+            
+            if (showSimples) {
+                updateSimpleHints();
+            } else {
+                document.querySelectorAll('.simple-hint').forEach(hint => {
+                    hint.classList.remove('show');
+                    hint.textContent = '';
+                });
+            }
+            
+            if (showTriples) {
+                updateTripleHints();
+            } else {
+                document.querySelectorAll('.triple-hint-left, .triple-hint-top').forEach(hint => {
+                    hint.classList.remove('show');
+                    hint.textContent = '';
+                });
+            }
+            
+            if (showRows) {
+                updateRowHints();
+            } else {
+                document.querySelectorAll('.row-hint').forEach(hint => {
+                    hint.classList.remove('show');
+                    hint.innerHTML = '';
+                });
+            }
+            
+            if (showColumns) {
+                updateColumnHints();
+            } else {
+                document.querySelectorAll('.column-hint').forEach(hint => {
+                    hint.classList.remove('show');
+                    hint.innerHTML = '';
                 });
             }
         }
