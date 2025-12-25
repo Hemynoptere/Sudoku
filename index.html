@@ -1412,7 +1412,7 @@
                 hint.textContent = '';
             });
             
-            // Trouver les simples classiques (une seule possibilité)
+            // 1. Trouver les Naked Singles (une seule possibilité dans la case)
             cells.forEach((cell, index) => {
                 const row = Math.floor(index / 9);
                 const col = index % 9;
@@ -1466,6 +1466,94 @@
                     simpleHint.classList.add('show');
                 }
             });
+            
+            // 2. Trouver les Hidden Singles (seul endroit dans ligne/colonne/zone pour un chiffre)
+            
+            // Hidden Singles dans les lignes
+            for (let row = 0; row < 9; row++) {
+                for (let num = 1; num <= 9; num++) {
+                    const possibleCols = [];
+                    for (let col = 0; col < 9; col++) {
+                        const index = row * 9 + col;
+                        const input = cells[index].querySelector('input');
+                        if (!givenCells.includes(index) && !input.value) {
+                            const candidates = getCandidates(row, col);
+                            if (candidates.includes(num)) {
+                                possibleCols.push(col);
+                            }
+                        }
+                    }
+                    if (possibleCols.length === 1) {
+                        const col = possibleCols[0];
+                        const index = row * 9 + col;
+                        const cell = cells[index];
+                        const simpleHint = cell.querySelector('.simple-hint');
+                        if (!simpleHint.textContent) { // Ne pas écraser un Naked Single
+                            simpleHint.textContent = num;
+                            simpleHint.classList.add('show');
+                        }
+                    }
+                }
+            }
+            
+            // Hidden Singles dans les colonnes
+            for (let col = 0; col < 9; col++) {
+                for (let num = 1; num <= 9; num++) {
+                    const possibleRows = [];
+                    for (let row = 0; row < 9; row++) {
+                        const index = row * 9 + col;
+                        const input = cells[index].querySelector('input');
+                        if (!givenCells.includes(index) && !input.value) {
+                            const candidates = getCandidates(row, col);
+                            if (candidates.includes(num)) {
+                                possibleRows.push(row);
+                            }
+                        }
+                    }
+                    if (possibleRows.length === 1) {
+                        const row = possibleRows[0];
+                        const index = row * 9 + col;
+                        const cell = cells[index];
+                        const simpleHint = cell.querySelector('.simple-hint');
+                        if (!simpleHint.textContent) { // Ne pas écraser un Naked Single
+                            simpleHint.textContent = num;
+                            simpleHint.classList.add('show');
+                        }
+                    }
+                }
+            }
+            
+            // Hidden Singles dans les zones 3×3
+            for (let boxRow = 0; boxRow < 3; boxRow++) {
+                for (let boxCol = 0; boxCol < 3; boxCol++) {
+                    for (let num = 1; num <= 9; num++) {
+                        const possiblePositions = [];
+                        for (let i = 0; i < 3; i++) {
+                            for (let j = 0; j < 3; j++) {
+                                const row = boxRow * 3 + i;
+                                const col = boxCol * 3 + j;
+                                const index = row * 9 + col;
+                                const input = cells[index].querySelector('input');
+                                if (!givenCells.includes(index) && !input.value) {
+                                    const candidates = getCandidates(row, col);
+                                    if (candidates.includes(num)) {
+                                        possiblePositions.push({ row, col, index });
+                                    }
+                                }
+                            }
+                        }
+                        if (possiblePositions.length === 1) {
+                            const pos = possiblePositions[0];
+                            const cell = cells[pos.index];
+                            const simpleHint = cell.querySelector('.simple-hint');
+                            if (!simpleHint.textContent) { // Ne pas écraser un Naked ou Hidden Single déjà trouvé
+                                simpleHint.textContent = num;
+                                simpleHint.classList.add('show');
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         function updatePointingPairsHints() {
