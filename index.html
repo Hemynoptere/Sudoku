@@ -251,6 +251,41 @@
             display: block;
         }
 
+        .pointing-pair-right {
+            position: absolute;
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 13px;
+            color: #ed8936;
+            font-weight: 700;
+            background: white;
+            padding: 1px 2px;
+            z-index: 10;
+            white-space: nowrap;
+            display: none;
+        }
+
+        .pointing-pair-bottom {
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 13px;
+            color: #ed8936;
+            font-weight: 700;
+            background: white;
+            padding: 1px 2px;
+            z-index: 10;
+            white-space: nowrap;
+            display: none;
+        }
+
+        .pointing-pair-right.show,
+        .pointing-pair-bottom.show {
+            display: block;
+        }
+
         .triple-hint-left {
             position: absolute;
             left: -8px;
@@ -451,6 +486,10 @@
                 <span>Simples</span>
             </label>
             <label class="checkbox-label">
+                <input type="checkbox" id="showPointingPairs" onchange="togglePointingPairs()">
+                <span>Paires</span>
+            </label>
+            <label class="checkbox-label">
                 <input type="checkbox" id="showCandidates" onchange="toggleCandidates()">
                 <span>Doubles</span>
             </label>
@@ -561,6 +600,12 @@
                 const simpleHint = document.createElement('div');
                 simpleHint.className = 'simple-hint';
                 
+                const pointingPairRight = document.createElement('div');
+                pointingPairRight.className = 'pointing-pair-right';
+                
+                const pointingPairBottom = document.createElement('div');
+                pointingPairBottom.className = 'pointing-pair-bottom';
+                
                 const tripleHintLeft = document.createElement('div');
                 tripleHintLeft.className = 'triple-hint-left';
                 
@@ -570,6 +615,8 @@
                 cell.appendChild(pairHintRight);
                 cell.appendChild(pairHintBottom);
                 cell.appendChild(simpleHint);
+                cell.appendChild(pointingPairRight);
+                cell.appendChild(pointingPairBottom);
                 cell.appendChild(tripleHintLeft);
                 cell.appendChild(tripleHintTop);
                 cell.appendChild(input);
@@ -1144,6 +1191,10 @@
             updateAllHints();
         }
 
+        function togglePointingPairs() {
+            updateAllHints();
+        }
+
         function toggleTriples() {
             updateAllHints();
         }
@@ -1292,6 +1343,7 @@
         function updateAllHints() {
             const showPairs = document.getElementById('showCandidates').checked;
             const showSimples = document.getElementById('showSimples').checked;
+            const showPointingPairs = document.getElementById('showPointingPairs').checked;
             const showTriples = document.getElementById('showTriples').checked;
             const showRows = document.getElementById('showRows').checked;
             const showColumns = document.getElementById('showColumns').checked;
@@ -1309,6 +1361,15 @@
                 updateSimpleHints();
             } else {
                 document.querySelectorAll('.simple-hint').forEach(hint => {
+                    hint.classList.remove('show');
+                    hint.textContent = '';
+                });
+            }
+            
+            if (showPointingPairs) {
+                updatePointingPairsHints();
+            } else {
+                document.querySelectorAll('.pointing-pair-right, .pointing-pair-bottom').forEach(hint => {
                     hint.classList.remove('show');
                     hint.textContent = '';
                 });
@@ -1351,6 +1412,7 @@
                 hint.textContent = '';
             });
             
+            // Trouver les simples classiques (une seule possibilité)
             cells.forEach((cell, index) => {
                 const row = Math.floor(index / 9);
                 const col = index % 9;
@@ -1368,6 +1430,67 @@
                     simpleHint.classList.add('show');
                 }
             });
+        }
+
+        function updatePointingPairsHints() {
+            const cells = document.querySelectorAll('.cell');
+            
+            // Réinitialiser tous les pointing pairs
+            document.querySelectorAll('.pointing-pair-right, .pointing-pair-bottom').forEach(hint => {
+                hint.classList.remove('show');
+                hint.textContent = '';
+            });
+            
+            // Trouver les pointing pairs dans chaque zone 3x3
+            for (let boxRow = 0; boxRow < 3; boxRow++) {
+                for (let boxCol = 0; boxCol < 3; boxCol++) {
+                    // Pour chaque chiffre de 1 à 9
+                    for (let num = 1; num <= 9; num++) {
+                        const positions = [];
+                        
+                        // Trouver toutes les positions possibles pour ce chiffre dans cette zone
+                        for (let i = 0; i < 3; i++) {
+                            for (let j = 0; j < 3; j++) {
+                                const row = boxRow * 3 + i;
+                                const col = boxCol * 3 + j;
+                                const index = row * 9 + col;
+                                const input = cells[index].querySelector('input');
+                                
+                                if (!givenCells.includes(index) && !input.value) {
+                                    const candidates = getCandidates(row, col);
+                                    if (candidates.includes(num)) {
+                                        positions.push({ row, col, index });
+                                    }
+                                }
+                            }
+                        }
+                        
+                        // Si exactement 2 positions et elles sont contiguës
+                        if (positions.length === 2) {
+                            const pos1 = positions[0];
+                            const pos2 = positions[1];
+                            
+                            // Vérifier si contiguës horizontalement
+                            if (pos1.row === pos2.row && Math.abs(pos1.col - pos2.col) === 1) {
+                                const leftIndex = pos1.col < pos2.col ? pos1.index : pos2.index;
+                                const leftCell = cells[leftIndex];
+                                const pointingHint = leftCell.querySelector('.pointing-pair-right');
+                                pointingHint.textContent = num;
+                                pointingHint.classList.add('show');
+                            }
+                            
+                            // Vérifier si contiguës verticalement
+                            if (pos1.col === pos2.col && Math.abs(pos1.row - pos2.row) === 1) {
+                                const topIndex = pos1.row < pos2.row ? pos1.index : pos2.index;
+                                const topCell = cells[topIndex];
+                                const pointingHint = topCell.querySelector('.pointing-pair-bottom');
+                                pointingHint.textContent = num;
+                                pointingHint.classList.add('show');
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         function updateTripleHints() {
