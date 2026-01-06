@@ -169,7 +169,7 @@
             overflow: visible;
             width: fit-content;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            padding: 30px;
+            padding: 40px 40px 40px 50px;
             background: white;
             position: relative;
         }
@@ -323,9 +323,9 @@
 
         .row-hints {
             position: absolute;
-            left: 3px;
-            top: 30px;
-            width: 30px;
+            left: 6px;
+            top: 40px;
+            width: 40px;
             height: 585px;
             pointer-events: none;
         }
@@ -333,17 +333,20 @@
         .row-hint {
             position: absolute;
             left: 0;
-            width: 30px;
+            width: 40px;
             height: 65px;
             display: none;
             flex-direction: column;
             justify-content: center;
-            align-items: flex-end;
+            align-items: center;
             font-size: 10px;
             color: #718096;
             font-weight: 600;
-            padding-right: 4px;
-            line-height: 1.2;
+            line-height: 1.4;
+        }
+
+        .row-hint-line {
+            white-space: nowrap;
         }
 
         .row-hint.show {
@@ -352,8 +355,8 @@
 
         .column-hints {
             position: absolute;
-            top: 3px;
-            left: 30px;
+            top: 6px;
+            left: 50px;
             width: 585px;
             height: 30px;
             pointer-events: none;
@@ -365,15 +368,17 @@
             width: 65px;
             height: 30px;
             display: none;
-            flex-direction: row;
+            flex-direction: column;
             justify-content: center;
-            align-items: flex-end;
+            align-items: center;
             font-size: 10px;
             color: #718096;
             font-weight: 600;
-            padding-bottom: 4px;
-            line-height: 1.2;
-            flex-wrap: wrap;
+            line-height: 1.4;
+        }
+
+        .column-hint-line {
+            white-space: nowrap;
         }
 
         .column-hint.show {
@@ -1283,16 +1288,15 @@
                     }
                 }
                 
-                // Afficher les chiffres manquants sur 3 lignes maximum (3 chiffres par ligne)
+                // Afficher les chiffres manquants sur 3 lignes (max 3 chiffres par ligne)
                 const rowHint = document.getElementById(`row-hint-${row}`);
                 if (missing.length > 0) {
                     const lines = [];
-                    // Grouper par 3
                     for (let i = 0; i < missing.length; i += 3) {
-                        const group = missing.slice(i, i + 3);
-                        lines.push(group.join(' '));
+                        const group = missing.slice(i, i + 3).join(' ');
+                        lines.push(`<div class="row-hint-line">${group}</div>`);
                     }
-                    rowHint.innerHTML = lines.join('<br>');
+                    rowHint.innerHTML = lines.join('');
                     rowHint.classList.add('show');
                 } else {
                     rowHint.classList.remove('show');
@@ -1329,9 +1333,10 @@
                 if (missing.length > 0) {
                     const lines = [];
                     for (let i = 0; i < missing.length; i += 3) {
-                        lines.push(missing.slice(i, i + 3).join(' '));
+                        const group = missing.slice(i, i + 3).join(' ');
+                        lines.push(`<div class="column-hint-line">${group}</div>`);
                     }
-                    columnHint.innerHTML = lines.join('<br>');
+                    columnHint.innerHTML = lines.join('');
                     columnHint.classList.add('show');
                 } else {
                     columnHint.classList.remove('show');
