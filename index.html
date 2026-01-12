@@ -217,7 +217,7 @@
             right: -8px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 13px;
+            font-size: 18px;
             color: #ed8936;
             font-weight: 700;
             background: white;
@@ -232,7 +232,7 @@
             bottom: -8px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 13px;
+            font-size: 18px;
             color: #ed8936;
             font-weight: 700;
             background: white;
@@ -252,7 +252,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 22px;
+            font-size: 18px;
             color: #16a34a;
             font-weight: 700;
             z-index: 5;
@@ -268,7 +268,7 @@
             right: -8px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 13px;
+            font-size: 18px;
             color: #ed8936;
             font-weight: 700;
             background: white;
@@ -283,7 +283,7 @@
             bottom: -8px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 13px;
+            font-size: 18px;
             color: #ed8936;
             font-weight: 700;
             background: white;
@@ -303,7 +303,7 @@
             left: -8px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 13px;
+            font-size: 18px;
             color: #3182ce;
             font-weight: 700;
             background: white;
@@ -318,7 +318,7 @@
             top: -8px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 13px;
+            font-size: 18px;
             color: #3182ce;
             font-weight: 700;
             background: white;
@@ -559,7 +559,6 @@
 
         <div class="sudoku-container">
             <div class="sudoku-grid" id="sudokuGrid"></div>
-            <div class="xwing-overlay" id="xwingOverlay"></div>
         </div>
 
         <div class="pair-control">
@@ -589,11 +588,7 @@
             </label>
             <label class="checkbox-label">
                 <input type="checkbox" id="showAriane" onchange="toggleAriane()">
-                <span>Fil</span>
-            </label>
-            <label class="checkbox-label">
-                <input type="checkbox" id="showXWing" onchange="toggleXWing()">
-                <span>X-Wing</span>
+                <span>Fil d'Ariane</span>
             </label>
         </div>
     </div>
@@ -1299,10 +1294,6 @@
             updateAllHints();
         }
 
-        function toggleXWing() {
-            updateAllHints();
-        }
-
         function updateAllHints() {
             const showPairs = document.getElementById('showCandidates').checked;
             const showSimples = document.getElementById('showSimples').checked;
@@ -1444,7 +1435,6 @@
             const showRows = document.getElementById('showRows').checked;
             const showColumns = document.getElementById('showColumns').checked;
             const showAriane = document.getElementById('showAriane').checked;
-            const showXWing = document.getElementById('showXWing').checked;
             
             if (showPairs) {
                 updatePairHints();
@@ -1507,15 +1497,12 @@
                     hint.classList.remove('show');
                     hint.innerHTML = '';
                 });
-            }
-            
-            if (showXWing) {
-                updateXWingHint();
-            } else {
-                const overlay = document.getElementById('xwingOverlay');
-                if (overlay) {
-                    overlay.classList.remove('show');
-                    overlay.innerHTML = '';
+                
+                // Cacher aussi le bouton Résoudre Fil
+                arianeState = null;
+                const solveArianeBtn = document.getElementById('solveArianeBtn');
+                if (solveArianeBtn) {
+                    solveArianeBtn.style.display = 'none';
                 }
             }
         }
@@ -2184,158 +2171,6 @@
             return false;
         }
 
-        function updateXWingHint() {
-            const cells = document.querySelectorAll('.cell input');
-            const overlay = document.getElementById('xwingOverlay');
-            
-            if (!overlay) return;
-            
-            overlay.innerHTML = '';
-            overlay.classList.remove('show');
-            
-            // Chercher des X-Wings pour chaque chiffre
-            for (let num = 1; num <= 9; num++) {
-                // X-Wing dans les lignes
-                const rowXWing = findRowXWing(cells, num);
-                if (rowXWing) {
-                    drawXWing(overlay, rowXWing, num);
-                    overlay.classList.add('show');
-                    return; // Afficher seulement le premier X-Wing trouvé
-                }
-                
-                // X-Wing dans les colonnes
-                const colXWing = findColXWing(cells, num);
-                if (colXWing) {
-                    drawXWing(overlay, colXWing, num);
-                    overlay.classList.add('show');
-                    return;
-                }
-            }
-        }
-
-        function findRowXWing(cells, num) {
-            // Pour chaque paire de lignes
-            for (let row1 = 0; row1 < 8; row1++) {
-                for (let row2 = row1 + 1; row2 < 9; row2++) {
-                    const cols1 = [];
-                    const cols2 = [];
-                    
-                    // Trouver les colonnes possibles dans chaque ligne
-                    for (let col = 0; col < 9; col++) {
-                        const index1 = row1 * 9 + col;
-                        const index2 = row2 * 9 + col;
-                        
-                        if (!givenCells.includes(index1) && !cells[index1].value) {
-                            const candidates1 = getCandidates(row1, col);
-                            if (candidates1.includes(num)) {
-                                cols1.push(col);
-                            }
-                        }
-                        
-                        if (!givenCells.includes(index2) && !cells[index2].value) {
-                            const candidates2 = getCandidates(row2, col);
-                            if (candidates2.includes(num)) {
-                                cols2.push(col);
-                            }
-                        }
-                    }
-                    
-                    // X-Wing trouvé : exactement 2 colonnes identiques dans les 2 lignes
-                    if (cols1.length === 2 && cols2.length === 2 && 
-                        cols1[0] === cols2[0] && cols1[1] === cols2[1]) {
-                        return {
-                            cells: [
-                                { row: row1, col: cols1[0] },
-                                { row: row1, col: cols1[1] },
-                                { row: row2, col: cols2[0] },
-                                { row: row2, col: cols2[1] }
-                            ],
-                            type: 'row'
-                        };
-                    }
-                }
-            }
-            return null;
-        }
-
-        function findColXWing(cells, num) {
-            // Pour chaque paire de colonnes
-            for (let col1 = 0; col1 < 8; col1++) {
-                for (let col2 = col1 + 1; col2 < 9; col2++) {
-                    const rows1 = [];
-                    const rows2 = [];
-                    
-                    // Trouver les lignes possibles dans chaque colonne
-                    for (let row = 0; row < 9; row++) {
-                        const index1 = row * 9 + col1;
-                        const index2 = row * 9 + col2;
-                        
-                        if (!givenCells.includes(index1) && !cells[index1].value) {
-                            const candidates1 = getCandidates(row, col1);
-                            if (candidates1.includes(num)) {
-                                rows1.push(row);
-                            }
-                        }
-                        
-                        if (!givenCells.includes(index2) && !cells[index2].value) {
-                            const candidates2 = getCandidates(row, col2);
-                            if (candidates2.includes(num)) {
-                                rows2.push(row);
-                            }
-                        }
-                    }
-                    
-                    // X-Wing trouvé : exactement 2 lignes identiques dans les 2 colonnes
-                    if (rows1.length === 2 && rows2.length === 2 && 
-                        rows1[0] === rows2[0] && rows1[1] === rows2[1]) {
-                        return {
-                            cells: [
-                                { row: rows1[0], col: col1 },
-                                { row: rows1[0], col: col2 },
-                                { row: rows1[1], col: col1 },
-                                { row: rows1[1], col: col2 }
-                            ],
-                            type: 'col'
-                        };
-                    }
-                }
-            }
-            return null;
-        }
-
-        function drawXWing(overlay, xwing, num) {
-            if (!xwing || !xwing.cells || xwing.cells.length !== 4) return;
-            
-            // Calculer les positions des 4 coins du rectangle
-            const positions = xwing.cells.map(c => ({
-                x: 50 + c.col * 65 + 32.5, // 50 = padding gauche, 32.5 = centre de la cellule
-                y: 40 + c.row * 65 + 32.5  // 40 = padding haut
-            }));
-            
-            // Trouver les coins du rectangle
-            const minX = Math.min(...positions.map(p => p.x));
-            const maxX = Math.max(...positions.map(p => p.x));
-            const minY = Math.min(...positions.map(p => p.y));
-            const maxY = Math.max(...positions.map(p => p.y));
-            
-            // Créer le rectangle
-            const rect = document.createElement('div');
-            rect.className = 'xwing-rect';
-            rect.style.left = minX + 'px';
-            rect.style.top = minY + 'px';
-            rect.style.width = (maxX - minX) + 'px';
-            rect.style.height = (maxY - minY) + 'px';
-            
-            // Créer le label
-            const label = document.createElement('div');
-            label.className = 'xwing-label';
-            label.textContent = `X-Wing: ${num}`;
-            label.style.left = minX + 'px';
-            label.style.top = (minY - 20) + 'px';
-            
-            overlay.appendChild(rect);
-            overlay.appendChild(label);
-        }
     </script>
 </body>
 </html>
