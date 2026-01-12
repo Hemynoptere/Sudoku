@@ -15,19 +15,20 @@
 ```
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: white;
         min-height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 20px;
+        padding: 0;
+        margin: 0;
     }
 
     .container {
         background: white;
-        border-radius: 20px;
+        border-radius: 0;
         padding: 10px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        box-shadow: none;
         max-width: 700px;
     }
 
@@ -61,6 +62,8 @@
     .difficulty-btn {
         background: #667eea;
         color: white;
+        padding: 5px 10px;
+        font-size: 9px;
     }
 
     .difficulty-btn:hover {
@@ -170,7 +173,7 @@
         border-radius: 8px;
         overflow: visible;
         width: fit-content;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        box-shadow: none;
         padding: 40px 40px 40px 50px;
         background: white;
         position: relative;
@@ -422,6 +425,35 @@
         display: flex;
     }
 
+    .xwing-overlay {
+        position: absolute;
+        pointer-events: none;
+        z-index: 15;
+        display: none;
+    }
+
+    .xwing-rect {
+        position: absolute;
+        border: 3px solid #dc2626;
+        background: rgba(220, 38, 38, 0.05);
+        pointer-events: none;
+    }
+
+    .xwing-label {
+        position: absolute;
+        background: #dc2626;
+        color: white;
+        padding: 2px 4px;
+        font-size: 9px;
+        font-weight: 700;
+        border-radius: 3px;
+        white-space: nowrap;
+    }
+
+    .xwing-overlay.show {
+        display: block;
+    }
+
     .column-hint.show {
         display: flex;
     }
@@ -505,10 +537,6 @@
     <div class="container">
 
 ```
-    <div class="difficulty-info" id="difficultyInfo">
-        Sélectionnez un niveau de difficulté
-    </div>
-
     <div class="controls">
         <button class="difficulty-btn" data-difficulty="facile">Facile</button>
         <button class="difficulty-btn" data-difficulty="moyen">Moyen</button>
@@ -526,6 +554,7 @@
 
     <div class="sudoku-container">
         <div class="sudoku-grid" id="sudokuGrid"></div>
+        <div class="xwing-overlay" id="xwingOverlay"></div>
     </div>
 
     <div class="pair-control">
@@ -556,6 +585,10 @@
         <label class="checkbox-label">
             <input type="checkbox" id="showAriane" onchange="toggleAriane()">
             <span>Fil</span>
+        </label>
+        <label class="checkbox-label">
+            <input type="checkbox" id="showXWing" onchange="toggleXWing()">
+            <span>X-Wing</span>
         </label>
     </div>
 </div>
@@ -705,10 +738,6 @@
         // Activer le mode grille vierge
         isEmptyGridMode = true;
         
-        // Mettre à jour l'info
-        const info = document.getElementById('difficultyInfo');
-        info.textContent = 'Grille vierge - Saisissez votre propre Sudoku';
-        
         // Créer une grille vide
         const emptyGrid = Array(9).fill().map(() => Array(9).fill(0));
         currentPuzzle = emptyGrid;
@@ -731,9 +760,7 @@
     }
 
     function updateDifficultyInfo() {
-        const info = document.getElementById('difficultyInfo');
-        const level = difficultyLevels[currentDifficulty];
-        info.textContent = `Niveau: ${currentDifficulty.charAt(0).toUpperCase() + currentDifficulty.slice(1)} - ${level.description}`;
+        // Fonction désactivée - la bande d'information a été supprimée
     }
 
     function generateCompleteSudoku() {
@@ -1267,6 +1294,10 @@
         updateAllHints();
     }
 
+    function toggleXWing() {
+        updateAllHints();
+    }
+
     function updateAllHints() {
         const showPairs = document.getElementById('showCandidates').checked;
         const showSimples = document.getElementById('showSimples').checked;
@@ -1408,6 +1439,7 @@
         const showRows = document.getElementById('showRows').checked;
         const showColumns = document.getElementById('showColumns').checked;
         const showAriane = document.getElementById('showAriane').checked;
+        const showXWing = document.getElementById('showXWing').checked;
         
         if (showPairs) {
             updatePairHints();
@@ -1470,6 +1502,16 @@
                 hint.classList.remove('show');
                 hint.innerHTML = '';
             });
+        }
+        
+        if (showXWing) {
+            updateXWingHint();
+        } else {
+            const overlay = document.getElementById('xwingOverlay');
+            if (overlay) {
+                overlay.classList.remove('show');
+                overlay.innerHTML = '';
+            }
         }
     }
 
@@ -1915,7 +1957,13 @@
             hint.innerHTML = '';
         });
         
-        // Trouver la meilleure case pour le fil d'Ariane
+        // Vérifier s'il existe des techniques logiques disponibles
+        if (hasLogicalTechniquesAvailable()) {
+            // Il reste des techniques logiques, ne pas afficher Ariane
+            return;
+        }
+        
+        // Plus de techniques logiques disponibles : chercher la meilleure case pour le fil d'Ariane
         // Critère : case vide avec le moins de candidats (mais au moins 2)
         let bestCell = null;
         let minCandidates = 10;
@@ -1952,6 +2000,247 @@
             arianeHint.innerHTML = `<div class="ariane-candidates">${candidatesHtml}</div>`;
             arianeHint.classList.add('show');
         }
+    }
+
+    function hasLogicalTechniquesAvailable() {
+        const cells = document.querySelectorAll('.cell');
+        
+        // 1. Vérifier s'il existe des Naked Singles (simples)
+        for (let i = 0; i < cells.length; i++) {
+            const row = Math.floor(i / 9);
+            const col = i % 9;
+            const input = cells[i].querySelector('input');
+            
+            if (!givenCells.includes(i) && !input.value) {
+                const candidates = getCandidates(row, col);
+                if (candidates.length === 1) {
+                    return true; // Il existe un simple
+                }
+            }
+        }
+        
+        // 2. Vérifier s'il existe des Hidden Singles (lignes)
+        for (let row = 0; row < 9; row++) {
+            for (let num = 1; num <= 9; num++) {
+                const possibleCols = [];
+                for (let col = 0; col < 9; col++) {
+                    const index = row * 9 + col;
+                    const input = cells[index].querySelector('input');
+                    if (!givenCells.includes(index) && !input.value) {
+                        const candidates = getCandidates(row, col);
+                        if (candidates.includes(num)) {
+                            possibleCols.push(col);
+                        }
+                    }
+                }
+                if (possibleCols.length === 1) {
+                    return true; // Il existe un hidden single
+                }
+            }
+        }
+        
+        // 3. Vérifier s'il existe des Hidden Singles (colonnes)
+        for (let col = 0; col < 9; col++) {
+            for (let num = 1; num <= 9; num++) {
+                const possibleRows = [];
+                for (let row = 0; row < 9; row++) {
+                    const index = row * 9 + col;
+                    const input = cells[index].querySelector('input');
+                    if (!givenCells.includes(index) && !input.value) {
+                        const candidates = getCandidates(row, col);
+                        if (candidates.includes(num)) {
+                            possibleRows.push(row);
+                        }
+                    }
+                }
+                if (possibleRows.length === 1) {
+                    return true; // Il existe un hidden single
+                }
+            }
+        }
+        
+        // 4. Vérifier s'il existe des Hidden Singles (zones 3×3)
+        for (let boxRow = 0; boxRow < 3; boxRow++) {
+            for (let boxCol = 0; boxCol < 3; boxCol++) {
+                for (let num = 1; num <= 9; num++) {
+                    const possiblePositions = [];
+                    for (let i = 0; i < 3; i++) {
+                        for (let j = 0; j < 3; j++) {
+                            const row = boxRow * 3 + i;
+                            const col = boxCol * 3 + j;
+                            const index = row * 9 + col;
+                            const input = cells[index].querySelector('input');
+                            if (!givenCells.includes(index) && !input.value) {
+                                const candidates = getCandidates(row, col);
+                                if (candidates.includes(num)) {
+                                    possiblePositions.push({ row, col });
+                                }
+                            }
+                        }
+                    }
+                    if (possiblePositions.length === 1) {
+                        return true; // Il existe un hidden single
+                    }
+                }
+            }
+        }
+        
+        // Aucun simple (naked ou hidden) disponible
+        // Les doubles, paires, triples, X-Wing sont des techniques avancées optionnelles
+        return false;
+    }
+
+    function updateXWingHint() {
+        const cells = document.querySelectorAll('.cell input');
+        const overlay = document.getElementById('xwingOverlay');
+        
+        if (!overlay) return;
+        
+        overlay.innerHTML = '';
+        overlay.classList.remove('show');
+        
+        // Chercher des X-Wings pour chaque chiffre
+        for (let num = 1; num <= 9; num++) {
+            // X-Wing dans les lignes
+            const rowXWing = findRowXWing(cells, num);
+            if (rowXWing) {
+                drawXWing(overlay, rowXWing, num);
+                overlay.classList.add('show');
+                return; // Afficher seulement le premier X-Wing trouvé
+            }
+            
+            // X-Wing dans les colonnes
+            const colXWing = findColXWing(cells, num);
+            if (colXWing) {
+                drawXWing(overlay, colXWing, num);
+                overlay.classList.add('show');
+                return;
+            }
+        }
+    }
+
+    function findRowXWing(cells, num) {
+        // Pour chaque paire de lignes
+        for (let row1 = 0; row1 < 8; row1++) {
+            for (let row2 = row1 + 1; row2 < 9; row2++) {
+                const cols1 = [];
+                const cols2 = [];
+                
+                // Trouver les colonnes possibles dans chaque ligne
+                for (let col = 0; col < 9; col++) {
+                    const index1 = row1 * 9 + col;
+                    const index2 = row2 * 9 + col;
+                    
+                    if (!givenCells.includes(index1) && !cells[index1].value) {
+                        const candidates1 = getCandidates(row1, col);
+                        if (candidates1.includes(num)) {
+                            cols1.push(col);
+                        }
+                    }
+                    
+                    if (!givenCells.includes(index2) && !cells[index2].value) {
+                        const candidates2 = getCandidates(row2, col);
+                        if (candidates2.includes(num)) {
+                            cols2.push(col);
+                        }
+                    }
+                }
+                
+                // X-Wing trouvé : exactement 2 colonnes identiques dans les 2 lignes
+                if (cols1.length === 2 && cols2.length === 2 && 
+                    cols1[0] === cols2[0] && cols1[1] === cols2[1]) {
+                    return {
+                        cells: [
+                            { row: row1, col: cols1[0] },
+                            { row: row1, col: cols1[1] },
+                            { row: row2, col: cols2[0] },
+                            { row: row2, col: cols2[1] }
+                        ],
+                        type: 'row'
+                    };
+                }
+            }
+        }
+        return null;
+    }
+
+    function findColXWing(cells, num) {
+        // Pour chaque paire de colonnes
+        for (let col1 = 0; col1 < 8; col1++) {
+            for (let col2 = col1 + 1; col2 < 9; col2++) {
+                const rows1 = [];
+                const rows2 = [];
+                
+                // Trouver les lignes possibles dans chaque colonne
+                for (let row = 0; row < 9; row++) {
+                    const index1 = row * 9 + col1;
+                    const index2 = row * 9 + col2;
+                    
+                    if (!givenCells.includes(index1) && !cells[index1].value) {
+                        const candidates1 = getCandidates(row, col1);
+                        if (candidates1.includes(num)) {
+                            rows1.push(row);
+                        }
+                    }
+                    
+                    if (!givenCells.includes(index2) && !cells[index2].value) {
+                        const candidates2 = getCandidates(row, col2);
+                        if (candidates2.includes(num)) {
+                            rows2.push(row);
+                        }
+                    }
+                }
+                
+                // X-Wing trouvé : exactement 2 lignes identiques dans les 2 colonnes
+                if (rows1.length === 2 && rows2.length === 2 && 
+                    rows1[0] === rows2[0] && rows1[1] === rows2[1]) {
+                    return {
+                        cells: [
+                            { row: rows1[0], col: col1 },
+                            { row: rows1[0], col: col2 },
+                            { row: rows1[1], col: col1 },
+                            { row: rows1[1], col: col2 }
+                        ],
+                        type: 'col'
+                    };
+                }
+            }
+        }
+        return null;
+    }
+
+    function drawXWing(overlay, xwing, num) {
+        if (!xwing || !xwing.cells || xwing.cells.length !== 4) return;
+        
+        // Calculer les positions des 4 coins du rectangle
+        const positions = xwing.cells.map(c => ({
+            x: 50 + c.col * 65 + 32.5, // 50 = padding gauche, 32.5 = centre de la cellule
+            y: 40 + c.row * 65 + 32.5  // 40 = padding haut
+        }));
+        
+        // Trouver les coins du rectangle
+        const minX = Math.min(...positions.map(p => p.x));
+        const maxX = Math.max(...positions.map(p => p.x));
+        const minY = Math.min(...positions.map(p => p.y));
+        const maxY = Math.max(...positions.map(p => p.y));
+        
+        // Créer le rectangle
+        const rect = document.createElement('div');
+        rect.className = 'xwing-rect';
+        rect.style.left = minX + 'px';
+        rect.style.top = minY + 'px';
+        rect.style.width = (maxX - minX) + 'px';
+        rect.style.height = (maxY - minY) + 'px';
+        
+        // Créer le label
+        const label = document.createElement('div');
+        label.className = 'xwing-label';
+        label.textContent = `X-Wing: ${num}`;
+        label.style.left = minX + 'px';
+        label.style.top = (minY - 20) + 'px';
+        
+        overlay.appendChild(rect);
+        overlay.appendChild(label);
     }
 </script>
 ```
