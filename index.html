@@ -1516,143 +1516,112 @@
                 hint.textContent = '';
             });
             
-            // 1. Trouver les Naked Singles (une seule possibilité dans la case)
-            cells.forEach((cell, index) => {
-                const row = Math.floor(index / 9);
-                const col = index % 9;
-                const input = cell.querySelector('input');
-                
-                // Ignorer les cases pré-remplies ou déjà remplies
-                if (givenCells.includes(index) || input.value) return;
-                
-                const candidates = getCandidates(row, col);
-                
-                // Debug amélioré pour B9 (row=8, col=1, index=73)
-                if (index === 73) {
-                    const allCells = document.querySelectorAll('.cell input');
-                    
-                    // Ligne 8
-                    const rowValues = [];
-                    for (let c = 0; c < 9; c++) {
-                        const v = allCells[8 * 9 + c].value.trim();
-                        if (v) rowValues.push(v);
-                    }
-                    
-                    // Colonne 1
-                    const colValues = [];
-                    for (let r = 0; r < 9; r++) {
-                        const v = allCells[r * 9 + 1].value.trim();
-                        if (v) colValues.push(v);
-                    }
-                    
-                    // Bloc 3x3
-                    const boxValues = [];
-                    for (let r = 6; r < 9; r++) {
-                        for (let c = 0; c < 3; c++) {
-                            const v = allCells[r * 9 + c].value.trim();
-                            if (v) boxValues.push(v);
-                        }
-                    }
-                    
-                    console.log(`B9 (index ${index}, row ${row}, col ${col}):`);
-                    console.log(`  Row 8 values: [${rowValues.join(', ')}]`);
-                    console.log(`  Col 1 values: [${colValues.join(', ')}]`);
-                    console.log(`  Box values: [${boxValues.join(', ')}]`);
-                    console.log(`  Candidates: [${candidates.join(', ')}]`);
-                    console.log(`  Input value: "${input.value}" (empty: ${!input.value})`);
-                    console.log(`  Is given: ${givenCells.includes(index)}`);
-                }
-                
-                // Si une seule possibilité existe
-                if (candidates.length === 1) {
-                    const simpleHint = cell.querySelector('.simple-hint');
-                    simpleHint.textContent = candidates[0];
-                    simpleHint.classList.add('show');
-                }
-            });
+            let foundOne = false; // Flag pour arrêter après avoir trouvé le premier
             
-            // 2. Trouver les Hidden Singles (seul endroit dans ligne/colonne/zone pour un chiffre)
-            
-            // Hidden Singles dans les lignes
-            for (let row = 0; row < 9; row++) {
-                for (let num = 1; num <= 9; num++) {
-                    const possibleCols = [];
-                    for (let col = 0; col < 9; col++) {
-                        const index = row * 9 + col;
-                        const input = cells[index].querySelector('input');
-                        if (!givenCells.includes(index) && !input.value) {
-                            const candidates = getCandidates(row, col);
-                            if (candidates.includes(num)) {
-                                possibleCols.push(col);
-                            }
-                        }
-                    }
-                    if (possibleCols.length === 1) {
-                        const col = possibleCols[0];
-                        const index = row * 9 + col;
-                        const cell = cells[index];
+            // 1. Chercher d'abord les Naked Singles (priorité)
+            if (!foundOne) {
+                for (let index = 0; index < cells.length && !foundOne; index++) {
+                    const cell = cells[index];
+                    const row = Math.floor(index / 9);
+                    const col = index % 9;
+                    const input = cell.querySelector('input');
+                    
+                    if (givenCells.includes(index) || input.value) continue;
+                    
+                    const candidates = getCandidates(row, col);
+                    
+                    if (candidates.length === 1) {
                         const simpleHint = cell.querySelector('.simple-hint');
-                        if (!simpleHint.textContent) { // Ne pas écraser un Naked Single
-                            simpleHint.textContent = num;
-                            simpleHint.classList.add('show');
-                        }
+                        simpleHint.textContent = candidates[0];
+                        simpleHint.classList.add('show');
+                        foundOne = true;
                     }
                 }
             }
             
-            // Hidden Singles dans les colonnes
-            for (let col = 0; col < 9; col++) {
-                for (let num = 1; num <= 9; num++) {
-                    const possibleRows = [];
-                    for (let row = 0; row < 9; row++) {
-                        const index = row * 9 + col;
-                        const input = cells[index].querySelector('input');
-                        if (!givenCells.includes(index) && !input.value) {
-                            const candidates = getCandidates(row, col);
-                            if (candidates.includes(num)) {
-                                possibleRows.push(row);
-                            }
-                        }
-                    }
-                    if (possibleRows.length === 1) {
-                        const row = possibleRows[0];
-                        const index = row * 9 + col;
-                        const cell = cells[index];
-                        const simpleHint = cell.querySelector('.simple-hint');
-                        if (!simpleHint.textContent) { // Ne pas écraser un Naked Single
-                            simpleHint.textContent = num;
-                            simpleHint.classList.add('show');
-                        }
-                    }
-                }
-            }
-            
-            // Hidden Singles dans les zones 3×3
-            for (let boxRow = 0; boxRow < 3; boxRow++) {
-                for (let boxCol = 0; boxCol < 3; boxCol++) {
-                    for (let num = 1; num <= 9; num++) {
-                        const possiblePositions = [];
-                        for (let i = 0; i < 3; i++) {
-                            for (let j = 0; j < 3; j++) {
-                                const row = boxRow * 3 + i;
-                                const col = boxCol * 3 + j;
-                                const index = row * 9 + col;
-                                const input = cells[index].querySelector('input');
-                                if (!givenCells.includes(index) && !input.value) {
-                                    const candidates = getCandidates(row, col);
-                                    if (candidates.includes(num)) {
-                                        possiblePositions.push({ row, col, index });
-                                    }
+            // 2. Hidden Singles dans les lignes
+            if (!foundOne) {
+                for (let row = 0; row < 9 && !foundOne; row++) {
+                    for (let num = 1; num <= 9 && !foundOne; num++) {
+                        const possibleCols = [];
+                        for (let col = 0; col < 9; col++) {
+                            const index = row * 9 + col;
+                            const input = cells[index].querySelector('input');
+                            if (!givenCells.includes(index) && !input.value) {
+                                const candidates = getCandidates(row, col);
+                                if (candidates.includes(num)) {
+                                    possibleCols.push(col);
                                 }
                             }
                         }
-                        if (possiblePositions.length === 1) {
-                            const pos = possiblePositions[0];
-                            const cell = cells[pos.index];
+                        if (possibleCols.length === 1) {
+                            const col = possibleCols[0];
+                            const index = row * 9 + col;
+                            const cell = cells[index];
                             const simpleHint = cell.querySelector('.simple-hint');
-                            if (!simpleHint.textContent) { // Ne pas écraser un Naked ou Hidden Single déjà trouvé
+                            simpleHint.textContent = num;
+                            simpleHint.classList.add('show');
+                            foundOne = true;
+                        }
+                    }
+                }
+            }
+            
+            // 3. Hidden Singles dans les colonnes
+            if (!foundOne) {
+                for (let col = 0; col < 9 && !foundOne; col++) {
+                    for (let num = 1; num <= 9 && !foundOne; num++) {
+                        const possibleRows = [];
+                        for (let row = 0; row < 9; row++) {
+                            const index = row * 9 + col;
+                            const input = cells[index].querySelector('input');
+                            if (!givenCells.includes(index) && !input.value) {
+                                const candidates = getCandidates(row, col);
+                                if (candidates.includes(num)) {
+                                    possibleRows.push(row);
+                                }
+                            }
+                        }
+                        if (possibleRows.length === 1) {
+                            const row = possibleRows[0];
+                            const index = row * 9 + col;
+                            const cell = cells[index];
+                            const simpleHint = cell.querySelector('.simple-hint');
+                            simpleHint.textContent = num;
+                            simpleHint.classList.add('show');
+                            foundOne = true;
+                        }
+                    }
+                }
+            }
+            
+            // 4. Hidden Singles dans les zones 3×3
+            if (!foundOne) {
+                for (let boxRow = 0; boxRow < 3 && !foundOne; boxRow++) {
+                    for (let boxCol = 0; boxCol < 3 && !foundOne; boxCol++) {
+                        for (let num = 1; num <= 9 && !foundOne; num++) {
+                            const possiblePositions = [];
+                            for (let i = 0; i < 3; i++) {
+                                for (let j = 0; j < 3; j++) {
+                                    const row = boxRow * 3 + i;
+                                    const col = boxCol * 3 + j;
+                                    const index = row * 9 + col;
+                                    const input = cells[index].querySelector('input');
+                                    if (!givenCells.includes(index) && !input.value) {
+                                        const candidates = getCandidates(row, col);
+                                        if (candidates.includes(num)) {
+                                            possiblePositions.push({ row, col, index });
+                                        }
+                                    }
+                                }
+                            }
+                            if (possiblePositions.length === 1) {
+                                const pos = possiblePositions[0];
+                                const cell = cells[pos.index];
+                                const simpleHint = cell.querySelector('.simple-hint');
                                 simpleHint.textContent = num;
                                 simpleHint.classList.add('show');
+                                foundOne = true;
                             }
                         }
                     }
