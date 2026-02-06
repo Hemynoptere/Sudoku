@@ -212,6 +212,11 @@
             z-index: 2;
         }
 
+        .cell input.highlight-helper {
+            color: #dc2626 !important;
+            font-weight: 900 !important;
+        }
+
         .pair-hint-right {
             position: absolute;
             right: -8px;
@@ -1516,7 +1521,14 @@
                 hint.textContent = '';
             });
             
+            // Réinitialiser tous les highlights
+            document.querySelectorAll('.cell input').forEach(input => {
+                input.classList.remove('highlight-helper');
+            });
+            
             let foundOne = false; // Flag pour arrêter après avoir trouvé le premier
+            let foundCell = null;
+            let foundNumber = null;
             
             // 1. Chercher d'abord les Naked Singles (priorité)
             if (!foundOne) {
@@ -1535,6 +1547,8 @@
                         simpleHint.textContent = candidates[0];
                         simpleHint.classList.add('show');
                         foundOne = true;
+                        foundCell = { row, col, index };
+                        foundNumber = candidates[0];
                     }
                 }
             }
@@ -1562,6 +1576,8 @@
                             simpleHint.textContent = num;
                             simpleHint.classList.add('show');
                             foundOne = true;
+                            foundCell = { row, col, index };
+                            foundNumber = num;
                         }
                     }
                 }
@@ -1590,6 +1606,8 @@
                             simpleHint.textContent = num;
                             simpleHint.classList.add('show');
                             foundOne = true;
+                            foundCell = { row, col, index };
+                            foundNumber = num;
                         }
                     }
                 }
@@ -1622,9 +1640,48 @@
                                 simpleHint.textContent = num;
                                 simpleHint.classList.add('show');
                                 foundOne = true;
+                                foundCell = { row: pos.row, col: pos.col, index: pos.index };
+                                foundNumber = num;
                             }
                         }
                     }
+                }
+            }
+            
+            // Si on a trouvé un simple, mettre en rouge les chiffres qui aident à le trouver
+            if (foundCell && foundNumber) {
+                highlightHelpers(foundCell, foundNumber);
+            }
+        }
+
+        function highlightHelpers(targetCell, number) {
+            const cells = document.querySelectorAll('.cell');
+            
+            // Mettre en rouge tous les chiffres identiques dans la ligne, colonne et zone 3×3
+            for (let i = 0; i < cells.length; i++) {
+                const row = Math.floor(i / 9);
+                const col = i % 9;
+                const input = cells[i].querySelector('input');
+                const value = parseInt(input.value);
+                
+                if (!value || value !== number) continue;
+                
+                // Vérifier si c'est dans la même ligne
+                const sameLine = (row === targetCell.row);
+                
+                // Vérifier si c'est dans la même colonne
+                const sameColumn = (col === targetCell.col);
+                
+                // Vérifier si c'est dans la même zone 3×3
+                const targetBoxRow = Math.floor(targetCell.row / 3);
+                const targetBoxCol = Math.floor(targetCell.col / 3);
+                const boxRow = Math.floor(row / 3);
+                const boxCol = Math.floor(col / 3);
+                const sameBox = (boxRow === targetBoxRow && boxCol === targetBoxCol);
+                
+                // Mettre en rouge si dans la même ligne, colonne ou zone
+                if (sameLine || sameColumn || sameBox) {
+                    input.classList.add('highlight-helper');
                 }
             }
         }
