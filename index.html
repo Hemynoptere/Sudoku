@@ -210,11 +210,17 @@
             background: transparent;
             position: relative;
             z-index: 2;
+            color: #2d3748;
         }
 
         .cell input.highlight-helper {
             color: #dc2626 !important;
             font-weight: 900 !important;
+        }
+
+        .cell input.highlight-complete {
+            color: #ec4899 !important;
+            font-weight: 700 !important;
         }
 
         .pair-hint-right {
@@ -676,6 +682,21 @@
                     if (value && (!/^[1-9]$/.test(value))) {
                         e.target.value = '';
                     }
+                    
+                    // Vérifier les erreurs seulement si SIMPLES n'est pas coché
+                    const showSimples = document.getElementById('showSimples');
+                    if (showSimples && !showSimples.checked && value) {
+                        const row = Math.floor(i / 9);
+                        const col = i % 9;
+                        checkInputError(e.target, row, col);
+                    } else if (showSimples && !showSimples.checked && !value) {
+                        // Si on efface un chiffre et SIMPLES n'est pas coché, réinitialiser les highlights
+                        document.querySelectorAll('.cell input').forEach(inp => {
+                            inp.classList.remove('highlight-helper');
+                            inp.classList.remove('highlight-complete');
+                        });
+                    }
+                    
                     checkGridCompletion();
                     updateAllHints();
                 });
@@ -1299,59 +1320,6 @@
             updateAllHints();
         }
 
-        function updateAllHints() {
-            const showPairs = document.getElementById('showCandidates').checked;
-            const showSimples = document.getElementById('showSimples').checked;
-            const showTriples = document.getElementById('showTriples').checked;
-            const showRows = document.getElementById('showRows').checked;
-            const showColumns = document.getElementById('showColumns').checked;
-            
-            if (showPairs) {
-                updatePairHints();
-            } else {
-                document.querySelectorAll('.pair-hint-right, .pair-hint-bottom').forEach(hint => {
-                    hint.classList.remove('show');
-                    hint.textContent = '';
-                });
-            }
-            
-            if (showSimples) {
-                updateSimpleHints();
-            } else {
-                document.querySelectorAll('.simple-hint').forEach(hint => {
-                    hint.classList.remove('show');
-                    hint.textContent = '';
-                });
-            }
-            
-            if (showTriples) {
-                updateTripleHints();
-            } else {
-                document.querySelectorAll('.triple-hint-left, .triple-hint-top').forEach(hint => {
-                    hint.classList.remove('show');
-                    hint.textContent = '';
-                });
-            }
-            
-            if (showRows) {
-                updateRowHints();
-            } else {
-                document.querySelectorAll('.row-hint').forEach(hint => {
-                    hint.classList.remove('show');
-                    hint.innerHTML = '';
-                });
-            }
-            
-            if (showColumns) {
-                updateColumnHints();
-            } else {
-                document.querySelectorAll('.column-hint').forEach(hint => {
-                    hint.classList.remove('show');
-                    hint.innerHTML = '';
-                });
-            }
-        }
-
         function updateRowHints() {
             const cells = document.querySelectorAll('.cell input');
             
@@ -1457,6 +1425,16 @@
                     hint.classList.remove('show');
                     hint.textContent = '';
                 });
+                // Réinitialiser tous les highlights quand SIMPLES est décoché
+                console.log('SIMPLES décoché - Réinitialisation des highlights');
+                document.querySelectorAll('.cell input').forEach(input => {
+                    input.classList.remove('highlight-helper');
+                    input.classList.remove('highlight-complete');
+                    // Forcer le retour à la couleur par défaut
+                    input.style.removeProperty('color');
+                    input.style.removeProperty('font-weight');
+                });
+                console.log('Highlights retirés et styles réinitialisés');
             }
             
             if (showPointingPairs) {
@@ -1513,7 +1491,16 @@
         }
 
         function updateSimpleHints() {
+            // Vérifier d'abord si SIMPLES est coché
+            const showSimples = document.getElementById('showSimples');
+            if (!showSimples || !showSimples.checked) {
+                console.log('updateSimpleHints() - SIMPLES non coché, on ne fait rien');
+                return;
+            }
+            
             const cells = document.querySelectorAll('.cell');
+            
+            console.log('updateSimpleHints() appelée - SIMPLES coché');
             
             // Réinitialiser tous les indices simples
             document.querySelectorAll('.simple-hint').forEach(hint => {
@@ -1524,6 +1511,7 @@
             // Réinitialiser tous les highlights
             document.querySelectorAll('.cell input').forEach(input => {
                 input.classList.remove('highlight-helper');
+                input.classList.remove('highlight-complete');
             });
             
             let foundOne = false; // Flag pour arrêter après avoir trouvé le premier
@@ -1657,32 +1645,114 @@
         function highlightHelpers(targetCell, number) {
             const cells = document.querySelectorAll('.cell');
             
-            // Mettre en rouge tous les chiffres identiques dans la ligne, colonne et zone 3×3
+            // Collecter TOUS les chiffres visibles depuis la case cible (ligne OU colonne OU zone)
+            const allVisibleNumbers = new Set();
+            
+            const targetBoxRow = Math.floor(targetCell.row / 3);
+            const targetBoxCol = Math.floor(targetCell.col / 3);
+            
             for (let i = 0; i < cells.length; i++) {
                 const row = Math.floor(i / 9);
                 const col = i % 9;
                 const input = cells[i].querySelector('input');
                 const value = parseInt(input.value);
                 
-                if (!value || value !== number) continue;
+                if (!value) continue;
                 
-                // Vérifier si c'est dans la même ligne
+                // Vérifier si dans la même ligne OU colonne OU zone
                 const sameLine = (row === targetCell.row);
-                
-                // Vérifier si c'est dans la même colonne
                 const sameColumn = (col === targetCell.col);
                 
-                // Vérifier si c'est dans la même zone 3×3
-                const targetBoxRow = Math.floor(targetCell.row / 3);
-                const targetBoxCol = Math.floor(targetCell.col / 3);
                 const boxRow = Math.floor(row / 3);
                 const boxCol = Math.floor(col / 3);
                 const sameBox = (boxRow === targetBoxRow && boxCol === targetBoxCol);
                 
-                // Mettre en rouge si dans la même ligne, colonne ou zone
+                // Si visible depuis la case cible, ajouter au set (pas de doublons)
+                if (sameLine || sameColumn || sameBox) {
+                    allVisibleNumbers.add(value);
+                }
+            }
+            
+            // Ajouter le simple trouvé
+            const allNumbersWithSimple = new Set([...allVisibleNumbers, number]);
+            
+            // Vérifier si on a les 9 chiffres (1-9)
+            const isComplete = (allNumbersWithSimple.size === 9);
+            
+            // Debug
+            console.log('Simple trouvé:', number, 'à la position', targetCell);
+            console.log('Chiffres visibles (ligne+colonne+zone):', allVisibleNumbers);
+            console.log('Avec le simple:', allNumbersWithSimple);
+            console.log('Complète (1-9)?', isComplete);
+            
+            // Si c'est complet, mettre TOUS ces chiffres en vert clair
+            if (isComplete) {
+                for (let i = 0; i < cells.length; i++) {
+                    const row = Math.floor(i / 9);
+                    const col = i % 9;
+                    const input = cells[i].querySelector('input');
+                    const value = parseInt(input.value);
+                    
+                    if (!value) continue;
+                    
+                    const sameLine = (row === targetCell.row);
+                    const sameColumn = (col === targetCell.col);
+                    
+                    const boxRow = Math.floor(row / 3);
+                    const boxCol = Math.floor(col / 3);
+                    const sameBox = (boxRow === targetBoxRow && boxCol === targetBoxCol);
+                    
+                    // Mettre en vert tous les chiffres visibles qui font partie de la série complète
+                    if (sameLine || sameColumn || sameBox) {
+                        input.classList.add('highlight-complete');
+                    }
+                }
+            }
+        }
+
+        // Fonction pour vérifier les erreurs de saisie (quand SIMPLES n'est pas coché)
+        function checkInputError(inputElement, row, col) {
+            const cells = document.querySelectorAll('.cell');
+            const value = parseInt(inputElement.value);
+            
+            if (!value) return;
+            
+            // Réinitialiser tous les highlights d'erreur
+            document.querySelectorAll('.cell input').forEach(input => {
+                input.classList.remove('highlight-helper');
+            });
+            
+            // Vérifier si le chiffre existe déjà dans la ligne/colonne/zone
+            let hasError = false;
+            
+            const targetBoxRow = Math.floor(row / 3);
+            const targetBoxCol = Math.floor(col / 3);
+            
+            for (let i = 0; i < cells.length; i++) {
+                const r = Math.floor(i / 9);
+                const c = i % 9;
+                const input = cells[i].querySelector('input');
+                const v = parseInt(input.value);
+                
+                if (!v || v !== value || input === inputElement) continue;
+                
+                const sameLine = (r === row);
+                const sameColumn = (c === col);
+                
+                const boxRow = Math.floor(r / 3);
+                const boxCol = Math.floor(c / 3);
+                const sameBox = (boxRow === targetBoxRow && boxCol === targetBoxCol);
+                
+                // Mettre en rouge si conflit
                 if (sameLine || sameColumn || sameBox) {
                     input.classList.add('highlight-helper');
+                    hasError = true;
                 }
+            }
+            
+            // Mettre aussi la case saisie en rouge si erreur
+            if (hasError) {
+                inputElement.classList.add('highlight-helper');
             }
         }
 
