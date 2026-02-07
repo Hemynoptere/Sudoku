@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -11,1179 +12,804 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: white;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0;
-            margin: 0;
-        }
+```
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: white;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        margin: 0;
+    }
 
-        .container {
-            background: white;
-            border-radius: 0;
-            padding: 10px;
-            box-shadow: none;
-            max-width: 700px;
-        }
+    .container {
+        background: white;
+        border-radius: 0;
+        padding: 10px;
+        box-shadow: none;
+        max-width: 700px;
+    }
 
-        h1 {
-            text-align: center;
-            color: #667eea;
-            margin: 5px 0 3px 0;
-            font-size: 1.1em;
-        }
+    h1 {
+        text-align: center;
+        color: #667eea;
+        margin: 5px 0 3px 0;
+        font-size: 1.1em;
+    }
 
-        .controls {
-            display: flex;
-            gap: 4px;
-            margin-bottom: 2px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+    .controls {
+        display: flex;
+        gap: 4px;
+        margin-bottom: 2px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 
-        button {
-            padding: 3px 6px;
-            border: none;
-            border-radius: 4px;
-            font-size: 9px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.2px;
-        }
+    button {
+        padding: 3px 6px;
+        border: none;
+        border-radius: 4px;
+        font-size: 9px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.2px;
+    }
 
-        .difficulty-btn {
-            background: #667eea;
-            color: white;
-            padding: 5px 10px;
-            font-size: 9px;
-        }
+    .difficulty-btn {
+        background: #667eea;
+        color: white;
+        padding: 5px 10px;
+        font-size: 9px;
+    }
 
-        .difficulty-btn:hover {
-            background: #5568d3;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
+    .difficulty-btn:hover {
+        background: #5568d3;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
 
-        .difficulty-btn.active {
-            background: #764ba2;
-        }
+    .difficulty-btn.active {
+        background: #764ba2;
+    }
 
-        .empty-btn {
-            background: #38a169;
-        }
+    .empty-btn {
+        background: #38a169;
+    }
 
-        .empty-btn:hover {
-            background: #2f855a;
-        }
+    .empty-btn:hover {
+        background: #2f855a;
+    }
 
-        .action-btn {
-            background: #48bb78;
-            color: white;
-        }
+    .action-btn {
+        background: #48bb78;
+        color: white;
+    }
 
-        .action-btn:hover {
-            background: #38a169;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(72, 187, 120, 0.4);
-        }
+    .action-btn:hover {
+        background: #38a169;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(72, 187, 120, 0.4);
+    }
 
-        .solve-btn {
-            background: #ed8936;
-        }
+    .solve-btn {
+        background: #ed8936;
+    }
 
-        .solve-btn:hover {
-            background: #dd6b20;
-            box-shadow: 0 5px 15px rgba(237, 137, 54, 0.4);
-        }
+    .solve-btn:hover {
+        background: #dd6b20;
+        box-shadow: 0 5px 15px rgba(237, 137, 54, 0.4);
+    }
 
-        .solve-ariane-btn {
-            background: #9333ea;
-        }
+    .solve-ariane-btn {
+        background: #9333ea;
+    }
 
-        .solve-ariane-btn:hover {
-            background: #7c3aed;
-            box-shadow: 0 5px 15px rgba(147, 51, 234, 0.4);
-        }
+    .solve-ariane-btn:hover {
+        background: #7c3aed;
+        box-shadow: 0 5px 15px rgba(147, 51, 234, 0.4);
+    }
 
-        .verify-btn {
-            background: #3182ce;
-        }
+    .verify-btn {
+        background: #3182ce;
+    }
 
-        .verify-btn:hover {
-            background: #2c5282;
-            box-shadow: 0 5px 15px rgba(49, 130, 206, 0.4);
-        }
+    .verify-btn:hover {
+        background: #2c5282;
+        box-shadow: 0 5px 15px rgba(49, 130, 206, 0.4);
+    }
 
-        button:disabled {
-            background: #cbd5e0;
-            color: #a0aec0;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
+    button:disabled {
+        background: #cbd5e0;
+        color: #a0aec0;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+    }
 
-        button:disabled:hover {
-            background: #cbd5e0;
-            transform: none;
-            box-shadow: none;
-        }
+    button:disabled:hover {
+        background: #cbd5e0;
+        transform: none;
+        box-shadow: none;
+    }
 
-        .checkbox-label {
-            display: flex;
-            align-items: center;
-            gap: 3px;
-            font-size: 9px;
-            color: #2d3748;
-            cursor: pointer;
-            padding: 3px 6px;
-            background: #edf2f7;
-            border-radius: 4px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.2px;
-        }
+    .checkbox-label {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        font-size: 9px;
+        color: #2d3748;
+        cursor: pointer;
+        padding: 3px 6px;
+        background: #edf2f7;
+        border-radius: 4px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.2px;
+    }
 
-        .checkbox-label input[type="checkbox"] {
-            cursor: pointer;
-            width: 12px;
-            height: 12px;
-        }
+    .checkbox-label input[type="checkbox"] {
+        cursor: pointer;
+        width: 12px;
+        height: 12px;
+    }
 
-        .checkbox-label:hover {
-            background: #e2e8f0;
-        }
+    .checkbox-label:hover {
+        background: #e2e8f0;
+    }
 
-        .pair-control {
-            margin-top: 2px;
-            display: flex;
-            justify-content: center;
-            gap: 4px;
-        }
+    .pair-control {
+        margin-top: 2px;
+        display: flex;
+        justify-content: center;
+        gap: 4px;
+    }
 
-        .sudoku-container {
-            position: relative;
-            margin: 0 auto;
-            width: fit-content;
-        }
+    .sudoku-container {
+        position: relative;
+        margin: 0 auto;
+        width: fit-content;
+    }
 
-        .sudoku-grid {
-            display: grid;
-            grid-template-columns: repeat(9, 1fr);
-            gap: 0;
-            border: none;
-            border-radius: 8px;
-            overflow: visible;
-            width: fit-content;
-            box-shadow: none;
-            padding: 40px 40px 40px 50px;
-            background: white;
-            position: relative;
-        }
+    .sudoku-grid {
+        display: grid;
+        grid-template-columns: repeat(9, 1fr);
+        gap: 0;
+        border: none;
+        border-radius: 8px;
+        overflow: visible;
+        width: fit-content;
+        box-shadow: none;
+        padding: 40px 40px 40px 50px;
+        background: white;
+        position: relative;
+    }
 
+    .cell {
+        width: 65px;
+        height: 65px;
+        border: 1px solid #cbd5e0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 26px;
+        font-weight: 600;
+        background: white;
+        transition: all 0.2s;
+        position: relative;
+    }
+
+    .cell input {
+        width: 100%;
+        height: 100%;
+        border: none;
+        text-align: center;
+        font-size: 26px;
+        font-weight: 600;
+        background: transparent;
+        position: relative;
+        z-index: 2;
+        color: #2d3748;
+    }
+
+    .cell input.highlight-helper {
+        color: #dc2626 !important;
+        font-weight: 900 !important;
+    }
+
+    .cell input.highlight-complete {
+        color: #ec4899 !important;
+        font-weight: 700 !important;
+    }
+
+    .pair-hint-right {
+        position: absolute;
+        right: -8px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 18px;
+        color: #ed8936;
+        font-weight: 700;
+        background: white;
+        padding: 1px 2px;
+        z-index: 10;
+        white-space: nowrap;
+        display: none;
+    }
+
+    .pair-hint-bottom {
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 18px;
+        color: #ed8936;
+        font-weight: 700;
+        background: white;
+        padding: 1px 2px;
+        z-index: 10;
+        white-space: nowrap;
+        display: none;
+    }
+
+    .pair-hint-right.show,
+    .pair-hint-bottom.show {
+        display: block;
+    }
+
+    .simple-hint {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 18px;
+        color: #16a34a;
+        font-weight: 700;
+        z-index: 5;
+        display: none;
+    }
+
+    .simple-hint.show {
+        display: block;
+    }
+
+    .pointing-pair-right {
+        position: absolute;
+        right: -8px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 18px;
+        color: #ed8936;
+        font-weight: 700;
+        background: white;
+        padding: 1px 2px;
+        z-index: 10;
+        white-space: nowrap;
+        display: none;
+    }
+
+    .pointing-pair-bottom {
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 18px;
+        color: #ed8936;
+        font-weight: 700;
+        background: white;
+        padding: 1px 2px;
+        z-index: 10;
+        white-space: nowrap;
+        display: none;
+    }
+
+    .pointing-pair-right.show,
+    .pointing-pair-bottom.show {
+        display: block;
+    }
+
+    .triple-hint-left {
+        position: absolute;
+        left: -8px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 18px;
+        color: #3182ce;
+        font-weight: 700;
+        background: white;
+        padding: 1px 2px;
+        z-index: 10;
+        white-space: nowrap;
+        display: none;
+    }
+
+    .triple-hint-top {
+        position: absolute;
+        top: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 18px;
+        color: #3182ce;
+        font-weight: 700;
+        background: white;
+        padding: 1px 2px;
+        z-index: 10;
+        white-space: nowrap;
+        display: none;
+    }
+
+    .triple-hint-left.show,
+    .triple-hint-top.show {
+        display: block;
+    }
+
+    .row-hints {
+        position: absolute;
+        left: 6px;
+        top: 40px;
+        width: 40px;
+        height: 585px;
+        pointer-events: none;
+    }
+
+    .row-hint {
+        position: absolute;
+        left: 0;
+        width: 40px;
+        height: 65px;
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 10px;
+        color: #718096;
+        font-weight: 600;
+        line-height: 1.4;
+    }
+
+    .row-hint-line {
+        white-space: nowrap;
+    }
+
+    .row-hint.show {
+        display: flex;
+    }
+
+    .column-hints {
+        position: absolute;
+        top: 6px;
+        left: 50px;
+        width: 585px;
+        height: 30px;
+        pointer-events: none;
+    }
+
+    .column-hint {
+        position: absolute;
+        top: 0;
+        width: 65px;
+        height: 30px;
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 10px;
+        color: #718096;
+        font-weight: 600;
+        line-height: 1.4;
+    }
+
+    .column-hint-line {
+        white-space: nowrap;
+    }
+
+    .ariane-hint {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 62px;
+        height: 62px;
+        border: 3px solid #9333ea;
+        border-radius: 50%;
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: rgba(147, 51, 234, 0.05);
+        z-index: 5;
+        pointer-events: none;
+    }
+
+    .ariane-candidates {
+        font-size: 18px;
+        color: #9333ea;
+        font-weight: 600;
+        line-height: 1;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: 56px;
+        gap: 3px;
+    }
+
+    .ariane-best {
+        font-weight: 900;
+        font-size: 18px;
+    }
+
+    .ariane-hint.show {
+        display: flex;
+    }
+
+    .xwing-overlay {
+        position: absolute;
+        pointer-events: none;
+        z-index: 15;
+        display: none;
+    }
+
+    .xwing-rect {
+        position: absolute;
+        border: 3px solid #dc2626;
+        background: rgba(220, 38, 38, 0.05);
+        pointer-events: none;
+    }
+
+    .xwing-label {
+        position: absolute;
+        background: #dc2626;
+        color: white;
+        padding: 2px 4px;
+        font-size: 9px;
+        font-weight: 700;
+        border-radius: 3px;
+        white-space: nowrap;
+    }
+
+    .xwing-overlay.show {
+        display: block;
+    }
+
+    .column-hint.show {
+        display: flex;
+    }
+
+    .hint-number {
+        margin: 0;
+    }
+
+    .cell input:focus {
+        outline: none;
+        background: #edf2f7;
+    }
+
+    .cell.given {
+        background: #e6fffa;
+        color: #2d3748;
+    }
+
+    .cell.given input {
+        color: #2d3748;
+        cursor: not-allowed;
+    }
+
+    .cell.solved {
+        background: #c6f6d5;
+        color: #22543d;
+    }
+
+    .cell.error {
+        background: #fed7d7;
+        color: #c53030;
+    }
+
+    .cell.error input {
+        color: #c53030;
+    }
+
+    .cell:nth-child(3n):not(:nth-child(9n)) {
+        border-right: 3px solid #2d3748;
+    }
+
+    .cell:nth-child(n+19):nth-child(-n+27),
+    .cell:nth-child(n+46):nth-child(-n+54) {
+        border-bottom: 3px solid #2d3748;
+    }
+
+    .difficulty-info {
+        text-align: center;
+        margin-bottom: 2px;
+        padding: 2px;
+        background: #edf2f7;
+        border-radius: 4px;
+        color: #2d3748;
+        font-size: 9px;
+    }
+
+    @media (max-width: 600px) {
         .cell {
-            width: 65px;
-            height: 65px;
-            border: 1px solid #cbd5e0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 26px;
-            font-weight: 600;
-            background: white;
-            transition: all 0.2s;
-            position: relative;
+            width: 35px;
+            height: 35px;
+            font-size: 16px;
         }
 
         .cell input {
-            width: 100%;
-            height: 100%;
-            border: none;
-            text-align: center;
-            font-size: 26px;
-            font-weight: 600;
-            background: transparent;
-            position: relative;
-            z-index: 2;
-            color: #2d3748;
+            font-size: 16px;
         }
 
-        .cell input.highlight-helper {
-            color: #dc2626 !important;
-            font-weight: 900 !important;
+        h1 {
+            font-size: 1.8em;
         }
 
-        .cell input.highlight-complete {
-            color: #ec4899 !important;
-            font-weight: 700 !important;
+        .container {
+            padding: 20px;
         }
+    }
+</style>
+```
 
-        .pair-hint-right {
-            position: absolute;
-            right: -8px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 18px;
-            color: #ed8936;
-            font-weight: 700;
-            background: white;
-            padding: 1px 2px;
-            z-index: 10;
-            white-space: nowrap;
-            display: none;
-        }
-
-        .pair-hint-bottom {
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 18px;
-            color: #ed8936;
-            font-weight: 700;
-            background: white;
-            padding: 1px 2px;
-            z-index: 10;
-            white-space: nowrap;
-            display: none;
-        }
-
-        .pair-hint-right.show,
-        .pair-hint-bottom.show {
-            display: block;
-        }
-
-        .simple-hint {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 18px;
-            color: #16a34a;
-            font-weight: 700;
-            z-index: 5;
-            display: none;
-        }
-
-        .simple-hint.show {
-            display: block;
-        }
-
-        .pointing-pair-right {
-            position: absolute;
-            right: -8px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 18px;
-            color: #ed8936;
-            font-weight: 700;
-            background: white;
-            padding: 1px 2px;
-            z-index: 10;
-            white-space: nowrap;
-            display: none;
-        }
-
-        .pointing-pair-bottom {
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 18px;
-            color: #ed8936;
-            font-weight: 700;
-            background: white;
-            padding: 1px 2px;
-            z-index: 10;
-            white-space: nowrap;
-            display: none;
-        }
-
-        .pointing-pair-right.show,
-        .pointing-pair-bottom.show {
-            display: block;
-        }
-
-        .triple-hint-left {
-            position: absolute;
-            left: -8px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 18px;
-            color: #3182ce;
-            font-weight: 700;
-            background: white;
-            padding: 1px 2px;
-            z-index: 10;
-            white-space: nowrap;
-            display: none;
-        }
-
-        .triple-hint-top {
-            position: absolute;
-            top: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 18px;
-            color: #3182ce;
-            font-weight: 700;
-            background: white;
-            padding: 1px 2px;
-            z-index: 10;
-            white-space: nowrap;
-            display: none;
-        }
-
-        .triple-hint-left.show,
-        .triple-hint-top.show {
-            display: block;
-        }
-
-        .row-hints {
-            position: absolute;
-            left: 6px;
-            top: 40px;
-            width: 40px;
-            height: 585px;
-            pointer-events: none;
-        }
-
-        .row-hint {
-            position: absolute;
-            left: 0;
-            width: 40px;
-            height: 65px;
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            font-size: 10px;
-            color: #718096;
-            font-weight: 600;
-            line-height: 1.4;
-        }
-
-        .row-hint-line {
-            white-space: nowrap;
-        }
-
-        .row-hint.show {
-            display: flex;
-        }
-
-        .column-hints {
-            position: absolute;
-            top: 6px;
-            left: 50px;
-            width: 585px;
-            height: 30px;
-            pointer-events: none;
-        }
-
-        .column-hint {
-            position: absolute;
-            top: 0;
-            width: 65px;
-            height: 30px;
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            font-size: 10px;
-            color: #718096;
-            font-weight: 600;
-            line-height: 1.4;
-        }
-
-        .column-hint-line {
-            white-space: nowrap;
-        }
-
-        .ariane-hint {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 62px;
-            height: 62px;
-            border: 3px solid #9333ea;
-            border-radius: 50%;
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: rgba(147, 51, 234, 0.05);
-            z-index: 5;
-            pointer-events: none;
-        }
-
-        .ariane-candidates {
-            font-size: 18px;
-            color: #9333ea;
-            font-weight: 600;
-            line-height: 1;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            max-width: 56px;
-            gap: 3px;
-        }
-
-        .ariane-best {
-            font-weight: 900;
-            font-size: 18px;
-        }
-
-        .ariane-hint.show {
-            display: flex;
-        }
-
-        .xwing-overlay {
-            position: absolute;
-            pointer-events: none;
-            z-index: 15;
-            display: none;
-        }
-
-        .xwing-rect {
-            position: absolute;
-            border: 3px solid #dc2626;
-            background: rgba(220, 38, 38, 0.05);
-            pointer-events: none;
-        }
-
-        .xwing-label {
-            position: absolute;
-            background: #dc2626;
-            color: white;
-            padding: 2px 4px;
-            font-size: 9px;
-            font-weight: 700;
-            border-radius: 3px;
-            white-space: nowrap;
-        }
-
-        .xwing-overlay.show {
-            display: block;
-        }
-
-        .column-hint.show {
-            display: flex;
-        }
-
-        .hint-number {
-            margin: 0;
-        }
-
-        .cell input:focus {
-            outline: none;
-            background: #edf2f7;
-        }
-
-        .cell.given {
-            background: #e6fffa;
-            color: #2d3748;
-        }
-
-        .cell.given input {
-            color: #2d3748;
-            cursor: not-allowed;
-        }
-
-        .cell.solved {
-            background: #c6f6d5;
-            color: #22543d;
-        }
-
-        .cell.error {
-            background: #fed7d7;
-            color: #c53030;
-        }
-
-        .cell.error input {
-            color: #c53030;
-        }
-
-        .cell:nth-child(3n):not(:nth-child(9n)) {
-            border-right: 3px solid #2d3748;
-        }
-
-        .cell:nth-child(n+19):nth-child(-n+27),
-        .cell:nth-child(n+46):nth-child(-n+54) {
-            border-bottom: 3px solid #2d3748;
-        }
-
-        .difficulty-info {
-            text-align: center;
-            margin-bottom: 2px;
-            padding: 2px;
-            background: #edf2f7;
-            border-radius: 4px;
-            color: #2d3748;
-            font-size: 9px;
-        }
-
-        @media (max-width: 600px) {
-            .cell {
-                width: 35px;
-                height: 35px;
-                font-size: 16px;
-            }
-
-            .cell input {
-                font-size: 16px;
-            }
-
-            h1 {
-                font-size: 1.8em;
-            }
-
-            .container {
-                padding: 20px;
-            }
-        }
-    </style>
 </head>
 <body>
     <div class="container">
-        
-        <div class="controls">
-            <button class="difficulty-btn" data-difficulty="facile">Facile</button>
-            <button class="difficulty-btn" data-difficulty="moyen">Moyen</button>
-            <button class="difficulty-btn" data-difficulty="difficile">Difficile</button>
-            <button class="difficulty-btn" data-difficulty="expert">Expert</button>
-            <button class="difficulty-btn empty-btn" onclick="generateEmptyGrid()">Vierge</button>
-        </div>
 
-        <div class="controls">
-            <button class="action-btn" onclick="generateNewSudoku()">Créer</button>
-            <button class="action-btn verify-btn" id="verifyBtn" onclick="verifySudoku()" disabled>Vérifier</button>
-            <button class="action-btn solve-btn" id="solveBtn" onclick="solveSudoku()" disabled>Résoudre</button>
-            <button class="action-btn solve-ariane-btn" id="solveArianeBtn" onclick="solveAriane()" style="display:none;">Résoudre Fil</button>
-            <button class="action-btn" onclick="resetGrid()">Vider</button>
-        </div>
-
-        <div class="sudoku-container">
-            <div class="sudoku-grid" id="sudokuGrid"></div>
-        </div>
-
-        <div class="pair-control">
-            <label class="checkbox-label">
-                <input type="checkbox" id="showSimples" onchange="toggleSimples()">
-                <span>Simples</span>
-            </label>
-            <label class="checkbox-label">
-                <input type="checkbox" id="showPointingPairs" onchange="togglePointingPairs()">
-                <span>Paires</span>
-            </label>
-            <label class="checkbox-label">
-                <input type="checkbox" id="showCandidates" onchange="toggleCandidates()">
-                <span>Doubles</span>
-            </label>
-            <label class="checkbox-label">
-                <input type="checkbox" id="showTriples" onchange="toggleTriples()">
-                <span>Triples</span>
-            </label>
-            <label class="checkbox-label">
-                <input type="checkbox" id="showRows" onchange="toggleRows()">
-                <span>Lignes</span>
-            </label>
-            <label class="checkbox-label">
-                <input type="checkbox" id="showColumns" onchange="toggleColumns()">
-                <span>Colonnes</span>
-            </label>
-            <label class="checkbox-label">
-                <input type="checkbox" id="showAriane" onchange="toggleAriane()">
-                <span>Fil d'Ariane</span>
-            </label>
-        </div>
+```
+    <div class="controls">
+        <button class="difficulty-btn" data-difficulty="facile">Facile</button>
+        <button class="difficulty-btn" data-difficulty="moyen">Moyen</button>
+        <button class="difficulty-btn" data-difficulty="difficile">Difficile</button>
+        <button class="difficulty-btn" data-difficulty="expert">Expert</button>
+        <button class="difficulty-btn empty-btn" onclick="generateEmptyGrid()">Vierge</button>
     </div>
 
-    <script>
-        let currentDifficulty = 'moyen';
-        let currentPuzzle = [];
-        let solution = [];
-        let givenCells = [];
-        let isEmptyGridMode = false;
+    <div class="controls">
+        <button class="action-btn" onclick="generateNewSudoku()">Créer</button>
+        <button class="action-btn verify-btn" id="verifyBtn" onclick="verifySudoku()" disabled>Vérifier</button>
+        <button class="action-btn solve-btn" id="solveBtn" onclick="solveSudoku()" disabled>Résoudre</button>
+        <button class="action-btn solve-ariane-btn" id="solveArianeBtn" onclick="solveAriane()" style="display:none;">Résoudre Fil</button>
+        <button class="action-btn" onclick="resetGrid()">Vider</button>
+    </div>
 
-        const difficultyLevels = {
-            facile: { clues: 45, description: '45 cases remplies' },
-            moyen: { clues: 35, description: '35 cases remplies' },
-            difficile: { clues: 27, description: '27 cases remplies' },
-            expert: { clues: 22, description: '22 cases remplies' }
-        };
+    <div class="sudoku-container">
+        <div class="sudoku-grid" id="sudokuGrid"></div>
+    </div>
 
-        // Initialisation
-        document.addEventListener('DOMContentLoaded', () => {
-            createGrid();
-            setupDifficultyButtons();
-            generateNewSudoku();
-        });
+    <div class="pair-control">
+        <label class="checkbox-label">
+            <input type="checkbox" id="showSimples" onchange="toggleSimples()">
+            <span>Simples</span>
+        </label>
+        <label class="checkbox-label">
+            <input type="checkbox" id="showPointingPairs" onchange="togglePointingPairs()">
+            <span>Paires</span>
+        </label>
+        <label class="checkbox-label">
+            <input type="checkbox" id="showCandidates" onchange="toggleCandidates()">
+            <span>Doubles</span>
+        </label>
+        <label class="checkbox-label">
+            <input type="checkbox" id="showTriples" onchange="toggleTriples()">
+            <span>Triples</span>
+        </label>
+        <label class="checkbox-label">
+            <input type="checkbox" id="showRows" onchange="toggleRows()">
+            <span>Lignes</span>
+        </label>
+        <label class="checkbox-label">
+            <input type="checkbox" id="showColumns" onchange="toggleColumns()">
+            <span>Colonnes</span>
+        </label>
+        <label class="checkbox-label">
+            <input type="checkbox" id="showAriane" onchange="toggleAriane()">
+            <span>Fil d'Ariane</span>
+        </label>
+    </div>
+</div>
 
-        function createGrid() {
-            const grid = document.getElementById('sudokuGrid');
-            const container = grid.parentElement;
-            
-            grid.innerHTML = '';
-            
-            // Supprimer les anciens conteneurs d'indices s'ils existent
-            const oldRowHints = document.getElementById('rowHints');
-            const oldColumnHints = document.getElementById('columnHints');
-            if (oldRowHints) oldRowHints.remove();
-            if (oldColumnHints) oldColumnHints.remove();
-            
-            // Créer les conteneurs pour les indices de lignes et colonnes
-            const rowHintsContainer = document.createElement('div');
-            rowHintsContainer.className = 'row-hints';
-            rowHintsContainer.id = 'rowHints';
-            
-            const columnHintsContainer = document.createElement('div');
-            columnHintsContainer.className = 'column-hints';
-            columnHintsContainer.id = 'columnHints';
-            
-            // Créer les divs pour chaque ligne (9 lignes)
-            for (let row = 0; row < 9; row++) {
-                const rowHint = document.createElement('div');
-                rowHint.className = 'row-hint';
-                rowHint.style.top = (row * 65) + 'px';
-                rowHint.id = `row-hint-${row}`;
-                rowHintsContainer.appendChild(rowHint);
-            }
-            
-            // Créer les divs pour chaque colonne (9 colonnes)
-            for (let col = 0; col < 9; col++) {
-                const columnHint = document.createElement('div');
-                columnHint.className = 'column-hint';
-                columnHint.style.left = (col * 65) + 'px';
-                columnHint.id = `column-hint-${col}`;
-                columnHintsContainer.appendChild(columnHint);
-            }
-            
-            // Ajouter les conteneurs au container (pas à la grille)
-            container.appendChild(rowHintsContainer);
-            container.appendChild(columnHintsContainer);
-            
-            for (let i = 0; i < 81; i++) {
-                const cell = document.createElement('div');
-                cell.className = 'cell';
-                
-                const input = document.createElement('input');
-                input.type = 'text';
-                input.maxLength = 1;
-                input.dataset.index = i;
-                
-                input.addEventListener('input', (e) => {
-                    const value = e.target.value;
-                    if (value && (!/^[1-9]$/.test(value))) {
-                        e.target.value = '';
-                    }
-                    
-                    // Vérifier les erreurs seulement si SIMPLES n'est pas coché
-                    const showSimples = document.getElementById('showSimples');
-                    if (showSimples && !showSimples.checked && value) {
-                        const row = Math.floor(i / 9);
-                        const col = i % 9;
-                        checkInputError(e.target, row, col);
-                    } else if (showSimples && !showSimples.checked && !value) {
-                        // Si on efface un chiffre et SIMPLES n'est pas coché, réinitialiser les highlights
-                        document.querySelectorAll('.cell input').forEach(inp => {
-                            inp.classList.remove('highlight-helper');
-                            inp.classList.remove('highlight-complete');
-                        });
-                    }
-                    
-                    checkGridCompletion();
-                    updateAllHints();
-                });
-                
-                // Créer les divs pour afficher les différents types d'indices
-                const pairHintRight = document.createElement('div');
-                pairHintRight.className = 'pair-hint-right';
-                
-                const pairHintBottom = document.createElement('div');
-                pairHintBottom.className = 'pair-hint-bottom';
-                
-                const simpleHint = document.createElement('div');
-                simpleHint.className = 'simple-hint';
-                
-                const pointingPairRight = document.createElement('div');
-                pointingPairRight.className = 'pointing-pair-right';
-                
-                const pointingPairBottom = document.createElement('div');
-                pointingPairBottom.className = 'pointing-pair-bottom';
-                
-                const tripleHintLeft = document.createElement('div');
-                tripleHintLeft.className = 'triple-hint-left';
-                
-                const tripleHintTop = document.createElement('div');
-                tripleHintTop.className = 'triple-hint-top';
-                
-                const arianeHint = document.createElement('div');
-                arianeHint.className = 'ariane-hint';
-                
-                cell.appendChild(pairHintRight);
-                cell.appendChild(pairHintBottom);
-                cell.appendChild(simpleHint);
-                cell.appendChild(pointingPairRight);
-                cell.appendChild(pointingPairBottom);
-                cell.appendChild(tripleHintLeft);
-                cell.appendChild(tripleHintTop);
-                cell.appendChild(arianeHint);
-                cell.appendChild(input);
-                grid.appendChild(cell);
-            }
+<script>
+    let currentDifficulty = 'moyen';
+    let currentPuzzle = [];
+    let solution = [];
+    let givenCells = [];
+    let isEmptyGridMode = false;
+
+    const difficultyLevels = {
+        facile: { clues: 45, description: '45 cases remplies' },
+        moyen: { clues: 35, description: '35 cases remplies' },
+        difficile: { clues: 27, description: '27 cases remplies' },
+        expert: { clues: 22, description: '22 cases remplies' }
+    };
+
+    // Initialisation
+    document.addEventListener('DOMContentLoaded', () => {
+        createGrid();
+        setupDifficultyButtons();
+        generateNewSudoku();
+    });
+
+    function createGrid() {
+        const grid = document.getElementById('sudokuGrid');
+        const container = grid.parentElement;
+        
+        grid.innerHTML = '';
+        
+        // Supprimer les anciens conteneurs d'indices s'ils existent
+        const oldRowHints = document.getElementById('rowHints');
+        const oldColumnHints = document.getElementById('columnHints');
+        if (oldRowHints) oldRowHints.remove();
+        if (oldColumnHints) oldColumnHints.remove();
+        
+        // Créer les conteneurs pour les indices de lignes et colonnes
+        const rowHintsContainer = document.createElement('div');
+        rowHintsContainer.className = 'row-hints';
+        rowHintsContainer.id = 'rowHints';
+        
+        const columnHintsContainer = document.createElement('div');
+        columnHintsContainer.className = 'column-hints';
+        columnHintsContainer.id = 'columnHints';
+        
+        // Créer les divs pour chaque ligne (9 lignes)
+        for (let row = 0; row < 9; row++) {
+            const rowHint = document.createElement('div');
+            rowHint.className = 'row-hint';
+            rowHint.style.top = (row * 65) + 'px';
+            rowHint.id = `row-hint-${row}`;
+            rowHintsContainer.appendChild(rowHint);
         }
-
-        function setupDifficultyButtons() {
-            const buttons = document.querySelectorAll('.difficulty-btn[data-difficulty]');
-            buttons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    buttons.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    currentDifficulty = btn.dataset.difficulty;
-                    updateDifficultyInfo();
-                    generateNewSudoku();
-                });
-            });
-            
-            // Activer le niveau moyen par défaut
-            buttons[1].classList.add('active');
-            updateDifficultyInfo();
+        
+        // Créer les divs pour chaque colonne (9 colonnes)
+        for (let col = 0; col < 9; col++) {
+            const columnHint = document.createElement('div');
+            columnHint.className = 'column-hint';
+            columnHint.style.left = (col * 65) + 'px';
+            columnHint.id = `column-hint-${col}`;
+            columnHintsContainer.appendChild(columnHint);
         }
-
-        function generateEmptyGrid() {
-            // Désactiver tous les boutons de difficulté
-            const buttons = document.querySelectorAll('.difficulty-btn[data-difficulty]');
-            buttons.forEach(b => b.classList.remove('active'));
+        
+        // Ajouter les conteneurs au container (pas à la grille)
+        container.appendChild(rowHintsContainer);
+        container.appendChild(columnHintsContainer);
+        
+        for (let i = 0; i < 81; i++) {
+            const cell = document.createElement('div');
+            cell.className = 'cell';
             
-            // Activer le mode grille vierge
-            isEmptyGridMode = true;
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.maxLength = 1;
+            input.dataset.index = i;
             
-            // Créer une grille vide
-            const emptyGrid = Array(9).fill().map(() => Array(9).fill(0));
-            currentPuzzle = emptyGrid;
-            solution = null; // Pas de solution prédéfinie
-            
-            // Afficher la grille vide (toutes les cases sont éditables)
-            const cells = document.querySelectorAll('.cell');
-            givenCells = [];
-            
-            cells.forEach((cell, index) => {
-                const input = cell.querySelector('input');
-                
-                cell.classList.remove('given', 'solved', 'error');
-                input.disabled = false;
-                input.value = '';
-            });
-            
-            checkGridCompletion();
-            updateAllHints();
-        }
-
-        function updateDifficultyInfo() {
-            // Fonction désactivée - la bande d'information a été supprimée
-        }
-
-        function generateCompleteSudoku() {
-            const grid = Array(9).fill().map(() => Array(9).fill(0));
-            
-            function isValid(grid, row, col, num) {
-                // Vérifier la ligne
-                for (let x = 0; x < 9; x++) {
-                    if (grid[row][x] === num) return false;
-                }
-                
-                // Vérifier la colonne
-                for (let x = 0; x < 9; x++) {
-                    if (grid[x][col] === num) return false;
-                }
-                
-                // Vérifier le carré 3x3
-                const startRow = row - row % 3;
-                const startCol = col - col % 3;
-                for (let i = 0; i < 3; i++) {
-                    for (let j = 0; j < 3; j++) {
-                        if (grid[i + startRow][j + startCol] === num) return false;
-                    }
-                }
-                
-                return true;
-            }
-            
-            function fillGrid(grid) {
-                for (let row = 0; row < 9; row++) {
-                    for (let col = 0; col < 9; col++) {
-                        if (grid[row][col] === 0) {
-                            const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-                            shuffleArray(numbers);
-                            
-                            for (let num of numbers) {
-                                if (isValid(grid, row, col, num)) {
-                                    grid[row][col] = num;
-                                    
-                                    if (fillGrid(grid)) {
-                                        return true;
-                                    }
-                                    
-                                    grid[row][col] = 0;
-                                }
-                            }
-                            return false;
-                        }
-                    }
-                }
-                return true;
-            }
-            
-            fillGrid(grid);
-            return grid;
-        }
-
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
-
-        function generateNewSudoku() {
-            // Désactiver le mode grille vierge
-            isEmptyGridMode = false;
-            
-            const maxAttempts = 100;
-            let attempts = 0;
-            let puzzle, completeGrid, difficulty;
-            
-            // Essayer de générer une grille avec la bonne difficulté
-            do {
-                completeGrid = generateCompleteSudoku();
-                solution = completeGrid.map(row => [...row]);
-                
-                puzzle = completeGrid.map(row => [...row]);
-                
-                // Retirer des cases une par une en vérifiant que la grille reste unique
-                const targetClues = difficultyLevels[currentDifficulty].clues;
-                const positions = [];
-                for (let i = 0; i < 81; i++) positions.push(i);
-                shuffleArray(positions);
-                
-                let cluesCount = 81;
-                for (let pos of positions) {
-                    if (cluesCount <= targetClues) break;
-                    
-                    const row = Math.floor(pos / 9);
-                    const col = pos % 9;
-                    const backup = puzzle[row][col];
-                    puzzle[row][col] = 0;
-                    
-                    // Vérifier que la solution reste unique
-                    if (hasUniqueSolution(puzzle)) {
-                        cluesCount--;
-                    } else {
-                        puzzle[row][col] = backup;
-                    }
-                }
-                
-                // Évaluer la difficulté réelle
-                difficulty = evaluateDifficulty(puzzle);
-                attempts++;
-                
-            } while (!isDifficultyMatch(difficulty, currentDifficulty) && attempts < maxAttempts);
-            
-            currentPuzzle = puzzle;
-            displayPuzzle(puzzle);
-        }
-
-        function evaluateDifficulty(puzzle) {
-            const grid = puzzle.map(row => [...row]);
-            let simples = 0;
-            let hiddenSingles = 0;
-            let pairs = 0;
-            let triples = 0;
-            let needsGuessing = false;
-            
-            // Simuler la résolution en comptant les techniques nécessaires
-            while (!isGridComplete(grid)) {
-                let progress = false;
-                
-                // Vérifier les simples (naked singles)
-                for (let row = 0; row < 9; row++) {
-                    for (let col = 0; col < 9; col++) {
-                        if (grid[row][col] === 0) {
-                            const candidates = getCandidatesForCell(grid, row, col);
-                            if (candidates.length === 1) {
-                                grid[row][col] = candidates[0];
-                                simples++;
-                                progress = true;
-                            }
-                        }
-                    }
-                }
-                
-                if (progress) continue;
-                
-                // Vérifier les hidden singles
-                const hidden = findHiddenSingles(grid);
-                if (hidden) {
-                    hiddenSingles++;
-                    progress = true;
-                    continue;
-                }
-                
-                // Si aucune technique simple ne fonctionne, la grille nécessite des techniques avancées
-                if (!progress) {
-                    needsGuessing = true;
-                    break;
-                }
-            }
-            
-            return { simples, hiddenSingles, pairs, triples, needsGuessing };
-        }
-
-        function isDifficultyMatch(evaluated, targetDifficulty) {
-            switch(targetDifficulty) {
-                case 'facile':
-                    // Facile : uniquement des simples, au moins 15 simples
-                    return evaluated.simples >= 15 && !evaluated.needsGuessing;
-                case 'moyen':
-                    // Moyen : simples + hidden singles, pas de techniques avancées
-                    return evaluated.simples >= 5 && evaluated.hiddenSingles >= 3 && !evaluated.needsGuessing;
-                case 'difficile':
-                    // Difficile : nécessite des techniques avancées mais résolvable logiquement
-                    return (evaluated.hiddenSingles >= 5 || evaluated.needsGuessing);
-                case 'expert':
-                    // Expert : nécessite backtracking ou techniques très avancées
-                    return evaluated.needsGuessing;
-                default:
-                    return true;
-            }
-        }
-
-        function getCandidatesForCell(grid, row, col) {
-            const candidates = [];
-            for (let num = 1; num <= 9; num++) {
-                if (isValidPlacement(grid, row, col, num)) {
-                    candidates.push(num);
-                }
-            }
-            return candidates;
-        }
-
-        function findHiddenSingles(grid) {
-            // Vérifier les lignes
-            for (let row = 0; row < 9; row++) {
-                for (let num = 1; num <= 9; num++) {
-                    let positions = [];
-                    for (let col = 0; col < 9; col++) {
-                        if (grid[row][col] === 0 && isValidPlacement(grid, row, col, num)) {
-                            positions.push(col);
-                        }
-                    }
-                    if (positions.length === 1) {
-                        grid[row][positions[0]] = num;
-                        return true;
-                    }
-                }
-            }
-            
-            // Vérifier les colonnes
-            for (let col = 0; col < 9; col++) {
-                for (let num = 1; num <= 9; num++) {
-                    let positions = [];
-                    for (let row = 0; row < 9; row++) {
-                        if (grid[row][col] === 0 && isValidPlacement(grid, row, col, num)) {
-                            positions.push(row);
-                        }
-                    }
-                    if (positions.length === 1) {
-                        grid[positions[0]][col] = num;
-                        return true;
-                    }
-                }
-            }
-            
-            // Vérifier les blocs 3x3
-            for (let boxRow = 0; boxRow < 3; boxRow++) {
-                for (let boxCol = 0; boxCol < 3; boxCol++) {
-                    for (let num = 1; num <= 9; num++) {
-                        let positions = [];
-                        for (let i = 0; i < 3; i++) {
-                            for (let j = 0; j < 3; j++) {
-                                const row = boxRow * 3 + i;
-                                const col = boxCol * 3 + j;
-                                if (grid[row][col] === 0 && isValidPlacement(grid, row, col, num)) {
-                                    positions.push([row, col]);
-                                }
-                            }
-                        }
-                        if (positions.length === 1) {
-                            grid[positions[0][0]][positions[0][1]] = num;
-                            return true;
-                        }
-                    }
-                }
-            }
-            
-            return false;
-        }
-
-        function isGridComplete(grid) {
-            for (let row = 0; row < 9; row++) {
-                for (let col = 0; col < 9; col++) {
-                    if (grid[row][col] === 0) return false;
-                }
-            }
-            return true;
-        }
-
-        function hasUniqueSolution(puzzle) {
-            const grid = puzzle.map(row => [...row]);
-            let solutionCount = 0;
-            
-            function countSolutions(g) {
-                if (solutionCount > 1) return; // Arrêter si plus d'une solution
-                
-                // Trouver une case vide
-                let row = -1, col = -1;
-                for (let r = 0; r < 9; r++) {
-                    for (let c = 0; c < 9; c++) {
-                        if (g[r][c] === 0) {
-                            row = r;
-                            col = c;
-                            break;
-                        }
-                    }
-                    if (row !== -1) break;
-                }
-                
-                if (row === -1) {
-                    solutionCount++;
+            input.addEventListener('input', (e) => {
+                // Si on est en train d'effacer automatiquement, ignorer cet événement
+                if (isShowingErrorAlert) {
+                    console.log('Événement input ignoré - effacement automatique en cours');
                     return;
                 }
                 
-                for (let num = 1; num <= 9; num++) {
-                    if (isValidPlacement(g, row, col, num)) {
-                        g[row][col] = num;
-                        countSolutions(g);
-                        g[row][col] = 0;
-                        
-                        if (solutionCount > 1) return;
-                    }
+                const value = e.target.value;
+                if (value && (!/^[1-9]$/.test(value))) {
+                    e.target.value = '';
                 }
-            }
-            
-            countSolutions(grid);
-            return solutionCount === 1;
-        }
-
-        function displayPuzzle(puzzle) {
-            const cells = document.querySelectorAll('.cell');
-            givenCells = [];
-            
-            cells.forEach((cell, index) => {
-                const row = Math.floor(index / 9);
-                const col = index % 9;
-                const input = cell.querySelector('input');
-                const value = puzzle[row][col];
                 
-                cell.classList.remove('given', 'solved', 'error');
-                input.disabled = false;
+                let hasError = false;
                 
-                if (value !== 0) {
-                    input.value = value;
-                    cell.classList.add('given');
-                    input.disabled = true;
-                    givenCells.push(index);
-                } else {
-                    input.value = '';
+                // Vérifier les erreurs seulement si SIMPLES n'est pas coché
+                const showSimples = document.getElementById('showSimples');
+                if (showSimples && !showSimples.checked && value) {
+                    const row = Math.floor(i / 9);
+                    const col = i % 9;
+                    hasError = checkInputError(e.target, row, col);
+                } else if (showSimples && !showSimples.checked && !value) {
+                    // Si on efface un chiffre et SIMPLES n'est pas coché, réinitialiser les highlights
+                    document.querySelectorAll('.cell input').forEach(inp => {
+                        inp.classList.remove('highlight-helper');
+                        inp.classList.remove('highlight-complete');
+                    });
+                }
+                
+                checkGridCompletion();
+                
+                // Ne pas appeler updateAllHints si une erreur a été détectée
+                if (!hasError) {
+                    updateAllHints();
                 }
             });
             
-            checkGridCompletion();
-            updateAllHints();
+            // Créer les divs pour afficher les différents types d'indices
+            const pairHintRight = document.createElement('div');
+            pairHintRight.className = 'pair-hint-right';
+            
+            const pairHintBottom = document.createElement('div');
+            pairHintBottom.className = 'pair-hint-bottom';
+            
+            const simpleHint = document.createElement('div');
+            simpleHint.className = 'simple-hint';
+            
+            const pointingPairRight = document.createElement('div');
+            pointingPairRight.className = 'pointing-pair-right';
+            
+            const pointingPairBottom = document.createElement('div');
+            pointingPairBottom.className = 'pointing-pair-bottom';
+            
+            const tripleHintLeft = document.createElement('div');
+            tripleHintLeft.className = 'triple-hint-left';
+            
+            const tripleHintTop = document.createElement('div');
+            tripleHintTop.className = 'triple-hint-top';
+            
+            const arianeHint = document.createElement('div');
+            arianeHint.className = 'ariane-hint';
+            
+            cell.appendChild(pairHintRight);
+            cell.appendChild(pairHintBottom);
+            cell.appendChild(simpleHint);
+            cell.appendChild(pointingPairRight);
+            cell.appendChild(pointingPairBottom);
+            cell.appendChild(tripleHintLeft);
+            cell.appendChild(tripleHintTop);
+            cell.appendChild(arianeHint);
+            cell.appendChild(input);
+            grid.appendChild(cell);
         }
+    }
 
-        function solveSudoku() {
-            // Si pas de solution prédéfinie (grille vierge), résoudre la grille actuelle
-            if (!solution) {
-                const cells = document.querySelectorAll('.cell input');
-                const currentGrid = Array(9).fill().map(() => Array(9).fill(0));
-                
-                // Récupérer la grille actuelle
-                cells.forEach((input, index) => {
-                    const row = Math.floor(index / 9);
-                    const col = index % 9;
-                    const value = parseInt(input.value);
-                    if (value) {
-                        currentGrid[row][col] = value;
-                    }
-                });
-                
-                // Essayer de résoudre
-                if (solveSudokuGrid(currentGrid)) {
-                    solution = currentGrid;
-                    
-                    // Afficher la solution
-                    cells.forEach((input, index) => {
-                        const row = Math.floor(index / 9);
-                        const col = index % 9;
-                        const cell = input.parentElement;
-                        
-                        if (!givenCells.includes(index)) {
-                            input.value = solution[row][col];
-                            cell.classList.add('solved');
-                        }
-                    });
-                } else {
-                    alert('⚠️ Cette grille n\'a pas de solution valide ou contient des erreurs.');
-                }
-            } else {
-                // Solution prédéfinie disponible
-                const cells = document.querySelectorAll('.cell');
-                
-                cells.forEach((cell, index) => {
-                    const row = Math.floor(index / 9);
-                    const col = index % 9;
-                    const input = cell.querySelector('input');
-                    
-                    if (!givenCells.includes(index)) {
-                        input.value = solution[row][col];
-                        cell.classList.add('solved');
-                    }
-                });
-            }
-        }
+    function setupDifficultyButtons() {
+        const buttons = document.querySelectorAll('.difficulty-btn[data-difficulty]');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                buttons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentDifficulty = btn.dataset.difficulty;
+                updateDifficultyInfo();
+                generateNewSudoku();
+            });
+        });
+        
+        // Activer le niveau moyen par défaut
+        buttons[1].classList.add('active');
+        updateDifficultyInfo();
+    }
 
-        function solveSudokuGrid(grid) {
-            // Trouver une case vide
-            for (let row = 0; row < 9; row++) {
-                for (let col = 0; col < 9; col++) {
-                    if (grid[row][col] === 0) {
-                        // Essayer les chiffres de 1 à 9
-                        for (let num = 1; num <= 9; num++) {
-                            if (isValidPlacement(grid, row, col, num)) {
-                                grid[row][col] = num;
-                                
-                                if (solveSudokuGrid(grid)) {
-                                    return true;
-                                }
-                                
-                                grid[row][col] = 0;
-                            }
-                        }
-                        return false;
-                    }
-                }
-            }
-            return true; // Grille complète
-        }
+    function generateEmptyGrid() {
+        // Désactiver tous les boutons de difficulté
+        const buttons = document.querySelectorAll('.difficulty-btn[data-difficulty]');
+        buttons.forEach(b => b.classList.remove('active'));
+        
+        // Activer le mode grille vierge
+        isEmptyGridMode = true;
+        
+        // Créer une grille vide
+        const emptyGrid = Array(9).fill().map(() => Array(9).fill(0));
+        currentPuzzle = emptyGrid;
+        solution = null; // Pas de solution prédéfinie
+        
+        // Afficher la grille vide (toutes les cases sont éditables)
+        const cells = document.querySelectorAll('.cell');
+        givenCells = [];
+        
+        cells.forEach((cell, index) => {
+            const input = cell.querySelector('input');
+            
+            cell.classList.remove('given', 'solved', 'error');
+            input.disabled = false;
+            input.value = '';
+        });
+        
+        checkGridCompletion();
+        updateAllHints();
+    }
 
-        function isValidPlacement(grid, row, col, num) {
+    function updateDifficultyInfo() {
+        // Fonction désactivée - la bande d'information a été supprimée
+    }
+
+    function generateCompleteSudoku() {
+        const grid = Array(9).fill().map(() => Array(9).fill(0));
+        
+        function isValid(grid, row, col, num) {
             // Vérifier la ligne
             for (let x = 0; x < 9; x++) {
                 if (grid[row][x] === num) return false;
@@ -1205,1000 +831,746 @@
             
             return true;
         }
-
-        function resetGrid() {
-            // Si on était en mode grille vierge, rester en mode grille vierge
-            if (isEmptyGridMode) {
-                generateEmptyGrid();
-            } else {
-                displayPuzzle(currentPuzzle);
+        
+        function fillGrid(grid) {
+            for (let row = 0; row < 9; row++) {
+                for (let col = 0; col < 9; col++) {
+                    if (grid[row][col] === 0) {
+                        const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+                        shuffleArray(numbers);
+                        
+                        for (let num of numbers) {
+                            if (isValid(grid, row, col, num)) {
+                                grid[row][col] = num;
+                                
+                                if (fillGrid(grid)) {
+                                    return true;
+                                }
+                                
+                                grid[row][col] = 0;
+                            }
+                        }
+                        return false;
+                    }
+                }
             }
+            return true;
         }
+        
+        fillGrid(grid);
+        return grid;
+    }
 
-        function checkGridCompletion() {
-            const cells = document.querySelectorAll('.cell input');
-            let allFilled = true;
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    function generateNewSudoku() {
+        // Désactiver le mode grille vierge
+        isEmptyGridMode = false;
+        
+        const maxAttempts = 100;
+        let attempts = 0;
+        let puzzle, completeGrid, difficulty;
+        
+        // Essayer de générer une grille avec la bonne difficulté
+        do {
+            completeGrid = generateCompleteSudoku();
+            solution = completeGrid.map(row => [...row]);
             
-            for (let cell of cells) {
-                if (!cell.value) {
-                    allFilled = false;
-                    break;
+            puzzle = completeGrid.map(row => [...row]);
+            
+            // Retirer des cases une par une en vérifiant que la grille reste unique
+            const targetClues = difficultyLevels[currentDifficulty].clues;
+            const positions = [];
+            for (let i = 0; i < 81; i++) positions.push(i);
+            shuffleArray(positions);
+            
+            let cluesCount = 81;
+            for (let pos of positions) {
+                if (cluesCount <= targetClues) break;
+                
+                const row = Math.floor(pos / 9);
+                const col = pos % 9;
+                const backup = puzzle[row][col];
+                puzzle[row][col] = 0;
+                
+                // Vérifier que la solution reste unique
+                if (hasUniqueSolution(puzzle)) {
+                    cluesCount--;
+                } else {
+                    puzzle[row][col] = backup;
                 }
             }
             
-            const verifyBtn = document.getElementById('verifyBtn');
-            const solveBtn = document.getElementById('solveBtn');
+            // Évaluer la difficulté réelle
+            difficulty = evaluateDifficulty(puzzle);
+            attempts++;
             
-            // En mode grille vierge, les boutons sont toujours actifs
-            if (isEmptyGridMode) {
-                verifyBtn.disabled = false;
-                solveBtn.disabled = false;
-            } else {
-                // En mode normal, activer uniquement si toutes les cases sont remplies
-                verifyBtn.disabled = !allFilled;
-                solveBtn.disabled = !allFilled;
+        } while (!isDifficultyMatch(difficulty, currentDifficulty) && attempts < maxAttempts);
+        
+        currentPuzzle = puzzle;
+        displayPuzzle(puzzle);
+    }
+
+    function evaluateDifficulty(puzzle) {
+        const grid = puzzle.map(row => [...row]);
+        let simples = 0;
+        let hiddenSingles = 0;
+        let pairs = 0;
+        let triples = 0;
+        let needsGuessing = false;
+        
+        // Simuler la résolution en comptant les techniques nécessaires
+        while (!isGridComplete(grid)) {
+            let progress = false;
+            
+            // Vérifier les simples (naked singles)
+            for (let row = 0; row < 9; row++) {
+                for (let col = 0; col < 9; col++) {
+                    if (grid[row][col] === 0) {
+                        const candidates = getCandidatesForCell(grid, row, col);
+                        if (candidates.length === 1) {
+                            grid[row][col] = candidates[0];
+                            simples++;
+                            progress = true;
+                        }
+                    }
+                }
+            }
+            
+            if (progress) continue;
+            
+            // Vérifier les hidden singles
+            const hidden = findHiddenSingles(grid);
+            if (hidden) {
+                hiddenSingles++;
+                progress = true;
+                continue;
+            }
+            
+            // Si aucune technique simple ne fonctionne, la grille nécessite des techniques avancées
+            if (!progress) {
+                needsGuessing = true;
+                break;
             }
         }
+        
+        return { simples, hiddenSingles, pairs, triples, needsGuessing };
+    }
 
-        function verifySudoku() {
-            const cells = document.querySelectorAll('.cell');
+    function isDifficultyMatch(evaluated, targetDifficulty) {
+        switch(targetDifficulty) {
+            case 'facile':
+                // Facile : uniquement des simples, au moins 15 simples
+                return evaluated.simples >= 15 && !evaluated.needsGuessing;
+            case 'moyen':
+                // Moyen : simples + hidden singles, pas de techniques avancées
+                return evaluated.simples >= 5 && evaluated.hiddenSingles >= 3 && !evaluated.needsGuessing;
+            case 'difficile':
+                // Difficile : nécessite des techniques avancées mais résolvable logiquement
+                return (evaluated.hiddenSingles >= 5 || evaluated.needsGuessing);
+            case 'expert':
+                // Expert : nécessite backtracking ou techniques très avancées
+                return evaluated.needsGuessing;
+            default:
+                return true;
+        }
+    }
+
+    function getCandidatesForCell(grid, row, col) {
+        const candidates = [];
+        for (let num = 1; num <= 9; num++) {
+            if (isValidPlacement(grid, row, col, num)) {
+                candidates.push(num);
+            }
+        }
+        return candidates;
+    }
+
+    function findHiddenSingles(grid) {
+        // Vérifier les lignes
+        for (let row = 0; row < 9; row++) {
+            for (let num = 1; num <= 9; num++) {
+                let positions = [];
+                for (let col = 0; col < 9; col++) {
+                    if (grid[row][col] === 0 && isValidPlacement(grid, row, col, num)) {
+                        positions.push(col);
+                    }
+                }
+                if (positions.length === 1) {
+                    grid[row][positions[0]] = num;
+                    return true;
+                }
+            }
+        }
+        
+        // Vérifier les colonnes
+        for (let col = 0; col < 9; col++) {
+            for (let num = 1; num <= 9; num++) {
+                let positions = [];
+                for (let row = 0; row < 9; row++) {
+                    if (grid[row][col] === 0 && isValidPlacement(grid, row, col, num)) {
+                        positions.push(row);
+                    }
+                }
+                if (positions.length === 1) {
+                    grid[positions[0]][col] = num;
+                    return true;
+                }
+            }
+        }
+        
+        // Vérifier les blocs 3x3
+        for (let boxRow = 0; boxRow < 3; boxRow++) {
+            for (let boxCol = 0; boxCol < 3; boxCol++) {
+                for (let num = 1; num <= 9; num++) {
+                    let positions = [];
+                    for (let i = 0; i < 3; i++) {
+                        for (let j = 0; j < 3; j++) {
+                            const row = boxRow * 3 + i;
+                            const col = boxCol * 3 + j;
+                            if (grid[row][col] === 0 && isValidPlacement(grid, row, col, num)) {
+                                positions.push([row, col]);
+                            }
+                        }
+                    }
+                    if (positions.length === 1) {
+                        grid[positions[0][0]][positions[0][1]] = num;
+                        return true;
+                    }
+                }
+            }
+        }
+        
+        return false;
+    }
+
+    function isGridComplete(grid) {
+        for (let row = 0; row < 9; row++) {
+            for (let col = 0; col < 9; col++) {
+                if (grid[row][col] === 0) return false;
+            }
+        }
+        return true;
+    }
+
+    function hasUniqueSolution(puzzle) {
+        const grid = puzzle.map(row => [...row]);
+        let solutionCount = 0;
+        
+        function countSolutions(g) {
+            if (solutionCount > 1) return; // Arrêter si plus d'une solution
             
-            // Si pas de solution prédéfinie, essayer de résoudre pour vérifier
-            if (!solution) {
-                const currentGrid = Array(9).fill().map(() => Array(9).fill(0));
+            // Trouver une case vide
+            let row = -1, col = -1;
+            for (let r = 0; r < 9; r++) {
+                for (let c = 0; c < 9; c++) {
+                    if (g[r][c] === 0) {
+                        row = r;
+                        col = c;
+                        break;
+                    }
+                }
+                if (row !== -1) break;
+            }
+            
+            if (row === -1) {
+                solutionCount++;
+                return;
+            }
+            
+            for (let num = 1; num <= 9; num++) {
+                if (isValidPlacement(g, row, col, num)) {
+                    g[row][col] = num;
+                    countSolutions(g);
+                    g[row][col] = 0;
+                    
+                    if (solutionCount > 1) return;
+                }
+            }
+        }
+        
+        countSolutions(grid);
+        return solutionCount === 1;
+    }
+
+    function displayPuzzle(puzzle) {
+        const cells = document.querySelectorAll('.cell');
+        givenCells = [];
+        
+        cells.forEach((cell, index) => {
+            const row = Math.floor(index / 9);
+            const col = index % 9;
+            const input = cell.querySelector('input');
+            const value = puzzle[row][col];
+            
+            cell.classList.remove('given', 'solved', 'error');
+            input.disabled = false;
+            
+            if (value !== 0) {
+                input.value = value;
+                cell.classList.add('given');
+                input.disabled = true;
+                givenCells.push(index);
+            } else {
+                input.value = '';
+            }
+        });
+        
+        checkGridCompletion();
+        updateAllHints();
+    }
+
+    function solveSudoku() {
+        // Si pas de solution prédéfinie (grille vierge), résoudre la grille actuelle
+        if (!solution) {
+            const cells = document.querySelectorAll('.cell input');
+            const currentGrid = Array(9).fill().map(() => Array(9).fill(0));
+            
+            // Récupérer la grille actuelle
+            cells.forEach((input, index) => {
+                const row = Math.floor(index / 9);
+                const col = index % 9;
+                const value = parseInt(input.value);
+                if (value) {
+                    currentGrid[row][col] = value;
+                }
+            });
+            
+            // Essayer de résoudre
+            if (solveSudokuGrid(currentGrid)) {
+                solution = currentGrid;
                 
-                // Récupérer la grille actuelle
-                cells.forEach((cell, index) => {
+                // Afficher la solution
+                cells.forEach((input, index) => {
                     const row = Math.floor(index / 9);
                     const col = index % 9;
-                    const input = cell.querySelector('input');
-                    const value = parseInt(input.value);
-                    if (value) {
-                        currentGrid[row][col] = value;
+                    const cell = input.parentElement;
+                    
+                    if (!givenCells.includes(index)) {
+                        input.value = solution[row][col];
+                        cell.classList.add('solved');
                     }
                 });
-                
-                // Résoudre une copie de la grille
-                const gridCopy = currentGrid.map(row => [...row]);
-                if (solveSudokuGrid(gridCopy)) {
-                    solution = gridCopy;
-                } else {
-                    alert('⚠️ Cette grille n\'a pas de solution valide ou contient des erreurs.');
-                    return;
-                }
+            } else {
+                alert('⚠️ Cette grille n\'a pas de solution valide ou contient des erreurs.');
             }
-            
-            let hasErrors = false;
+        } else {
+            // Solution prédéfinie disponible
+            const cells = document.querySelectorAll('.cell');
             
             cells.forEach((cell, index) => {
                 const row = Math.floor(index / 9);
                 const col = index % 9;
                 const input = cell.querySelector('input');
-                const userValue = parseInt(input.value);
-                const correctValue = solution[row][col];
                 
-                cell.classList.remove('error');
-                
-                if (!givenCells.includes(index) && userValue && userValue !== correctValue) {
-                    cell.classList.add('error');
-                    hasErrors = true;
+                if (!givenCells.includes(index)) {
+                    input.value = solution[row][col];
+                    cell.classList.add('solved');
+                }
+            });
+        }
+    }
+
+    function solveSudokuGrid(grid) {
+        // Trouver une case vide
+        for (let row = 0; row < 9; row++) {
+            for (let col = 0; col < 9; col++) {
+                if (grid[row][col] === 0) {
+                    // Essayer les chiffres de 1 à 9
+                    for (let num = 1; num <= 9; num++) {
+                        if (isValidPlacement(grid, row, col, num)) {
+                            grid[row][col] = num;
+                            
+                            if (solveSudokuGrid(grid)) {
+                                return true;
+                            }
+                            
+                            grid[row][col] = 0;
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
+        return true; // Grille complète
+    }
+
+    function isValidPlacement(grid, row, col, num) {
+        // Vérifier la ligne
+        for (let x = 0; x < 9; x++) {
+            if (grid[row][x] === num) return false;
+        }
+        
+        // Vérifier la colonne
+        for (let x = 0; x < 9; x++) {
+            if (grid[x][col] === num) return false;
+        }
+        
+        // Vérifier le carré 3x3
+        const startRow = row - row % 3;
+        const startCol = col - col % 3;
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                if (grid[i + startRow][j + startCol] === num) return false;
+            }
+        }
+        
+        return true;
+    }
+
+    function resetGrid() {
+        // Si on était en mode grille vierge, rester en mode grille vierge
+        if (isEmptyGridMode) {
+            generateEmptyGrid();
+        } else {
+            displayPuzzle(currentPuzzle);
+        }
+    }
+
+    function checkGridCompletion() {
+        const cells = document.querySelectorAll('.cell input');
+        let allFilled = true;
+        
+        for (let cell of cells) {
+            if (!cell.value) {
+                allFilled = false;
+                break;
+            }
+        }
+        
+        const verifyBtn = document.getElementById('verifyBtn');
+        const solveBtn = document.getElementById('solveBtn');
+        
+        // En mode grille vierge, les boutons sont toujours actifs
+        if (isEmptyGridMode) {
+            verifyBtn.disabled = false;
+            solveBtn.disabled = false;
+        } else {
+            // En mode normal, activer uniquement si toutes les cases sont remplies
+            verifyBtn.disabled = !allFilled;
+            solveBtn.disabled = !allFilled;
+        }
+    }
+
+    function verifySudoku() {
+        const cells = document.querySelectorAll('.cell');
+        
+        // Si pas de solution prédéfinie, essayer de résoudre pour vérifier
+        if (!solution) {
+            const currentGrid = Array(9).fill().map(() => Array(9).fill(0));
+            
+            // Récupérer la grille actuelle
+            cells.forEach((cell, index) => {
+                const row = Math.floor(index / 9);
+                const col = index % 9;
+                const input = cell.querySelector('input');
+                const value = parseInt(input.value);
+                if (value) {
+                    currentGrid[row][col] = value;
                 }
             });
             
-            if (!hasErrors) {
-                alert('🎉 Félicitations ! Tous les chiffres sont corrects !');
+            // Résoudre une copie de la grille
+            const gridCopy = currentGrid.map(row => [...row]);
+            if (solveSudokuGrid(gridCopy)) {
+                solution = gridCopy;
             } else {
-                alert('❌ Il y a des erreurs. Les cases incorrectes sont en rouge.');
-            }
-        }
-
-        function toggleCandidates() {
-            updateAllHints();
-        }
-
-        function toggleSimples() {
-            updateAllHints();
-        }
-
-        function togglePointingPairs() {
-            updateAllHints();
-        }
-
-        function toggleTriples() {
-            updateAllHints();
-        }
-
-        function toggleRows() {
-            updateAllHints();
-        }
-
-        function toggleColumns() {
-            updateAllHints();
-        }
-
-        function toggleAriane() {
-            updateAllHints();
-        }
-
-        function updateRowHints() {
-            const cells = document.querySelectorAll('.cell input');
-            
-            for (let row = 0; row < 9; row++) {
-                const missing = [];
-                const present = new Set();
-                
-                // Trouver les chiffres présents dans la ligne
-                for (let col = 0; col < 9; col++) {
-                    const index = row * 9 + col;
-                    const value = parseInt(cells[index].value);
-                    if (value) {
-                        present.add(value);
-                    }
-                }
-                
-                // Trouver les chiffres manquants
-                for (let num = 1; num <= 9; num++) {
-                    if (!present.has(num)) {
-                        missing.push(num);
-                    }
-                }
-                
-                // Afficher les chiffres manquants sur 3 lignes (max 3 chiffres par ligne)
-                const rowHint = document.getElementById(`row-hint-${row}`);
-                if (missing.length > 0) {
-                    const lines = [];
-                    for (let i = 0; i < missing.length; i += 3) {
-                        const group = missing.slice(i, i + 3).join(' ');
-                        lines.push(`<div class="row-hint-line">${group}</div>`);
-                    }
-                    rowHint.innerHTML = lines.join('');
-                    rowHint.classList.add('show');
-                } else {
-                    rowHint.classList.remove('show');
-                    rowHint.innerHTML = '';
-                }
-            }
-        }
-
-        function updateColumnHints() {
-            const cells = document.querySelectorAll('.cell input');
-            
-            for (let col = 0; col < 9; col++) {
-                const missing = [];
-                const present = new Set();
-                
-                // Trouver les chiffres présents dans la colonne
-                for (let row = 0; row < 9; row++) {
-                    const index = row * 9 + col;
-                    const value = parseInt(cells[index].value);
-                    if (value) {
-                        present.add(value);
-                    }
-                }
-                
-                // Trouver les chiffres manquants
-                for (let num = 1; num <= 9; num++) {
-                    if (!present.has(num)) {
-                        missing.push(num);
-                    }
-                }
-                
-                // Afficher les chiffres manquants sur 3 lignes (max 3 chiffres par ligne)
-                const columnHint = document.getElementById(`column-hint-${col}`);
-                if (missing.length > 0) {
-                    const lines = [];
-                    for (let i = 0; i < missing.length; i += 3) {
-                        const group = missing.slice(i, i + 3).join(' ');
-                        lines.push(`<div class="column-hint-line">${group}</div>`);
-                    }
-                    columnHint.innerHTML = lines.join('');
-                    columnHint.classList.add('show');
-                } else {
-                    columnHint.classList.remove('show');
-                    columnHint.innerHTML = '';
-                }
-            }
-        }
-
-        function updateAllHints() {
-            const showPairs = document.getElementById('showCandidates').checked;
-            const showSimples = document.getElementById('showSimples').checked;
-            const showPointingPairs = document.getElementById('showPointingPairs').checked;
-            const showTriples = document.getElementById('showTriples').checked;
-            const showRows = document.getElementById('showRows').checked;
-            const showColumns = document.getElementById('showColumns').checked;
-            const showAriane = document.getElementById('showAriane').checked;
-            
-            if (showPairs) {
-                updatePairHints();
-            } else {
-                document.querySelectorAll('.pair-hint-right, .pair-hint-bottom').forEach(hint => {
-                    hint.classList.remove('show');
-                    hint.textContent = '';
-                });
-            }
-            
-            if (showSimples) {
-                updateSimpleHints();
-            } else {
-                document.querySelectorAll('.simple-hint').forEach(hint => {
-                    hint.classList.remove('show');
-                    hint.textContent = '';
-                });
-                // Réinitialiser tous les highlights quand SIMPLES est décoché
-                console.log('SIMPLES décoché - Réinitialisation des highlights');
-                document.querySelectorAll('.cell input').forEach(input => {
-                    input.classList.remove('highlight-helper');
-                    input.classList.remove('highlight-complete');
-                    // Forcer le retour à la couleur par défaut
-                    input.style.removeProperty('color');
-                    input.style.removeProperty('font-weight');
-                });
-                console.log('Highlights retirés et styles réinitialisés');
-            }
-            
-            if (showPointingPairs) {
-                updatePointingPairsHints();
-            } else {
-                document.querySelectorAll('.pointing-pair-right, .pointing-pair-bottom').forEach(hint => {
-                    hint.classList.remove('show');
-                    hint.textContent = '';
-                });
-            }
-            
-            if (showTriples) {
-                updateTripleHints();
-            } else {
-                document.querySelectorAll('.triple-hint-left, .triple-hint-top').forEach(hint => {
-                    hint.classList.remove('show');
-                    hint.textContent = '';
-                });
-            }
-            
-            if (showRows) {
-                updateRowHints();
-            } else {
-                document.querySelectorAll('.row-hint').forEach(hint => {
-                    hint.classList.remove('show');
-                    hint.innerHTML = '';
-                });
-            }
-            
-            if (showColumns) {
-                updateColumnHints();
-            } else {
-                document.querySelectorAll('.column-hint').forEach(hint => {
-                    hint.classList.remove('show');
-                    hint.innerHTML = '';
-                });
-            }
-            
-            if (showAriane) {
-                updateArianeHint();
-            } else {
-                document.querySelectorAll('.ariane-hint').forEach(hint => {
-                    hint.classList.remove('show');
-                    hint.innerHTML = '';
-                });
-                
-                // Cacher aussi le bouton Résoudre Fil
-                arianeState = null;
-                const solveArianeBtn = document.getElementById('solveArianeBtn');
-                if (solveArianeBtn) {
-                    solveArianeBtn.style.display = 'none';
-                }
-            }
-        }
-
-        function updateSimpleHints() {
-            // Vérifier d'abord si SIMPLES est coché
-            const showSimples = document.getElementById('showSimples');
-            if (!showSimples || !showSimples.checked) {
-                console.log('updateSimpleHints() - SIMPLES non coché, on ne fait rien');
+                alert('⚠️ Cette grille n\'a pas de solution valide ou contient des erreurs.');
                 return;
             }
-            
-            const cells = document.querySelectorAll('.cell');
-            
-            console.log('updateSimpleHints() appelée - SIMPLES coché');
-            
-            // Réinitialiser tous les indices simples
-            document.querySelectorAll('.simple-hint').forEach(hint => {
-                hint.classList.remove('show');
-                hint.textContent = '';
-            });
-            
-            // Réinitialiser tous les highlights
-            document.querySelectorAll('.cell input').forEach(input => {
-                input.classList.remove('highlight-helper');
-                input.classList.remove('highlight-complete');
-            });
-            
-            let foundOne = false; // Flag pour arrêter après avoir trouvé le premier
-            let foundCell = null;
-            let foundNumber = null;
-            
-            // 1. Chercher d'abord les Naked Singles (priorité)
-            if (!foundOne) {
-                for (let index = 0; index < cells.length && !foundOne; index++) {
-                    const cell = cells[index];
-                    const row = Math.floor(index / 9);
-                    const col = index % 9;
-                    const input = cell.querySelector('input');
-                    
-                    if (givenCells.includes(index) || input.value) continue;
-                    
-                    const candidates = getCandidates(row, col);
-                    
-                    if (candidates.length === 1) {
-                        const simpleHint = cell.querySelector('.simple-hint');
-                        simpleHint.textContent = candidates[0];
-                        simpleHint.classList.add('show');
-                        foundOne = true;
-                        foundCell = { row, col, index };
-                        foundNumber = candidates[0];
-                    }
-                }
-            }
-            
-            // 2. Hidden Singles dans les lignes
-            if (!foundOne) {
-                for (let row = 0; row < 9 && !foundOne; row++) {
-                    for (let num = 1; num <= 9 && !foundOne; num++) {
-                        const possibleCols = [];
-                        for (let col = 0; col < 9; col++) {
-                            const index = row * 9 + col;
-                            const input = cells[index].querySelector('input');
-                            if (!givenCells.includes(index) && !input.value) {
-                                const candidates = getCandidates(row, col);
-                                if (candidates.includes(num)) {
-                                    possibleCols.push(col);
-                                }
-                            }
-                        }
-                        if (possibleCols.length === 1) {
-                            const col = possibleCols[0];
-                            const index = row * 9 + col;
-                            const cell = cells[index];
-                            const simpleHint = cell.querySelector('.simple-hint');
-                            simpleHint.textContent = num;
-                            simpleHint.classList.add('show');
-                            foundOne = true;
-                            foundCell = { row, col, index };
-                            foundNumber = num;
-                        }
-                    }
-                }
-            }
-            
-            // 3. Hidden Singles dans les colonnes
-            if (!foundOne) {
-                for (let col = 0; col < 9 && !foundOne; col++) {
-                    for (let num = 1; num <= 9 && !foundOne; num++) {
-                        const possibleRows = [];
-                        for (let row = 0; row < 9; row++) {
-                            const index = row * 9 + col;
-                            const input = cells[index].querySelector('input');
-                            if (!givenCells.includes(index) && !input.value) {
-                                const candidates = getCandidates(row, col);
-                                if (candidates.includes(num)) {
-                                    possibleRows.push(row);
-                                }
-                            }
-                        }
-                        if (possibleRows.length === 1) {
-                            const row = possibleRows[0];
-                            const index = row * 9 + col;
-                            const cell = cells[index];
-                            const simpleHint = cell.querySelector('.simple-hint');
-                            simpleHint.textContent = num;
-                            simpleHint.classList.add('show');
-                            foundOne = true;
-                            foundCell = { row, col, index };
-                            foundNumber = num;
-                        }
-                    }
-                }
-            }
-            
-            // 4. Hidden Singles dans les zones 3×3
-            if (!foundOne) {
-                for (let boxRow = 0; boxRow < 3 && !foundOne; boxRow++) {
-                    for (let boxCol = 0; boxCol < 3 && !foundOne; boxCol++) {
-                        for (let num = 1; num <= 9 && !foundOne; num++) {
-                            const possiblePositions = [];
-                            for (let i = 0; i < 3; i++) {
-                                for (let j = 0; j < 3; j++) {
-                                    const row = boxRow * 3 + i;
-                                    const col = boxCol * 3 + j;
-                                    const index = row * 9 + col;
-                                    const input = cells[index].querySelector('input');
-                                    if (!givenCells.includes(index) && !input.value) {
-                                        const candidates = getCandidates(row, col);
-                                        if (candidates.includes(num)) {
-                                            possiblePositions.push({ row, col, index });
-                                        }
-                                    }
-                                }
-                            }
-                            if (possiblePositions.length === 1) {
-                                const pos = possiblePositions[0];
-                                const cell = cells[pos.index];
-                                const simpleHint = cell.querySelector('.simple-hint');
-                                simpleHint.textContent = num;
-                                simpleHint.classList.add('show');
-                                foundOne = true;
-                                foundCell = { row: pos.row, col: pos.col, index: pos.index };
-                                foundNumber = num;
-                            }
-                        }
-                    }
-                }
-            }
-            
-            // Si on a trouvé un simple, mettre en rouge les chiffres qui aident à le trouver
-            if (foundCell && foundNumber) {
-                highlightHelpers(foundCell, foundNumber);
-            }
         }
-
-        function highlightHelpers(targetCell, number) {
-            const cells = document.querySelectorAll('.cell');
+        
+        let hasErrors = false;
+        
+        cells.forEach((cell, index) => {
+            const row = Math.floor(index / 9);
+            const col = index % 9;
+            const input = cell.querySelector('input');
+            const userValue = parseInt(input.value);
+            const correctValue = solution[row][col];
             
-            // Collecter TOUS les chiffres visibles depuis la case cible (ligne OU colonne OU zone)
-            const allVisibleNumbers = new Set();
+            cell.classList.remove('error');
             
-            const targetBoxRow = Math.floor(targetCell.row / 3);
-            const targetBoxCol = Math.floor(targetCell.col / 3);
-            
-            for (let i = 0; i < cells.length; i++) {
-                const row = Math.floor(i / 9);
-                const col = i % 9;
-                const input = cells[i].querySelector('input');
-                const value = parseInt(input.value);
-                
-                if (!value) continue;
-                
-                // Vérifier si dans la même ligne OU colonne OU zone
-                const sameLine = (row === targetCell.row);
-                const sameColumn = (col === targetCell.col);
-                
-                const boxRow = Math.floor(row / 3);
-                const boxCol = Math.floor(col / 3);
-                const sameBox = (boxRow === targetBoxRow && boxCol === targetBoxCol);
-                
-                // Si visible depuis la case cible, ajouter au set (pas de doublons)
-                if (sameLine || sameColumn || sameBox) {
-                    allVisibleNumbers.add(value);
-                }
+            if (!givenCells.includes(index) && userValue && userValue !== correctValue) {
+                cell.classList.add('error');
+                hasErrors = true;
             }
-            
-            // Ajouter le simple trouvé
-            const allNumbersWithSimple = new Set([...allVisibleNumbers, number]);
-            
-            // Vérifier si on a les 9 chiffres (1-9)
-            const isComplete = (allNumbersWithSimple.size === 9);
-            
-            // Debug
-            console.log('Simple trouvé:', number, 'à la position', targetCell);
-            console.log('Chiffres visibles (ligne+colonne+zone):', allVisibleNumbers);
-            console.log('Avec le simple:', allNumbersWithSimple);
-            console.log('Complète (1-9)?', isComplete);
-            
-            // Si c'est complet, mettre TOUS ces chiffres en vert clair
-            if (isComplete) {
-                for (let i = 0; i < cells.length; i++) {
-                    const row = Math.floor(i / 9);
-                    const col = i % 9;
-                    const input = cells[i].querySelector('input');
-                    const value = parseInt(input.value);
-                    
-                    if (!value) continue;
-                    
-                    const sameLine = (row === targetCell.row);
-                    const sameColumn = (col === targetCell.col);
-                    
-                    const boxRow = Math.floor(row / 3);
-                    const boxCol = Math.floor(col / 3);
-                    const sameBox = (boxRow === targetBoxRow && boxCol === targetBoxCol);
-                    
-                    // Mettre en vert tous les chiffres visibles qui font partie de la série complète
-                    if (sameLine || sameColumn || sameBox) {
-                        input.classList.add('highlight-complete');
-                    }
-                }
-            }
+        });
+        
+        if (!hasErrors) {
+            alert('🎉 Félicitations ! Tous les chiffres sont corrects !');
+        } else {
+            alert('❌ Il y a des erreurs. Les cases incorrectes sont en rouge.');
         }
+    }
 
-        // Fonction pour vérifier les erreurs de saisie (quand SIMPLES n'est pas coché)
-        function checkInputError(inputElement, row, col) {
-            const cells = document.querySelectorAll('.cell');
-            const value = parseInt(inputElement.value);
-            
-            if (!value) return;
-            
-            // Réinitialiser tous les highlights d'erreur
-            document.querySelectorAll('.cell input').forEach(input => {
-                input.classList.remove('highlight-helper');
-            });
-            
-            // Vérifier si le chiffre existe déjà dans la ligne/colonne/zone
-            let hasError = false;
-            
-            const targetBoxRow = Math.floor(row / 3);
-            const targetBoxCol = Math.floor(col / 3);
-            
-            for (let i = 0; i < cells.length; i++) {
-                const r = Math.floor(i / 9);
-                const c = i % 9;
-                const input = cells[i].querySelector('input');
-                const v = parseInt(input.value);
-                
-                if (!v || v !== value || input === inputElement) continue;
-                
-                const sameLine = (r === row);
-                const sameColumn = (c === col);
-                
-                const boxRow = Math.floor(r / 3);
-                const boxCol = Math.floor(c / 3);
-                const sameBox = (boxRow === targetBoxRow && boxCol === targetBoxCol);
-                
-                // Mettre en rouge si conflit
-                if (sameLine || sameColumn || sameBox) {
-                    input.classList.add('highlight-helper');
-                    hasError = true;
-                }
-            }
-            
-            // Mettre aussi la case saisie en rouge si erreur
-            if (hasError) {
-                inputElement.classList.add('highlight-helper');
-            }
-        }
+    function toggleCandidates() {
+        updateAllHints();
+    }
 
-        function updatePointingPairsHints() {
-            const cells = document.querySelectorAll('.cell');
-            
-            // Réinitialiser tous les pointing pairs
-            document.querySelectorAll('.pointing-pair-right, .pointing-pair-bottom').forEach(hint => {
-                hint.classList.remove('show');
-                hint.textContent = '';
-            });
-            
-            // Trouver les pointing pairs dans chaque zone 3x3
-            for (let boxRow = 0; boxRow < 3; boxRow++) {
-                for (let boxCol = 0; boxCol < 3; boxCol++) {
-                    // Pour chaque chiffre de 1 à 9
-                    for (let num = 1; num <= 9; num++) {
-                        const positions = [];
-                        
-                        // Trouver toutes les positions possibles pour ce chiffre dans cette zone
-                        for (let i = 0; i < 3; i++) {
-                            for (let j = 0; j < 3; j++) {
-                                const row = boxRow * 3 + i;
-                                const col = boxCol * 3 + j;
-                                const index = row * 9 + col;
-                                const input = cells[index].querySelector('input');
-                                
-                                if (!givenCells.includes(index) && !input.value) {
-                                    const candidates = getCandidates(row, col);
-                                    if (candidates.includes(num)) {
-                                        positions.push({ row, col, index });
-                                    }
-                                }
-                            }
-                        }
-                        
-                        // Si exactement 2 positions et elles sont contiguës
-                        if (positions.length === 2) {
-                            const pos1 = positions[0];
-                            const pos2 = positions[1];
-                            
-                            // Vérifier si contiguës horizontalement
-                            if (pos1.row === pos2.row && Math.abs(pos1.col - pos2.col) === 1) {
-                                const leftIndex = pos1.col < pos2.col ? pos1.index : pos2.index;
-                                const leftCell = cells[leftIndex];
-                                const pointingHint = leftCell.querySelector('.pointing-pair-right');
-                                pointingHint.textContent = num;
-                                pointingHint.classList.add('show');
-                            }
-                            
-                            // Vérifier si contiguës verticalement
-                            if (pos1.col === pos2.col && Math.abs(pos1.row - pos2.row) === 1) {
-                                const topIndex = pos1.row < pos2.row ? pos1.index : pos2.index;
-                                const topCell = cells[topIndex];
-                                const pointingHint = topCell.querySelector('.pointing-pair-bottom');
-                                pointingHint.textContent = num;
-                                pointingHint.classList.add('show');
-                            }
-                        }
-                    }
-                }
-            }
-        }
+    function toggleSimples() {
+        updateAllHints();
+    }
 
-        function updateTripleHints() {
-            const cells = document.querySelectorAll('.cell');
+    function togglePointingPairs() {
+        updateAllHints();
+    }
+
+    function toggleTriples() {
+        updateAllHints();
+    }
+
+    function toggleRows() {
+        updateAllHints();
+    }
+
+    function toggleColumns() {
+        updateAllHints();
+    }
+
+    function toggleAriane() {
+        updateAllHints();
+    }
+
+    function updateRowHints() {
+        const cells = document.querySelectorAll('.cell input');
+        
+        for (let row = 0; row < 9; row++) {
+            const missing = [];
+            const present = new Set();
             
-            // Réinitialiser tous les indices triples
-            document.querySelectorAll('.triple-hint-left, .triple-hint-top').forEach(hint => {
-                hint.classList.remove('show');
-                hint.textContent = '';
-            });
-            
-            // Vérifier les triples horizontaux (par ligne)
-            for (let row = 0; row < 9; row++) {
-                for (let col = 0; col <= 6; col++) {
-                    const indices = [row * 9 + col, row * 9 + col + 1, row * 9 + col + 2];
-                    
-                    // Vérifier que les 3 cases sont dans la même zone 3x3
-                    const box1 = Math.floor(row / 3) * 3 + Math.floor(col / 3);
-                    const box2 = Math.floor(row / 3) * 3 + Math.floor((col + 1) / 3);
-                    const box3 = Math.floor(row / 3) * 3 + Math.floor((col + 2) / 3);
-                    
-                    if (box1 !== box2 || box2 !== box3) continue;
-                    
-                    const cellsGroup = indices.map(i => cells[i]);
-                    const inputs = cellsGroup.map(c => c.querySelector('input'));
-                    
-                    // Vérifier que les 3 cases sont vides et non pré-remplies
-                    if (indices.every((idx, i) => !givenCells.includes(idx) && !inputs[i].value)) {
-                        const candidateSets = indices.map(i => {
-                            const r = Math.floor(i / 9);
-                            const c = i % 9;
-                            return getCandidates(r, c);
-                        });
-                        
-                        // Union de tous les candidats des 3 cases
-                        const unionCandidates = [...new Set(candidateSets.flat())];
-                        
-                        // Vérifier si exactement 3 chiffres couvrent toutes les possibilités
-                        if (unionCandidates.length === 3) {
-                            // Vérifier que chaque case a au moins 2 candidats parmi ces 3
-                            const allValid = candidateSets.every(set => 
-                                set.length >= 2 && set.every(c => unionCandidates.includes(c))
-                            );
-                            
-                            if (allValid) {
-                                const tripleHint = cellsGroup[0].querySelector('.triple-hint-left');
-                                tripleHint.textContent = unionCandidates.sort().join('');
-                                tripleHint.classList.add('show');
-                            }
-                        }
-                    }
-                }
-            }
-            
-            // Vérifier les triples verticaux (par colonne)
+            // Trouver les chiffres présents dans la ligne
             for (let col = 0; col < 9; col++) {
-                for (let row = 0; row <= 6; row++) {
-                    const indices = [row * 9 + col, (row + 1) * 9 + col, (row + 2) * 9 + col];
-                    
-                    // Vérifier que les 3 cases sont dans la même zone 3x3
-                    const box1 = Math.floor(row / 3) * 3 + Math.floor(col / 3);
-                    const box2 = Math.floor((row + 1) / 3) * 3 + Math.floor(col / 3);
-                    const box3 = Math.floor((row + 2) / 3) * 3 + Math.floor(col / 3);
-                    
-                    if (box1 !== box2 || box2 !== box3) continue;
-                    
-                    const cellsGroup = indices.map(i => cells[i]);
-                    const inputs = cellsGroup.map(c => c.querySelector('input'));
-                    
-                    // Vérifier que les 3 cases sont vides et non pré-remplies
-                    if (indices.every((idx, i) => !givenCells.includes(idx) && !inputs[i].value)) {
-                        const candidateSets = indices.map(i => {
-                            const r = Math.floor(i / 9);
-                            const c = i % 9;
-                            return getCandidates(r, c);
-                        });
-                        
-                        // Union de tous les candidats des 3 cases
-                        const unionCandidates = [...new Set(candidateSets.flat())];
-                        
-                        // Vérifier si exactement 3 chiffres couvrent toutes les possibilités
-                        if (unionCandidates.length === 3) {
-                            // Vérifier que chaque case a au moins 2 candidats parmi ces 3
-                            const allValid = candidateSets.every(set => 
-                                set.length >= 2 && set.every(c => unionCandidates.includes(c))
-                            );
-                            
-                            if (allValid) {
-                                const tripleHint = cellsGroup[0].querySelector('.triple-hint-top');
-                                tripleHint.textContent = unionCandidates.sort().join('');
-                                tripleHint.classList.add('show');
-                            }
-                        }
-                    }
+                const index = row * 9 + col;
+                const value = parseInt(cells[index].value);
+                if (value) {
+                    present.add(value);
                 }
             }
-        }
-
-        function updatePairHints() {
-            const cells = document.querySelectorAll('.cell');
             
-            // Réinitialiser tous les indices
+            // Trouver les chiffres manquants
+            for (let num = 1; num <= 9; num++) {
+                if (!present.has(num)) {
+                    missing.push(num);
+                }
+            }
+            
+            // Afficher les chiffres manquants sur 3 lignes (max 3 chiffres par ligne)
+            const rowHint = document.getElementById(`row-hint-${row}`);
+            if (missing.length > 0) {
+                const lines = [];
+                for (let i = 0; i < missing.length; i += 3) {
+                    const group = missing.slice(i, i + 3).join(' ');
+                    lines.push(`<div class="row-hint-line">${group}</div>`);
+                }
+                rowHint.innerHTML = lines.join('');
+                rowHint.classList.add('show');
+            } else {
+                rowHint.classList.remove('show');
+                rowHint.innerHTML = '';
+            }
+        }
+    }
+
+    function updateColumnHints() {
+        const cells = document.querySelectorAll('.cell input');
+        
+        for (let col = 0; col < 9; col++) {
+            const missing = [];
+            const present = new Set();
+            
+            // Trouver les chiffres présents dans la colonne
+            for (let row = 0; row < 9; row++) {
+                const index = row * 9 + col;
+                const value = parseInt(cells[index].value);
+                if (value) {
+                    present.add(value);
+                }
+            }
+            
+            // Trouver les chiffres manquants
+            for (let num = 1; num <= 9; num++) {
+                if (!present.has(num)) {
+                    missing.push(num);
+                }
+            }
+            
+            // Afficher les chiffres manquants sur 3 lignes (max 3 chiffres par ligne)
+            const columnHint = document.getElementById(`column-hint-${col}`);
+            if (missing.length > 0) {
+                const lines = [];
+                for (let i = 0; i < missing.length; i += 3) {
+                    const group = missing.slice(i, i + 3).join(' ');
+                    lines.push(`<div class="column-hint-line">${group}</div>`);
+                }
+                columnHint.innerHTML = lines.join('');
+                columnHint.classList.add('show');
+            } else {
+                columnHint.classList.remove('show');
+                columnHint.innerHTML = '';
+            }
+        }
+    }
+
+    function updateAllHints() {
+        // Ne rien faire si une alert d'erreur est en cours d'affichage
+        if (isShowingErrorAlert) {
+            console.log('updateAllHints bloqué - alert en cours');
+            return;
+        }
+        
+        const showPairs = document.getElementById('showCandidates').checked;
+        const showSimples = document.getElementById('showSimples').checked;
+        const showPointingPairs = document.getElementById('showPointingPairs').checked;
+        const showTriples = document.getElementById('showTriples').checked;
+        const showRows = document.getElementById('showRows').checked;
+        const showColumns = document.getElementById('showColumns').checked;
+        const showAriane = document.getElementById('showAriane').checked;
+        
+        if (showPairs) {
+            updatePairHints();
+        } else {
             document.querySelectorAll('.pair-hint-right, .pair-hint-bottom').forEach(hint => {
                 hint.classList.remove('show');
                 hint.textContent = '';
             });
+        }
+        
+        if (showSimples) {
+            updateSimpleHints();
+        } else {
+            document.querySelectorAll('.simple-hint').forEach(hint => {
+                hint.classList.remove('show');
+                hint.textContent = '';
+            });
+            // Réinitialiser tous les highlights quand SIMPLES est décoché
+            console.log('SIMPLES décoché - Réinitialisation des highlights');
+            document.querySelectorAll('.cell input').forEach(input => {
+                input.classList.remove('highlight-helper');
+                input.classList.remove('highlight-complete');
+                // Forcer le retour à la couleur par défaut
+                input.style.removeProperty('color');
+                input.style.removeProperty('font-weight');
+            });
+            console.log('Highlights retirés et styles réinitialisés');
             
-            // Parcourir chaque case
-            cells.forEach((cell, index) => {
-                const row = Math.floor(index / 9);
-                const col = index % 9;
-                const input = cell.querySelector('input');
-                
-                // Ignorer les cases pré-remplies ou déjà remplies
-                if (givenCells.includes(index) || input.value) return;
-                
-                const candidates = getCandidates(row, col);
-                
-                // Vérifier uniquement si cette case a exactement 2 candidats
-                if (candidates.length === 2) {
-                    const box1 = Math.floor(row / 3) * 3 + Math.floor(col / 3);
-                    
-                    // Vérifier la case à droite (même ligne)
-                    if (col < 8) {
-                        const rightIndex = index + 1;
-                        const rightInput = cells[rightIndex].querySelector('input');
-                        const box2 = Math.floor(row / 3) * 3 + Math.floor((col + 1) / 3);
-                        
-                        // Vérifier qu'elles sont dans la même zone 3x3
-                        if (box1 === box2 && !givenCells.includes(rightIndex) && !rightInput.value) {
-                            const rightCandidates = getCandidates(row, col + 1);
-                            
-                            // Si les deux cases ont exactement les mêmes 2 candidats
-                            if (rightCandidates.length === 2 && 
-                                candidates[0] === rightCandidates[0] && 
-                                candidates[1] === rightCandidates[1]) {
-                                const pairHint = cell.querySelector('.pair-hint-right');
-                                pairHint.textContent = candidates.join('');
-                                pairHint.classList.add('show');
-                            }
-                        }
-                    }
-                    
-                    // Vérifier la case en bas (même colonne)
-                    if (row < 8) {
-                        const bottomIndex = index + 9;
-                        const bottomInput = cells[bottomIndex].querySelector('input');
-                        const box2 = Math.floor((row + 1) / 3) * 3 + Math.floor(col / 3);
-                        
-                        // Vérifier qu'elles sont dans la même zone 3x3
-                        if (box1 === box2 && !givenCells.includes(bottomIndex) && !bottomInput.value) {
-                            const bottomCandidates = getCandidates(row + 1, col);
-                            
-                            // Si les deux cases ont exactement les mêmes 2 candidats
-                            if (bottomCandidates.length === 2 && 
-                                candidates[0] === bottomCandidates[0] && 
-                                candidates[1] === bottomCandidates[1]) {
-                                const pairHint = cell.querySelector('.pair-hint-bottom');
-                                pairHint.textContent = candidates.join('');
-                                pairHint.classList.add('show');
-                            }
-                        }
-                    }
-                }
+            // Vérifier tous les doublons existants
+            checkAllErrors();
+        }
+        
+        if (showPointingPairs) {
+            updatePointingPairsHints();
+        } else {
+            document.querySelectorAll('.pointing-pair-right, .pointing-pair-bottom').forEach(hint => {
+                hint.classList.remove('show');
+                hint.textContent = '';
             });
         }
-
-        function getCandidates(row, col) {
-            const candidates = [];
-            const cells = document.querySelectorAll('.cell input');
-            
-            for (let num = 1; num <= 9; num++) {
-                let isValid = true;
-                
-                // Vérifier la ligne
-                for (let c = 0; c < 9; c++) {
-                    const cellIndex = row * 9 + c;
-                    const value = cells[cellIndex].value.trim();
-                    if (value !== '' && parseInt(value) === num) {
-                        isValid = false;
-                        break;
-                    }
-                }
-                
-                // Vérifier la colonne
-                if (isValid) {
-                    for (let r = 0; r < 9; r++) {
-                        const cellIndex = r * 9 + col;
-                        const value = cells[cellIndex].value.trim();
-                        if (value !== '' && parseInt(value) === num) {
-                            isValid = false;
-                            break;
-                        }
-                    }
-                }
-                
-                // Vérifier le carré 3x3
-                if (isValid) {
-                    const startRow = Math.floor(row / 3) * 3;
-                    const startCol = Math.floor(col / 3) * 3;
-                    for (let r = startRow; r < startRow + 3; r++) {
-                        for (let c = startCol; c < startCol + 3; c++) {
-                            const cellIndex = r * 9 + c;
-                            const value = cells[cellIndex].value.trim();
-                            if (value !== '' && parseInt(value) === num) {
-                                isValid = false;
-                                break;
-                            }
-                        }
-                        if (!isValid) break;
-                    }
-                }
-                
-                if (isValid) {
-                    candidates.push(num);
-                }
-            }
-            
-            return candidates;
+        
+        if (showTriples) {
+            updateTripleHints();
+        } else {
+            document.querySelectorAll('.triple-hint-left, .triple-hint-top').forEach(hint => {
+                hint.classList.remove('show');
+                hint.textContent = '';
+            });
         }
-
-        let arianeState = null; // Stocker l'état du fil d'Ariane
-
-        function updateArianeHint() {
-            const cells = document.querySelectorAll('.cell');
-            
-            // Réinitialiser tous les indices Ariane
+        
+        if (showRows) {
+            updateRowHints();
+        } else {
+            document.querySelectorAll('.row-hint').forEach(hint => {
+                hint.classList.remove('show');
+                hint.innerHTML = '';
+            });
+        }
+        
+        if (showColumns) {
+            updateColumnHints();
+        } else {
+            document.querySelectorAll('.column-hint').forEach(hint => {
+                hint.classList.remove('show');
+                hint.innerHTML = '';
+            });
+        }
+        
+        if (showAriane) {
+            updateArianeHint();
+        } else {
             document.querySelectorAll('.ariane-hint').forEach(hint => {
                 hint.classList.remove('show');
                 hint.innerHTML = '';
             });
             
-            // Vérifier s'il existe des techniques logiques disponibles
-            if (hasLogicalTechniquesAvailable()) {
-                // Il reste des techniques logiques, ne pas afficher Ariane
-                return;
+            // Cacher aussi le bouton Résoudre Fil
+            arianeState = null;
+            const solveArianeBtn = document.getElementById('solveArianeBtn');
+            if (solveArianeBtn) {
+                solveArianeBtn.style.display = 'none';
             }
-            
-            // Plus de techniques logiques disponibles : chercher la meilleure case pour le fil d'Ariane
-            // Critère : case vide avec le moins de candidats (mais au moins 2)
-            let bestCell = null;
-            let minCandidates = 10;
-            
-            cells.forEach((cell, index) => {
+        }
+    }
+
+    function updateSimpleHints() {
+        // Vérifier d'abord si SIMPLES est coché
+        const showSimples = document.getElementById('showSimples');
+        if (!showSimples || !showSimples.checked) {
+            console.log('updateSimpleHints() - SIMPLES non coché, on ne fait rien');
+            return;
+        }
+        
+        const cells = document.querySelectorAll('.cell');
+        
+        console.log('updateSimpleHints() appelée - SIMPLES coché');
+        
+        // Réinitialiser tous les indices simples
+        document.querySelectorAll('.simple-hint').forEach(hint => {
+            hint.classList.remove('show');
+            hint.textContent = '';
+        });
+        
+        // Réinitialiser tous les highlights
+        document.querySelectorAll('.cell input').forEach(input => {
+            input.classList.remove('highlight-helper');
+            input.classList.remove('highlight-complete');
+        });
+        
+        let foundOne = false; // Flag pour arrêter après avoir trouvé le premier
+        let foundCell = null;
+        let foundNumber = null;
+        
+        // 1. Chercher d'abord les Naked Singles (priorité)
+        if (!foundOne) {
+            for (let index = 0; index < cells.length && !foundOne; index++) {
+                const cell = cells[index];
                 const row = Math.floor(index / 9);
                 const col = index % 9;
                 const input = cell.querySelector('input');
                 
-                if (!givenCells.includes(index) && !input.value) {
-                    const candidates = getCandidates(row, col);
-                    
-                    // On cherche une case avec 2-4 candidats (idéal pour fil d'Ariane)
-                    if (candidates.length >= 2 && candidates.length < minCandidates) {
-                        minCandidates = candidates.length;
-                        bestCell = { index, row, col, candidates };
-                    }
-                }
-            });
-            
-            // Afficher l'indice Ariane sur la meilleure case
-            if (bestCell) {
-                const cell = cells[bestCell.index];
-                const arianeHint = cell.querySelector('.ariane-hint');
+                if (givenCells.includes(index) || input.value) continue;
                 
-                // Stocker l'état pour le bouton Résoudre Fil
-                arianeState = {
-                    cellIndex: bestCell.index,
-                    candidates: bestCell.candidates,
-                    row: bestCell.row,
-                    col: bestCell.col
-                };
+                const candidates = getCandidates(row, col);
                 
-                // Créer l'affichage des candidats (tous de la même taille, sans gras)
-                const candidatesHtml = bestCell.candidates.map((num) => {
-                    return `<span>${num}</span>`;
-                }).join(' ');
-                
-                arianeHint.innerHTML = `<div class="ariane-candidates">${candidatesHtml}</div>`;
-                arianeHint.classList.add('show');
-                
-                // Afficher le bouton Résoudre Fil
-                const solveArianeBtn = document.getElementById('solveArianeBtn');
-                if (solveArianeBtn) {
-                    solveArianeBtn.style.display = 'inline-block';
-                }
-            } else {
-                // Cacher le bouton si pas de fil d'Ariane
-                arianeState = null;
-                const solveArianeBtn = document.getElementById('solveArianeBtn');
-                if (solveArianeBtn) {
-                    solveArianeBtn.style.display = 'none';
+                if (candidates.length === 1) {
+                    const simpleHint = cell.querySelector('.simple-hint');
+                    simpleHint.textContent = candidates[0];
+                    simpleHint.classList.add('show');
+                    foundOne = true;
+                    foundCell = { row, col, index };
+                    foundNumber = candidates[0];
                 }
             }
         }
-
-        function solveAriane() {
-            if (!arianeState) return;
-            
-            const cells = document.querySelectorAll('.cell input');
-            
-            // Sauvegarder l'état actuel de la grille
-            const currentState = [];
-            cells.forEach((input, idx) => {
-                currentState.push({
-                    value: input.value,
-                    isGiven: givenCells.includes(idx)
-                });
-            });
-            
-            // Tester chaque candidat
-            let correctCandidate = null;
-            for (const candidate of arianeState.candidates) {
-                // Restaurer la grille à l'état avant le fil d'Ariane
-                cells.forEach((input, idx) => {
-                    input.value = currentState[idx].value;
-                });
-                
-                // Essayer ce candidat
-                cells[arianeState.cellIndex].value = candidate;
-                
-                // Créer une grille de test
-                const testGrid = [];
-                for (let r = 0; r < 9; r++) {
-                    const row = [];
-                    for (let c = 0; c < 9; c++) {
-                        const idx = r * 9 + c;
-                        const val = parseInt(cells[idx].value);
-                        row.push(val || 0);
-                    }
-                    testGrid.push(row);
-                }
-                
-                // Essayer de résoudre avec ce candidat
-                const testGridCopy = testGrid.map(row => [...row]);
-                if (solveSudokuGrid(testGridCopy)) {
-                    correctCandidate = candidate;
-                    break;
-                }
-            }
-            
-            // Restaurer l'état initial
-            cells.forEach((input, idx) => {
-                input.value = currentState[idx].value;
-            });
-            
-            if (correctCandidate) {
-                // Afficher seulement le bon candidat dans le cercle
-                const allCells = document.querySelectorAll('.cell');
-                const cell = allCells[arianeState.cellIndex];
-                const arianeHint = cell.querySelector('.ariane-hint');
-                arianeHint.innerHTML = `<div class="ariane-candidates"><span class="ariane-best">${correctCandidate}</span></div>`;
-                
-                // Cacher le bouton
-                const solveArianeBtn = document.getElementById('solveArianeBtn');
-                if (solveArianeBtn) {
-                    solveArianeBtn.style.display = 'none';
-                }
-                
-                alert(`✅ Le bon candidat est ${correctCandidate}. Vous pouvez maintenant le placer dans la case.`);
-            } else {
-                alert('⚠️ Aucune solution trouvée avec ces candidats.');
-            }
-        }
-
-        function hasLogicalTechniquesAvailable() {
-            const cells = document.querySelectorAll('.cell');
-            
-            // 1. Vérifier s'il existe des Naked Singles (simples)
-            for (let i = 0; i < cells.length; i++) {
-                const row = Math.floor(i / 9);
-                const col = i % 9;
-                const input = cells[i].querySelector('input');
-                
-                if (!givenCells.includes(i) && !input.value) {
-                    const candidates = getCandidates(row, col);
-                    if (candidates.length === 1) {
-                        return true; // Il existe un simple
-                    }
-                }
-            }
-            
-            // 2. Vérifier s'il existe des Hidden Singles (lignes)
-            for (let row = 0; row < 9; row++) {
-                for (let num = 1; num <= 9; num++) {
+        
+        // 2. Hidden Singles dans les lignes
+        if (!foundOne) {
+            for (let row = 0; row < 9 && !foundOne; row++) {
+                for (let num = 1; num <= 9 && !foundOne; num++) {
                     const possibleCols = [];
                     for (let col = 0; col < 9; col++) {
                         const index = row * 9 + col;
@@ -2211,14 +1583,24 @@
                         }
                     }
                     if (possibleCols.length === 1) {
-                        return true; // Il existe un hidden single
+                        const col = possibleCols[0];
+                        const index = row * 9 + col;
+                        const cell = cells[index];
+                        const simpleHint = cell.querySelector('.simple-hint');
+                        simpleHint.textContent = num;
+                        simpleHint.classList.add('show');
+                        foundOne = true;
+                        foundCell = { row, col, index };
+                        foundNumber = num;
                     }
                 }
             }
-            
-            // 3. Vérifier s'il existe des Hidden Singles (colonnes)
-            for (let col = 0; col < 9; col++) {
-                for (let num = 1; num <= 9; num++) {
+        }
+        
+        // 3. Hidden Singles dans les colonnes
+        if (!foundOne) {
+            for (let col = 0; col < 9 && !foundOne; col++) {
+                for (let num = 1; num <= 9 && !foundOne; num++) {
                     const possibleRows = [];
                     for (let row = 0; row < 9; row++) {
                         const index = row * 9 + col;
@@ -2231,15 +1613,25 @@
                         }
                     }
                     if (possibleRows.length === 1) {
-                        return true; // Il existe un hidden single
+                        const row = possibleRows[0];
+                        const index = row * 9 + col;
+                        const cell = cells[index];
+                        const simpleHint = cell.querySelector('.simple-hint');
+                        simpleHint.textContent = num;
+                        simpleHint.classList.add('show');
+                        foundOne = true;
+                        foundCell = { row, col, index };
+                        foundNumber = num;
                     }
                 }
             }
-            
-            // 4. Vérifier s'il existe des Hidden Singles (zones 3×3)
-            for (let boxRow = 0; boxRow < 3; boxRow++) {
-                for (let boxCol = 0; boxCol < 3; boxCol++) {
-                    for (let num = 1; num <= 9; num++) {
+        }
+        
+        // 4. Hidden Singles dans les zones 3×3
+        if (!foundOne) {
+            for (let boxRow = 0; boxRow < 3 && !foundOne; boxRow++) {
+                for (let boxCol = 0; boxCol < 3 && !foundOne; boxCol++) {
+                    for (let num = 1; num <= 9 && !foundOne; num++) {
                         const possiblePositions = [];
                         for (let i = 0; i < 3; i++) {
                             for (let j = 0; j < 3; j++) {
@@ -2250,23 +1642,791 @@
                                 if (!givenCells.includes(index) && !input.value) {
                                     const candidates = getCandidates(row, col);
                                     if (candidates.includes(num)) {
-                                        possiblePositions.push({ row, col });
+                                        possiblePositions.push({ row, col, index });
                                     }
                                 }
                             }
                         }
                         if (possiblePositions.length === 1) {
-                            return true; // Il existe un hidden single
+                            const pos = possiblePositions[0];
+                            const cell = cells[pos.index];
+                            const simpleHint = cell.querySelector('.simple-hint');
+                            simpleHint.textContent = num;
+                            simpleHint.classList.add('show');
+                            foundOne = true;
+                            foundCell = { row: pos.row, col: pos.col, index: pos.index };
+                            foundNumber = num;
                         }
                     }
                 }
             }
+        }
+        
+        // Si on a trouvé un simple, mettre en rouge les chiffres qui aident à le trouver
+        if (foundCell && foundNumber) {
+            highlightHelpers(foundCell, foundNumber);
+        }
+    }
+
+    function highlightHelpers(targetCell, number) {
+        const cells = document.querySelectorAll('.cell');
+        
+        // Collecter TOUS les chiffres visibles depuis la case cible (ligne OU colonne OU zone)
+        const allVisibleNumbers = new Set();
+        
+        const targetBoxRow = Math.floor(targetCell.row / 3);
+        const targetBoxCol = Math.floor(targetCell.col / 3);
+        
+        for (let i = 0; i < cells.length; i++) {
+            const row = Math.floor(i / 9);
+            const col = i % 9;
+            const input = cells[i].querySelector('input');
+            const value = parseInt(input.value);
             
-            // Aucun simple (naked ou hidden) disponible
-            // Les doubles, paires, triples, X-Wing sont des techniques avancées optionnelles
+            if (!value) continue;
+            
+            // Vérifier si dans la même ligne OU colonne OU zone
+            const sameLine = (row === targetCell.row);
+            const sameColumn = (col === targetCell.col);
+            
+            const boxRow = Math.floor(row / 3);
+            const boxCol = Math.floor(col / 3);
+            const sameBox = (boxRow === targetBoxRow && boxCol === targetBoxCol);
+            
+            // Si visible depuis la case cible, ajouter au set (pas de doublons)
+            if (sameLine || sameColumn || sameBox) {
+                allVisibleNumbers.add(value);
+            }
+        }
+        
+        // Ajouter le simple trouvé
+        const allNumbersWithSimple = new Set([...allVisibleNumbers, number]);
+        
+        // Vérifier si on a les 9 chiffres (1-9)
+        const isComplete = (allNumbersWithSimple.size === 9);
+        
+        // Debug
+        console.log('Simple trouvé:', number, 'à la position', targetCell);
+        console.log('Chiffres visibles (ligne+colonne+zone):', allVisibleNumbers);
+        console.log('Avec le simple:', allNumbersWithSimple);
+        console.log('Complète (1-9)?', isComplete);
+        
+        // Si c'est complet, mettre en rose UNE SEULE occurrence de chaque chiffre
+        if (isComplete) {
+            const highlightedValues = new Set(); // Pour suivre quels chiffres ont déjà été mis en rose
+            
+            for (let i = 0; i < cells.length; i++) {
+                const row = Math.floor(i / 9);
+                const col = i % 9;
+                const input = cells[i].querySelector('input');
+                const value = parseInt(input.value);
+                
+                if (!value) continue;
+                
+                // Si ce chiffre a déjà été mis en rose, passer au suivant
+                if (highlightedValues.has(value)) continue;
+                
+                const sameLine = (row === targetCell.row);
+                const sameColumn = (col === targetCell.col);
+                
+                const boxRow = Math.floor(row / 3);
+                const boxCol = Math.floor(col / 3);
+                const sameBox = (boxRow === targetBoxRow && boxCol === targetBoxCol);
+                
+                // Mettre en rose la PREMIÈRE occurrence de ce chiffre trouvée
+                if (sameLine || sameColumn || sameBox) {
+                    input.classList.add('highlight-complete');
+                    highlightedValues.add(value); // Marquer ce chiffre comme déjà mis en rose
+                }
+            }
+        }
+    }
+
+    // Fonction pour vérifier tous les doublons existants dans la grille
+    function checkAllErrors() {
+        const cells = document.querySelectorAll('.cell');
+        const conflictPairs = new Map(); // Pour mémoriser les paires de conflits
+        
+        console.log('checkAllErrors - Vérification de tous les doublons');
+        
+        // Parcourir toutes les cellules
+        for (let i = 0; i < cells.length; i++) {
+            const row = Math.floor(i / 9);
+            const col = i % 9;
+            const input = cells[i].querySelector('input');
+            const value = parseInt(input.value);
+            
+            if (!value || givenCells.includes(i)) continue; // Ignorer les cases vides et pré-remplies
+            
+            const targetBoxRow = Math.floor(row / 3);
+            const targetBoxCol = Math.floor(col / 3);
+            
+            // Chercher un conflit pour cette cellule
+            for (let j = 0; j < cells.length; j++) {
+                if (i === j) continue;
+                
+                const r = Math.floor(j / 9);
+                const c = j % 9;
+                const otherInput = cells[j].querySelector('input');
+                const otherValue = parseInt(otherInput.value);
+                
+                if (!otherValue || otherValue !== value) continue;
+                
+                const sameLine = (r === row);
+                const sameColumn = (c === col);
+                
+                const boxRow = Math.floor(r / 3);
+                const boxCol = Math.floor(c / 3);
+                const sameBox = (boxRow === targetBoxRow && boxCol === targetBoxCol);
+                
+                // Si conflit trouvé
+                if (sameLine || sameColumn || sameBox) {
+                    // Créer une clé unique pour cette paire (toujours le plus petit index en premier)
+                    const key = i < j ? `${i}-${j}` : `${j}-${i}`;
+                    
+                    if (!conflictPairs.has(key)) {
+                        conflictPairs.set(key, { cell1: i < j ? i : j, cell2: i < j ? j : i, value: value });
+                        console.log(`Conflit trouvé: cellule ${i} et ${j}, valeur ${value}`);
+                    }
+                }
+            }
+        }
+        
+        // Mettre en rouge seulement la première paire de conflit trouvée
+        if (conflictPairs.size > 0) {
+            const firstConflict = conflictPairs.values().next().value;
+            cells[firstConflict.cell1].querySelector('input').classList.add('highlight-helper');
+            cells[firstConflict.cell2].querySelector('input').classList.add('highlight-helper');
+            console.log(`Mise en rouge des cellules ${firstConflict.cell1} et ${firstConflict.cell2}`);
+        } else {
+            console.log('Aucun conflit détecté dans la grille');
+        }
+    }
+
+    let isShowingErrorAlert = false; // Flag pour éviter les interférences pendant l'alert
+
+    // Fonction pour vérifier les erreurs de saisie (quand SIMPLES n'est pas coché)
+    // Retourne true si une erreur est détectée, false sinon
+    function checkInputError(inputElement, row, col) {
+        console.log('=== checkInputError appelée ===');
+        console.log('Position - row:', row, 'col:', col);
+        console.log('Valeur saisie:', inputElement.value);
+        
+        const cells = document.querySelectorAll('.cell');
+        const value = parseInt(inputElement.value);
+        
+        if (!value) {
+            console.log('Pas de valeur, sortie');
             return false;
         }
+        
+        // Réinitialiser tous les highlights d'erreur
+        document.querySelectorAll('.cell input').forEach(input => {
+            input.classList.remove('highlight-helper');
+        });
+        
+        const targetBoxRow = Math.floor(row / 3);
+        const targetBoxCol = Math.floor(col / 3);
+        
+        console.log('Zone 3x3:', targetBoxRow, targetBoxCol);
+        
+        let conflictFound = false;
+        let conflictType = '';
+        
+        // Parcourir TOUTES les cellules pour trouver un doublon
+        for (let i = 0; i < 81; i++) {
+            const r = Math.floor(i / 9);
+            const c = i % 9;
+            const cellIndex = r * 9 + c;
+            
+            // Ignorer la cellule actuelle
+            if (r === row && c === col) continue;
+            
+            const otherInput = cells[cellIndex].querySelector('input');
+            const otherValue = parseInt(otherInput.value);
+            
+            // Pas de valeur dans cette cellule
+            if (!otherValue) continue;
+            
+            // Valeur différente
+            if (otherValue !== value) continue;
+            
+            // Vérifier si même ligne
+            const sameLine = (r === row);
+            
+            // Vérifier si même colonne
+            const sameColumn = (c === col);
+            
+            // Vérifier si même zone 3x3
+            const boxRow = Math.floor(r / 3);
+            const boxCol = Math.floor(c / 3);
+            const sameBox = (boxRow === targetBoxRow && boxCol === targetBoxCol);
+            
+            // Si conflit détecté
+            if (sameLine || sameColumn || sameBox) {
+                console.log('CONFLIT TROUVÉ !');
+                console.log('  - Autre position: row', r, 'col', c);
+                console.log('  - Même ligne?', sameLine);
+                console.log('  - Même colonne?', sameColumn);
+                console.log('  - Même zone?', sameBox);
+                
+                // Déterminer le type de conflit
+                if (sameLine) conflictType = 'la ligne';
+                else if (sameColumn) conflictType = 'la colonne';
+                else if (sameBox) conflictType = 'la zone 3×3';
+                
+                // Mettre en rouge les deux cellules
+                inputElement.classList.add('highlight-helper');
+                otherInput.classList.add('highlight-helper');
+                conflictFound = true;
+                
+                console.log('Classes ajoutées aux deux inputs');
+                break; // On s'arrête au premier conflit trouvé
+            }
+        }
+        
+        if (conflictFound) {
+            console.log('>>> CONFLIT DÉTECTÉ - Affichage des rouges pendant 2 secondes');
+            
+            isShowingErrorAlert = true; // Bloquer updateAllHints
+            
+            // Effacer automatiquement après 2000ms
+            setTimeout(() => {
+                console.log('>>> Effacement automatique du chiffre erroné');
+                
+                // Effacer le chiffre erroné
+                inputElement.value = '';
+                // Retirer les highlights
+                document.querySelectorAll('.cell input').forEach(input => {
+                    input.classList.remove('highlight-helper');
+                });
+                
+                isShowingErrorAlert = false; // Débloquer
+                
+                // Mettre à jour les indices
+                updateAllHints();
+            }, 2000);
+            
+            return true; // Erreur détectée
+        } else {
+            console.log('Aucun conflit trouvé');
+            return false; // Pas d'erreur
+        }
+    }
 
-    </script>
+    function updatePointingPairsHints() {
+        const cells = document.querySelectorAll('.cell');
+        
+        // Réinitialiser tous les pointing pairs
+        document.querySelectorAll('.pointing-pair-right, .pointing-pair-bottom').forEach(hint => {
+            hint.classList.remove('show');
+            hint.textContent = '';
+        });
+        
+        // Trouver les pointing pairs dans chaque zone 3x3
+        for (let boxRow = 0; boxRow < 3; boxRow++) {
+            for (let boxCol = 0; boxCol < 3; boxCol++) {
+                // Pour chaque chiffre de 1 à 9
+                for (let num = 1; num <= 9; num++) {
+                    const positions = [];
+                    
+                    // Trouver toutes les positions possibles pour ce chiffre dans cette zone
+                    for (let i = 0; i < 3; i++) {
+                        for (let j = 0; j < 3; j++) {
+                            const row = boxRow * 3 + i;
+                            const col = boxCol * 3 + j;
+                            const index = row * 9 + col;
+                            const input = cells[index].querySelector('input');
+                            
+                            if (!givenCells.includes(index) && !input.value) {
+                                const candidates = getCandidates(row, col);
+                                if (candidates.includes(num)) {
+                                    positions.push({ row, col, index });
+                                }
+                            }
+                        }
+                    }
+                    
+                    // Si exactement 2 positions et elles sont contiguës
+                    if (positions.length === 2) {
+                        const pos1 = positions[0];
+                        const pos2 = positions[1];
+                        
+                        // Vérifier si contiguës horizontalement
+                        if (pos1.row === pos2.row && Math.abs(pos1.col - pos2.col) === 1) {
+                            const leftIndex = pos1.col < pos2.col ? pos1.index : pos2.index;
+                            const leftCell = cells[leftIndex];
+                            const pointingHint = leftCell.querySelector('.pointing-pair-right');
+                            pointingHint.textContent = num;
+                            pointingHint.classList.add('show');
+                        }
+                        
+                        // Vérifier si contiguës verticalement
+                        if (pos1.col === pos2.col && Math.abs(pos1.row - pos2.row) === 1) {
+                            const topIndex = pos1.row < pos2.row ? pos1.index : pos2.index;
+                            const topCell = cells[topIndex];
+                            const pointingHint = topCell.querySelector('.pointing-pair-bottom');
+                            pointingHint.textContent = num;
+                            pointingHint.classList.add('show');
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    function updateTripleHints() {
+        const cells = document.querySelectorAll('.cell');
+        
+        // Réinitialiser tous les indices triples
+        document.querySelectorAll('.triple-hint-left, .triple-hint-top').forEach(hint => {
+            hint.classList.remove('show');
+            hint.textContent = '';
+        });
+        
+        // Vérifier les triples horizontaux (par ligne)
+        for (let row = 0; row < 9; row++) {
+            for (let col = 0; col <= 6; col++) {
+                const indices = [row * 9 + col, row * 9 + col + 1, row * 9 + col + 2];
+                
+                // Vérifier que les 3 cases sont dans la même zone 3x3
+                const box1 = Math.floor(row / 3) * 3 + Math.floor(col / 3);
+                const box2 = Math.floor(row / 3) * 3 + Math.floor((col + 1) / 3);
+                const box3 = Math.floor(row / 3) * 3 + Math.floor((col + 2) / 3);
+                
+                if (box1 !== box2 || box2 !== box3) continue;
+                
+                const cellsGroup = indices.map(i => cells[i]);
+                const inputs = cellsGroup.map(c => c.querySelector('input'));
+                
+                // Vérifier que les 3 cases sont vides et non pré-remplies
+                if (indices.every((idx, i) => !givenCells.includes(idx) && !inputs[i].value)) {
+                    const candidateSets = indices.map(i => {
+                        const r = Math.floor(i / 9);
+                        const c = i % 9;
+                        return getCandidates(r, c);
+                    });
+                    
+                    // Union de tous les candidats des 3 cases
+                    const unionCandidates = [...new Set(candidateSets.flat())];
+                    
+                    // Vérifier si exactement 3 chiffres couvrent toutes les possibilités
+                    if (unionCandidates.length === 3) {
+                        // Vérifier que chaque case a au moins 2 candidats parmi ces 3
+                        const allValid = candidateSets.every(set => 
+                            set.length >= 2 && set.every(c => unionCandidates.includes(c))
+                        );
+                        
+                        if (allValid) {
+                            const tripleHint = cellsGroup[0].querySelector('.triple-hint-left');
+                            tripleHint.textContent = unionCandidates.sort().join('');
+                            tripleHint.classList.add('show');
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Vérifier les triples verticaux (par colonne)
+        for (let col = 0; col < 9; col++) {
+            for (let row = 0; row <= 6; row++) {
+                const indices = [row * 9 + col, (row + 1) * 9 + col, (row + 2) * 9 + col];
+                
+                // Vérifier que les 3 cases sont dans la même zone 3x3
+                const box1 = Math.floor(row / 3) * 3 + Math.floor(col / 3);
+                const box2 = Math.floor((row + 1) / 3) * 3 + Math.floor(col / 3);
+                const box3 = Math.floor((row + 2) / 3) * 3 + Math.floor(col / 3);
+                
+                if (box1 !== box2 || box2 !== box3) continue;
+                
+                const cellsGroup = indices.map(i => cells[i]);
+                const inputs = cellsGroup.map(c => c.querySelector('input'));
+                
+                // Vérifier que les 3 cases sont vides et non pré-remplies
+                if (indices.every((idx, i) => !givenCells.includes(idx) && !inputs[i].value)) {
+                    const candidateSets = indices.map(i => {
+                        const r = Math.floor(i / 9);
+                        const c = i % 9;
+                        return getCandidates(r, c);
+                    });
+                    
+                    // Union de tous les candidats des 3 cases
+                    const unionCandidates = [...new Set(candidateSets.flat())];
+                    
+                    // Vérifier si exactement 3 chiffres couvrent toutes les possibilités
+                    if (unionCandidates.length === 3) {
+                        // Vérifier que chaque case a au moins 2 candidats parmi ces 3
+                        const allValid = candidateSets.every(set => 
+                            set.length >= 2 && set.every(c => unionCandidates.includes(c))
+                        );
+                        
+                        if (allValid) {
+                            const tripleHint = cellsGroup[0].querySelector('.triple-hint-top');
+                            tripleHint.textContent = unionCandidates.sort().join('');
+                            tripleHint.classList.add('show');
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    function updatePairHints() {
+        const cells = document.querySelectorAll('.cell');
+        
+        // Réinitialiser tous les indices
+        document.querySelectorAll('.pair-hint-right, .pair-hint-bottom').forEach(hint => {
+            hint.classList.remove('show');
+            hint.textContent = '';
+        });
+        
+        // Parcourir chaque case
+        cells.forEach((cell, index) => {
+            const row = Math.floor(index / 9);
+            const col = index % 9;
+            const input = cell.querySelector('input');
+            
+            // Ignorer les cases pré-remplies ou déjà remplies
+            if (givenCells.includes(index) || input.value) return;
+            
+            const candidates = getCandidates(row, col);
+            
+            // Vérifier uniquement si cette case a exactement 2 candidats
+            if (candidates.length === 2) {
+                const box1 = Math.floor(row / 3) * 3 + Math.floor(col / 3);
+                
+                // Vérifier la case à droite (même ligne)
+                if (col < 8) {
+                    const rightIndex = index + 1;
+                    const rightInput = cells[rightIndex].querySelector('input');
+                    const box2 = Math.floor(row / 3) * 3 + Math.floor((col + 1) / 3);
+                    
+                    // Vérifier qu'elles sont dans la même zone 3x3
+                    if (box1 === box2 && !givenCells.includes(rightIndex) && !rightInput.value) {
+                        const rightCandidates = getCandidates(row, col + 1);
+                        
+                        // Si les deux cases ont exactement les mêmes 2 candidats
+                        if (rightCandidates.length === 2 && 
+                            candidates[0] === rightCandidates[0] && 
+                            candidates[1] === rightCandidates[1]) {
+                            const pairHint = cell.querySelector('.pair-hint-right');
+                            pairHint.textContent = candidates.join('');
+                            pairHint.classList.add('show');
+                        }
+                    }
+                }
+                
+                // Vérifier la case en bas (même colonne)
+                if (row < 8) {
+                    const bottomIndex = index + 9;
+                    const bottomInput = cells[bottomIndex].querySelector('input');
+                    const box2 = Math.floor((row + 1) / 3) * 3 + Math.floor(col / 3);
+                    
+                    // Vérifier qu'elles sont dans la même zone 3x3
+                    if (box1 === box2 && !givenCells.includes(bottomIndex) && !bottomInput.value) {
+                        const bottomCandidates = getCandidates(row + 1, col);
+                        
+                        // Si les deux cases ont exactement les mêmes 2 candidats
+                        if (bottomCandidates.length === 2 && 
+                            candidates[0] === bottomCandidates[0] && 
+                            candidates[1] === bottomCandidates[1]) {
+                            const pairHint = cell.querySelector('.pair-hint-bottom');
+                            pairHint.textContent = candidates.join('');
+                            pairHint.classList.add('show');
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function getCandidates(row, col) {
+        const candidates = [];
+        const cells = document.querySelectorAll('.cell input');
+        
+        for (let num = 1; num <= 9; num++) {
+            let isValid = true;
+            
+            // Vérifier la ligne
+            for (let c = 0; c < 9; c++) {
+                const cellIndex = row * 9 + c;
+                const value = cells[cellIndex].value.trim();
+                if (value !== '' && parseInt(value) === num) {
+                    isValid = false;
+                    break;
+                }
+            }
+            
+            // Vérifier la colonne
+            if (isValid) {
+                for (let r = 0; r < 9; r++) {
+                    const cellIndex = r * 9 + col;
+                    const value = cells[cellIndex].value.trim();
+                    if (value !== '' && parseInt(value) === num) {
+                        isValid = false;
+                        break;
+                    }
+                }
+            }
+            
+            // Vérifier le carré 3x3
+            if (isValid) {
+                const startRow = Math.floor(row / 3) * 3;
+                const startCol = Math.floor(col / 3) * 3;
+                for (let r = startRow; r < startRow + 3; r++) {
+                    for (let c = startCol; c < startCol + 3; c++) {
+                        const cellIndex = r * 9 + c;
+                        const value = cells[cellIndex].value.trim();
+                        if (value !== '' && parseInt(value) === num) {
+                            isValid = false;
+                            break;
+                        }
+                    }
+                    if (!isValid) break;
+                }
+            }
+            
+            if (isValid) {
+                candidates.push(num);
+            }
+        }
+        
+        return candidates;
+    }
+
+    let arianeState = null; // Stocker l'état du fil d'Ariane
+
+    function updateArianeHint() {
+        const cells = document.querySelectorAll('.cell');
+        
+        // Réinitialiser tous les indices Ariane
+        document.querySelectorAll('.ariane-hint').forEach(hint => {
+            hint.classList.remove('show');
+            hint.innerHTML = '';
+        });
+        
+        // Vérifier s'il existe des techniques logiques disponibles
+        if (hasLogicalTechniquesAvailable()) {
+            // Il reste des techniques logiques, ne pas afficher Ariane
+            return;
+        }
+        
+        // Plus de techniques logiques disponibles : chercher la meilleure case pour le fil d'Ariane
+        // Critère : case vide avec le moins de candidats (mais au moins 2)
+        let bestCell = null;
+        let minCandidates = 10;
+        
+        cells.forEach((cell, index) => {
+            const row = Math.floor(index / 9);
+            const col = index % 9;
+            const input = cell.querySelector('input');
+            
+            if (!givenCells.includes(index) && !input.value) {
+                const candidates = getCandidates(row, col);
+                
+                // On cherche une case avec 2-4 candidats (idéal pour fil d'Ariane)
+                if (candidates.length >= 2 && candidates.length < minCandidates) {
+                    minCandidates = candidates.length;
+                    bestCell = { index, row, col, candidates };
+                }
+            }
+        });
+        
+        // Afficher l'indice Ariane sur la meilleure case
+        if (bestCell) {
+            const cell = cells[bestCell.index];
+            const arianeHint = cell.querySelector('.ariane-hint');
+            
+            // Stocker l'état pour le bouton Résoudre Fil
+            arianeState = {
+                cellIndex: bestCell.index,
+                candidates: bestCell.candidates,
+                row: bestCell.row,
+                col: bestCell.col
+            };
+            
+            // Créer l'affichage des candidats (tous de la même taille, sans gras)
+            const candidatesHtml = bestCell.candidates.map((num) => {
+                return `<span>${num}</span>`;
+            }).join(' ');
+            
+            arianeHint.innerHTML = `<div class="ariane-candidates">${candidatesHtml}</div>`;
+            arianeHint.classList.add('show');
+            
+            // Afficher le bouton Résoudre Fil
+            const solveArianeBtn = document.getElementById('solveArianeBtn');
+            if (solveArianeBtn) {
+                solveArianeBtn.style.display = 'inline-block';
+            }
+        } else {
+            // Cacher le bouton si pas de fil d'Ariane
+            arianeState = null;
+            const solveArianeBtn = document.getElementById('solveArianeBtn');
+            if (solveArianeBtn) {
+                solveArianeBtn.style.display = 'none';
+            }
+        }
+    }
+
+    function solveAriane() {
+        if (!arianeState) return;
+        
+        const cells = document.querySelectorAll('.cell input');
+        
+        // Sauvegarder l'état actuel de la grille
+        const currentState = [];
+        cells.forEach((input, idx) => {
+            currentState.push({
+                value: input.value,
+                isGiven: givenCells.includes(idx)
+            });
+        });
+        
+        // Tester chaque candidat
+        let correctCandidate = null;
+        for (const candidate of arianeState.candidates) {
+            // Restaurer la grille à l'état avant le fil d'Ariane
+            cells.forEach((input, idx) => {
+                input.value = currentState[idx].value;
+            });
+            
+            // Essayer ce candidat
+            cells[arianeState.cellIndex].value = candidate;
+            
+            // Créer une grille de test
+            const testGrid = [];
+            for (let r = 0; r < 9; r++) {
+                const row = [];
+                for (let c = 0; c < 9; c++) {
+                    const idx = r * 9 + c;
+                    const val = parseInt(cells[idx].value);
+                    row.push(val || 0);
+                }
+                testGrid.push(row);
+            }
+            
+            // Essayer de résoudre avec ce candidat
+            const testGridCopy = testGrid.map(row => [...row]);
+            if (solveSudokuGrid(testGridCopy)) {
+                correctCandidate = candidate;
+                break;
+            }
+        }
+        
+        // Restaurer l'état initial
+        cells.forEach((input, idx) => {
+            input.value = currentState[idx].value;
+        });
+        
+        if (correctCandidate) {
+            // Afficher seulement le bon candidat dans le cercle
+            const allCells = document.querySelectorAll('.cell');
+            const cell = allCells[arianeState.cellIndex];
+            const arianeHint = cell.querySelector('.ariane-hint');
+            arianeHint.innerHTML = `<div class="ariane-candidates"><span class="ariane-best">${correctCandidate}</span></div>`;
+            
+            // Cacher le bouton
+            const solveArianeBtn = document.getElementById('solveArianeBtn');
+            if (solveArianeBtn) {
+                solveArianeBtn.style.display = 'none';
+            }
+            
+            alert(`✅ Le bon candidat est ${correctCandidate}. Vous pouvez maintenant le placer dans la case.`);
+        } else {
+            alert('⚠️ Aucune solution trouvée avec ces candidats.');
+        }
+    }
+
+    function hasLogicalTechniquesAvailable() {
+        const cells = document.querySelectorAll('.cell');
+        
+        // 1. Vérifier s'il existe des Naked Singles (simples)
+        for (let i = 0; i < cells.length; i++) {
+            const row = Math.floor(i / 9);
+            const col = i % 9;
+            const input = cells[i].querySelector('input');
+            
+            if (!givenCells.includes(i) && !input.value) {
+                const candidates = getCandidates(row, col);
+                if (candidates.length === 1) {
+                    return true; // Il existe un simple
+                }
+            }
+        }
+        
+        // 2. Vérifier s'il existe des Hidden Singles (lignes)
+        for (let row = 0; row < 9; row++) {
+            for (let num = 1; num <= 9; num++) {
+                const possibleCols = [];
+                for (let col = 0; col < 9; col++) {
+                    const index = row * 9 + col;
+                    const input = cells[index].querySelector('input');
+                    if (!givenCells.includes(index) && !input.value) {
+                        const candidates = getCandidates(row, col);
+                        if (candidates.includes(num)) {
+                            possibleCols.push(col);
+                        }
+                    }
+                }
+                if (possibleCols.length === 1) {
+                    return true; // Il existe un hidden single
+                }
+            }
+        }
+        
+        // 3. Vérifier s'il existe des Hidden Singles (colonnes)
+        for (let col = 0; col < 9; col++) {
+            for (let num = 1; num <= 9; num++) {
+                const possibleRows = [];
+                for (let row = 0; row < 9; row++) {
+                    const index = row * 9 + col;
+                    const input = cells[index].querySelector('input');
+                    if (!givenCells.includes(index) && !input.value) {
+                        const candidates = getCandidates(row, col);
+                        if (candidates.includes(num)) {
+                            possibleRows.push(row);
+                        }
+                    }
+                }
+                if (possibleRows.length === 1) {
+                    return true; // Il existe un hidden single
+                }
+            }
+        }
+        
+        // 4. Vérifier s'il existe des Hidden Singles (zones 3×3)
+        for (let boxRow = 0; boxRow < 3; boxRow++) {
+            for (let boxCol = 0; boxCol < 3; boxCol++) {
+                for (let num = 1; num <= 9; num++) {
+                    const possiblePositions = [];
+                    for (let i = 0; i < 3; i++) {
+                        for (let j = 0; j < 3; j++) {
+                            const row = boxRow * 3 + i;
+                            const col = boxCol * 3 + j;
+                            const index = row * 9 + col;
+                            const input = cells[index].querySelector('input');
+                            if (!givenCells.includes(index) && !input.value) {
+                                const candidates = getCandidates(row, col);
+                                if (candidates.includes(num)) {
+                                    possiblePositions.push({ row, col });
+                                }
+                            }
+                        }
+                    }
+                    if (possiblePositions.length === 1) {
+                        return true; // Il existe un hidden single
+                    }
+                }
+            }
+        }
+        
+        // Aucun simple (naked ou hidden) disponible
+        // Les doubles, paires, triples, X-Wing sont des techniques avancées optionnelles
+        return false;
+    }
+
+</script>
+```
+
 </body>
 </html>
