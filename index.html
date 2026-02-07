@@ -567,8 +567,8 @@
 
     <div class="controls">
         <button class="action-btn" onclick="generateNewSudoku()">Créer</button>
-        <button class="action-btn verify-btn" id="verifyBtn" onclick="verifySudoku()" disabled>Vérifier</button>
-        <button class="action-btn solve-btn" id="solveBtn" onclick="solveSudoku()" disabled>Résoudre</button>
+        <button class="action-btn verify-btn" id="verifyBtn" onclick="verifySudoku()">Vérifier</button>
+        <button class="action-btn solve-btn" id="solveBtn" onclick="solveSudoku()">Résoudre</button>
         <button class="action-btn solve-ariane-btn" id="solveArianeBtn" onclick="solveAriane()" style="display:none;">Résoudre Fil</button>
         <button class="action-btn" onclick="resetGrid()">Vider</button>
     </div>
@@ -1233,28 +1233,12 @@
     }
 
     function checkGridCompletion() {
-        const cells = document.querySelectorAll('.cell input');
-        let allFilled = true;
-        
-        for (let cell of cells) {
-            if (!cell.value) {
-                allFilled = false;
-                break;
-            }
-        }
-        
+        // Les boutons Vérifier et Résoudre sont maintenant toujours actifs
         const verifyBtn = document.getElementById('verifyBtn');
         const solveBtn = document.getElementById('solveBtn');
         
-        // En mode grille vierge, les boutons sont toujours actifs
-        if (isEmptyGridMode) {
-            verifyBtn.disabled = false;
-            solveBtn.disabled = false;
-        } else {
-            // En mode normal, activer uniquement si toutes les cases sont remplies
-            verifyBtn.disabled = !allFilled;
-            solveBtn.disabled = !allFilled;
-        }
+        verifyBtn.disabled = false;
+        solveBtn.disabled = false;
     }
 
     function verifySudoku() {
@@ -1306,6 +1290,20 @@
             alert('🎉 Félicitations ! Tous les chiffres sont corrects !');
         } else {
             alert('❌ Il y a des erreurs. Les cases incorrectes sont en rouge.');
+            
+            // Effacer les chiffres erronés après 2 secondes
+            setTimeout(() => {
+                cells.forEach((cell, index) => {
+                    if (cell.classList.contains('error')) {
+                        const input = cell.querySelector('input');
+                        input.value = '';
+                        cell.classList.remove('error');
+                    }
+                });
+                
+                // Mettre à jour les indices
+                updateAllHints();
+            }, 2000);
         }
     }
 
