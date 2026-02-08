@@ -562,7 +562,7 @@
         <button class="difficulty-btn" data-difficulty="moyen">Moyen</button>
         <button class="difficulty-btn" data-difficulty="difficile">Difficile</button>
         <button class="difficulty-btn" data-difficulty="expert">Expert</button>
-        <button class="difficulty-btn empty-btn" onclick="generateEmptyGrid()">Vierge</button>
+        <button class="difficulty-btn empty-btn" id="emptyGridBtn" onclick="toggleEmptyGridMode()">Vierge</button>
     </div>
 
     <div class="controls">
@@ -781,6 +781,11 @@
         // Activer le mode grille vierge
         isEmptyGridMode = true;
         
+        // Changer le bouton en "Fixer"
+        const emptyGridBtn = document.getElementById('emptyGridBtn');
+        emptyGridBtn.textContent = 'Fixer';
+        emptyGridBtn.classList.add('active');
+        
         // Créer une grille vide
         const emptyGrid = Array(9).fill().map(() => Array(9).fill(0));
         currentPuzzle = emptyGrid;
@@ -797,6 +802,84 @@
             input.disabled = false;
             input.value = '';
         });
+        
+        checkGridCompletion();
+        updateAllHints();
+    }
+
+    function toggleEmptyGridMode() {
+        if (isEmptyGridMode && document.getElementById('emptyGridBtn').textContent === 'Fixer') {
+            // On est en mode grille vierge et on veut fixer
+            fixGrid();
+        } else {
+            // On veut créer une grille vierge
+            generateEmptyGrid();
+        }
+    }
+
+    function fixGrid() {
+        const cells = document.querySelectorAll('.cell');
+        
+        // Récupérer la grille saisie
+        const userGrid = Array(9).fill().map(() => Array(9).fill(0));
+        cells.forEach((cell, index) => {
+            const row = Math.floor(index / 9);
+            const col = index % 9;
+            const input = cell.querySelector('input');
+            const value = parseInt(input.value);
+            if (value) {
+                userGrid[row][col] = value;
+            }
+        });
+        
+        // Vérifier que la grille a au moins quelques chiffres
+        let filledCount = 0;
+        for (let r = 0; r < 9; r++) {
+            for (let c = 0; c < 9; c++) {
+                if (userGrid[r][c] !== 0) filledCount++;
+            }
+        }
+        
+        if (filledCount === 0) {
+            alert('⚠️ La grille est vide. Saisis au moins quelques chiffres avant de fixer.');
+            return;
+        }
+        
+        // Essayer de résoudre pour vérifier que la grille est valide
+        const gridCopy = userGrid.map(row => [...row]);
+        if (!solveSudokuGrid(gridCopy)) {
+            alert('⚠️ Cette grille n\'a pas de solution valide. Vérifie les chiffres saisis.');
+            return;
+        }
+        
+        // Tout est bon, figer la grille
+        currentPuzzle = userGrid;
+        solution = gridCopy;
+        isEmptyGridMode = false;
+        
+        // Marquer les cases remplies comme "given"
+        givenCells = [];
+        cells.forEach((cell, index) => {
+            const row = Math.floor(index / 9);
+            const col = index % 9;
+            const input = cell.querySelector('input');
+            
+            if (userGrid[row][col] !== 0) {
+                givenCells.push(index);
+                cell.classList.add('given');
+                input.disabled = true;
+            } else {
+                cell.classList.remove('given');
+                input.disabled = false;
+            }
+        });
+        
+        // Remettre le bouton à "Vierge"
+        const emptyGridBtn = document.getElementById('emptyGridBtn');
+        emptyGridBtn.textContent = 'Vierge';
+        emptyGridBtn.classList.remove('active');
+        
+        alert('✅ Grille fixée ! Tu peux maintenant la résoudre avec les aides.');
         
         checkGridCompletion();
         updateAllHints();
