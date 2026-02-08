@@ -30,6 +30,90 @@
         padding: 10px;
         box-shadow: none;
         max-width: 700px;
+        position: relative;
+    }
+
+    .help-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: #9333ea;
+        color: white;
+        border: none;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .help-btn:hover {
+        background: #7c3aed;
+        transform: scale(1.1);
+    }
+
+    .help-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 2000;
+        overflow: auto;
+    }
+
+    .help-content {
+        background: white;
+        margin: 5% auto;
+        padding: 30px;
+        max-width: 600px;
+        border-radius: 10px;
+        position: relative;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    }
+
+    .help-close {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        font-size: 30px;
+        font-weight: bold;
+        color: #666;
+        cursor: pointer;
+    }
+
+    .help-close:hover {
+        color: #dc2626;
+    }
+
+    .help-content h1 {
+        color: #9333ea;
+        margin-top: 0;
+        font-size: 24px;
+    }
+
+    .help-content h2 {
+        color: #7c3aed;
+        margin-top: 20px;
+        font-size: 18px;
+    }
+
+    .help-content p, .help-content li {
+        line-height: 1.6;
+        color: #333;
+    }
+
+    .help-content ul {
+        margin-left: 20px;
+    }
+
+    .help-content strong {
+        color: #9333ea;
     }
 
     h1 {
@@ -555,6 +639,7 @@
 </head>
 <body>
     <div class="container">
+        <button class="help-btn" onclick="showHelp()" title="Mode d'emploi">?</button>
 
 ```
     <div class="controls">
@@ -606,6 +691,42 @@
             <input type="checkbox" id="showAriane" onchange="toggleAriane()">
             <span>Fil d'Ariane</span>
         </label>
+    </div>
+</div>
+
+<!-- Popup d'aide -->
+<div id="helpModal" class="help-modal" onclick="if(event.target.id === 'helpModal') closeHelp()">
+    <div class="help-content">
+        <span class="help-close" onclick="closeHelp()">&times;</span>
+        <h1>📖 Mode d'emploi Sudoku</h1>
+        
+        <p>Cette application a pour but l'apprentissage du sudoku pour des enfants.</p>
+        
+        <h2>🎯 Fonctionnement</h2>
+        <p>L'application permet de créer des grilles de sudoku de différents niveaux de difficulté. Elle détecte automatiquement les doublons quand 'Simples' n'est pas coché. Elle montre pas à pas comment résoudre une grille en cochant certains boutons (Simples et Fil d'Ariane) ou en demandant une aide momentanée (Paires, Doubles, Triples, Lignes, Colonnes).</p>
+        
+        <h2>🔼 Menu du haut</h2>
+        <ul>
+            <li><strong>Facile/Moyen/Difficile/Expert</strong> → Choisir le niveau de difficulté</li>
+            <li><strong>Créer</strong> → Génère une nouvelle grille avec le niveau sélectionné</li>
+            <li><strong>Vérifier</strong> → Affiche les erreurs en rouge 2 secondes puis les efface</li>
+            <li><strong>Résoudre</strong> → Affiche la grille résolue</li>
+            <li><strong>Vider</strong> → Efface tous les chiffres saisis, garde les chiffres de base</li>
+            <li><strong>Vierge/Fixer</strong> → Génère une grille vierge pour saisir une grille existante. Le bouton devient "Fixer" pour valider la grille et jouer comme avec une grille générée</li>
+        </ul>
+        
+        <h2>🔽 Menu du bas (Aides)</h2>
+        <ul>
+            <li><strong>Simples</strong> 🟢 → Affiche un chiffre solution en vert et en rose les chiffres qui expliquent pourquoi (série complète 1-9). Sans 'Simples' coché : les doublons s'affichent en rouge 2 secondes puis s'effacent</li>
+            <li><strong>Paires</strong> 🟠 → Affiche un seul chiffre possible entre deux cases contiguës</li>
+            <li><strong>Doubles</strong> 🟠 → Affiche deux chiffres possibles dans deux cases contiguës</li>
+            <li><strong>Triples</strong> 🔵 → Affiche trois chiffres possibles dans trois cases contiguës</li>
+            <li><strong>Lignes</strong> → Affiche les chiffres candidats pour chaque ligne à gauche</li>
+            <li><strong>Colonnes</strong> → Affiche les chiffres candidats pour chaque colonne en haut</li>
+            <li><strong>Fil d'Ariane</strong> 🟣 → Quand plus aucun simple ne peut être trouvé, affiche plusieurs chiffres possibles dans un cercle violet. Le bouton "Résoudre Fil" révèle la bonne valeur</li>
+        </ul>
+        
+        <p><strong>Note :</strong> Simples et Fil d'Ariane donnent des solutions. Les autres sont des aides à résoudre par soi-même.</p>
     </div>
 </div>
 
@@ -1885,6 +2006,14 @@
     }
 
     let isShowingErrorAlert = false; // Flag pour éviter les interférences pendant l'alert
+
+    function showHelp() {
+        document.getElementById('helpModal').style.display = 'block';
+    }
+
+    function closeHelp() {
+        document.getElementById('helpModal').style.display = 'none';
+    }
 
     // Fonction pour vérifier les erreurs de saisie (quand SIMPLES n'est pas coché)
     // Retourne true si une erreur est détectée, false sinon
