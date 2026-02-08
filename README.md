@@ -15,7 +15,7 @@ En haut :
 - Vérifier → Affiche les erreurs en rouge puis les efface automatiquement au bout de deux secondes
 - Résoudre → Affiche la grille résolue
 - Vider → Efface tous les chiffres saisis. Garde les chiffres de la grille d'origine
-- Vierge → Génère une grille vierge dans laquelle on peut saisir les données d'une grille existante
+- Vierge → Génère une grille vierge dans laquelle on peut saisir les données d'une grille existante.Le bouton devient "Fixer" pour valider la grille et jouer comme avec une grille generée. 
 
 En bas :
 - Simples → Affiche l'un après l'autre un chiffre solution en vert et en rose les chiffres qui montrent pourquoi cette solution est la bonne (série complète de 1 à 9). 
